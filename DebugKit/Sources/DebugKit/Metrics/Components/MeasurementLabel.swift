@@ -5,11 +5,10 @@
 //  Created by Will McGinty on 6/19/21.
 //
 
-import Foundation
 import SwiftUI
 import MetricKit
 
-public struct MeasurementLabel: View {
+struct MeasurementLabel: View {
     
     // MARK: - Properties
     let name: String
@@ -20,16 +19,12 @@ public struct MeasurementLabel: View {
         return MeasurementLabel(name: name, value: String(value))
     }
     
-    static func displaying<T: Foundation.Unit>(measurement: Measurement<T>, withName name: String) -> some View {
-        let formatter = MeasurementFormatter()
-        formatter.unitStyle = .short
-        formatter.unitOptions = .providedUnit
-        
+    static func displaying<T: Foundation.Unit>(measurement: Measurement<T>, withName name: String, using formatter: MeasurementFormatter) -> some View {
         return MeasurementLabel(name: name, value: formatter.string(from: measurement))
     }
     
     // MARK: - Body
-    public var body: some View {
+    var body: some View {
         HStack {
             Text(name)
             Spacer()

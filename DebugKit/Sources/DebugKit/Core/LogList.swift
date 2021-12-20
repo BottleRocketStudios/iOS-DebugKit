@@ -30,7 +30,38 @@ public struct LogList<Item: Recordable>: View {
                 ForEach(logService.log) { entry in
                     Item.view(for: entry)
                 }
+                .onDelete(perform: delete)
             }
+        }
+    }
+}
+
+// MARK: - Helper
+private extension LogList {
+
+    func delete(at indexSet: IndexSet) {
+        logService.remove(atOffsets: indexSet)
+    }
+}
+
+struct NoEntriesView: View {
+
+    struct Configuration {
+        let title: LocalizedStringKey
+        let imageName: String
+
+        static let `default` = Configuration(title: "There's nothing here!", imageName: "book")
+    }
+
+    // MARK: - Properties
+    let configuration: Configuration
+
+    // MARK: - View
+    var body: some View {
+        VStack {
+            Image(systemName: configuration.imageName)
+            Text(configuration.title)
+                .font(.body)
         }
     }
 }

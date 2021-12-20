@@ -37,6 +37,10 @@ extension Log: MutableCollection {
     public mutating func trimEntries(olderThan timeInterval: TimeInterval, on date: Date = Date()) {
         entries.removeAll(where: { date.timeIntervalSince($0.date) > timeInterval })
     }
+
+    public mutating func remove(atOffsets offsets: IndexSet) {
+        entries.remove(atOffsets: offsets)
+    }
 }
 
 // MARK: - RandomAccessCollection

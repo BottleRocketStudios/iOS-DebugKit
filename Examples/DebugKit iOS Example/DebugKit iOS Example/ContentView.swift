@@ -13,7 +13,6 @@ struct ContentView: View {
 
     @ObservedObject var metricsLogService: LogService<MetricPayload>
     @ObservedObject var notificationsLogService: LogService<DebugKit.Notification>
-    //@ObservedObject var urlTasksLogService: LogService<URLSessionTask>
 
     var body: some View {
         NavigationView {
@@ -27,12 +26,8 @@ struct ContentView: View {
                     LogList(logService: notificationsLogService)
                         .navigationTitle("Notifications")
                 }
-
-//                NavigationLink("URL Tasks Log") {
-//                    LogList(logService: urlTasksLogService)
-//                        .navigationTitle("URL Tasks")
-//                }
             }
+            .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Example")
         }
     }

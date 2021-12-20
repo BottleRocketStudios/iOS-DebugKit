@@ -68,7 +68,7 @@ private extension Notification {
 
         // MARK: - View
         var body: some View {
-            if let payload = notification.payload {
+            if let payload = notification.remotePayload {
                 NavigationLink(destination: payloadJSONView(for: payload), label: { payloadContentView })
             } else {
                 payloadContentView
@@ -79,16 +79,16 @@ private extension Notification {
         @ViewBuilder
         private var payloadContentView: some View {
             VStack(alignment: .leading) {
-                HStack {
-                    Group {
-                        Text(date, style: .date)
-                        Text(date, style: .time)
-                    }
-                    .font(.caption)
+                HStack(spacing: 4) {
+                    Image(systemName: "cloud")
+                        .foregroundColor(.accentColor)
+                    Text(date, style: .date)
+                    Text(date, style: .time)
                 }
+                .font(.caption.bold())
 
                 Spacer()
-
+                
                 ForEach(notification.titledContent, id: \.0) { titleContent in
                     if !titleContent.content.isEmpty {
                         HStack(alignment: .firstTextBaseline) {
@@ -97,7 +97,9 @@ private extension Notification {
                                 .foregroundColor(.accentColor)
 
                             Text(titleContent.content)
-                                .font(.subheadline)
+                                .font(.caption)
+                                .lineLimit(1)
+                                .truncationMode(.head)
                         }
                     }
                 }
@@ -118,11 +120,13 @@ private extension Notification {
         }
     }
 }
+
 // MARK: - Display Helpers
 private extension Notification {
 
     var titledContent: [(label: String, content: String)] {
-        return [("Title", content.title),
+        return [("Category", content.categoryIdentifier),
+                ("Title", content.title),
                 ("Subtitle", content.subtitle),
                 ("Body", content.body)]
     }

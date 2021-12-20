@@ -18,24 +18,24 @@ public class LogService<Item: Recordable>: ObservableObject {
     public struct ExpirationInterval {
 
         // MARK: - Properties
-        public let timeInterval: TimeInterval
+        public let timeInterval: TimeInterval?
 
         // MARK: - Initializer
-        public init(timeInterval: TimeInterval) {
+        public init(timeInterval: TimeInterval?) {
             self.timeInterval = timeInterval
         }
 
         // MARK: - Preset
+        public static var none: Self { return Self(timeInterval: nil) }
         public static var oneHour: Self { return Self(timeInterval: 3600) }
-        public static var oneDay: Self { Self(timeInterval: Self.oneHour.timeInterval * 24) }
-        public static var oneWeek: Self { Self(timeInterval: Self.oneDay.timeInterval * 7) }
+        public static var oneDay: Self { Self(timeInterval: 3600 * 24) }
+        public static var oneWeek: Self { Self(timeInterval: 3600 * 24 * 7) }
     }
 
     // MARK: - Properties
     let storage: AnyLogStorage<Item>?
-    @Published public var expirationInterval: ExpirationInterval = .oneDay
+    @Published public var expirationInterval: ExpirationInterval = .oneHour
     @Published public var log: Log<Item> {
-        willSet { log.trimEntries(olderThan: expirationInterval.timeInterval) }
         didSet { try? storage?.store(log) }
     }
 
@@ -55,6 +55,14 @@ public class LogService<Item: Recordable>: ObservableObject {
 
     // MARK: - Interface
     public func append(_ item: Item) {
+        if let expiration = expirationInterval.timeInterval {
+            log.trimEntries(olderThan: expiration)
+        }
+
         log.append(item)
+    }
+
+    public func remove(atOffsets offsets: IndexSet) {
+        log.remove(atOffsets: offsets)
     }
 }

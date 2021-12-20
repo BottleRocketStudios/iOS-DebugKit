@@ -11,30 +11,33 @@ import MetricKit
 
 public struct PayloadView: View {
     
-    let metrics: MXMetricPayload
+    let metrics: MetricPayload
     
-    public init(metrics: MXMetricPayload) {
+    public init(metrics: MetricPayload) {
         self.metrics = metrics
     }
     
     public var body: some View {
         List {
             Section(header: Text("Hardware Metrics")) {
-                NavigationLink(title: "Cellular Conditions", destination: CellularMetricsView.self, metric: metrics.cellularConditionMetrics)
-                NavigationLink(title: "CPU", destination: CPUMetricsView.self, metric: metrics.cpuMetrics)
-                NavigationLink(title: "GPU", destination: GPUMetricsView.self, metric: metrics.gpuMetrics)
-                NavigationLink(title: "Display", destination: DisplayMetricsView.self, metric: metrics.displayMetrics)
+                NavigationLink(title: "Cellular Conditions", systemImage: "phone.connection", destination: CellularMetricsView.self,
+                               payload: metrics, keyPath: \.cellularConditionMetrics)
+                NavigationLink(title: "CPU", systemImage: "cpu", destination: CPUMetricsView.self, payload: metrics, keyPath: \.cpuMetrics)
+                NavigationLink(title: "GPU", systemImage: "gamecontroller", destination: GPUMetricsView.self, payload: metrics, keyPath: \.gpuMetrics)
+                NavigationLink(title: "Disk IO", systemImage: "internaldrive", destination: DiskIOMetricsView.self, payload: metrics, keyPath: \.diskIOMetrics)
+                NavigationLink(title: "Display", systemImage: "display", destination: DisplayMetricsView.self, payload: metrics, keyPath: \.displayMetrics)
+                NavigationLink(title: "Memory", systemImage: "memorychip", destination: MemoryMetricsView.self, payload: metrics, keyPath: \.memoryMetrics)
             }
             
             Section(header: Text("Software Metrics")) {
-                NavigationLink(title: "Location Activity", destination: LocationMetricsView.self, metric: metrics.locationActivityMetrics)
-                NavigationLink(title: "Network Transfer", destination: NetworkMetricsView.self, metric: metrics.networkTransferMetrics)
-                NavigationLink(title: "Application Exit", destination: ExitMetricsView.self, metric: metrics.applicationExitMetrics)
-                NavigationLink(title: "Application Time", destination: TimeMetricsView.self, metric: metrics.applicationTimeMetrics)
-                NavigationLink(title: "Memory", destination: MemoryMetricsView.self, metric: metrics.memoryMetrics)
-                NavigationLink(title: "Launch", destination: LaunchMetricsView.self, metric: metrics.applicationLaunchMetrics)
-                NavigationLink(title: "Animation", destination: AnimationMetricsView.self, metric: metrics.animationMetrics)
-                NavigationLink(title: "Responsiveness", destination: ResponsivenessMetricsView.self, metric: metrics.applicationResponsivenessMetrics)
+                NavigationLink(title: "Animation", systemImage: "wand.and.rays", destination: AnimationMetricsView.self, payload: metrics, keyPath: \.animationMetrics)
+                NavigationLink(title: "Application Exit", systemImage: "xmark.octagon", destination: ExitMetricsView.self, payload: metrics, keyPath: \.applicationExitMetrics)
+                NavigationLink(title: "Application Time", systemImage: "timer", destination: TimeMetricsView.self, payload: metrics, keyPath: \.applicationTimeMetrics)
+                NavigationLink(title: "Launch", systemImage: "airplane.departure", destination: LaunchMetricsView.self, payload: metrics, keyPath: \.applicationLaunchMetrics)
+                NavigationLink(title: "Location Activity", systemImage: "location", destination: LocationMetricsView.self, payload: metrics, keyPath: \.locationActivityMetrics)
+                NavigationLink(title: "Network Transfer", systemImage: "network", destination: NetworkMetricsView.self, payload: metrics, keyPath: \.networkTransferMetrics)
+                NavigationLink(title: "Responsiveness", systemImage: "dial.max.fill", destination: ResponsivenessMetricsView.self,
+                               payload: metrics, keyPath: \.applicationResponsivenessMetrics)
             }
         }
     }

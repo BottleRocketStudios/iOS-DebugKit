@@ -14,6 +14,8 @@ import Combine
 struct iOSExampleApp: App {
 
     // MARK: - Properties
+    @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+
     @StateObject var metricsLogService: LogService<MetricPayload> = .init(storage: LogFileStorage(url: FileManager.default.temporaryDirectory.appendingPathComponent("metrics")))
     @StateObject var notificationsLogService: LogService<DebugKit.Notification> = .init(storage: LogFileStorage(url: FileManager.default.temporaryDirectory.appendingPathComponent("notifications2")))
 
@@ -53,7 +55,9 @@ class Subscriber: NSObject, UNUserNotificationCenterDelegate, MXMetricManagerSub
                                   storingIn cancellables: inout Set<AnyCancellable>) {
         notifications
             .receive(on: RunLoop.main)
-            .sink { logService.append(.init(notification: $0)) }
+            .sink { notification in
+                withAnimation { logService.append(.init(notification: notification)) }
+            }
             .store(in: &cancellables)
 
         UNUserNotificationCenter.current().delegate = self
@@ -63,7 +67,9 @@ class Subscriber: NSObject, UNUserNotificationCenterDelegate, MXMetricManagerSub
                                     storingIn cancellables: inout Set<AnyCancellable>) {
         metrics
             .receive(on: RunLoop.main)
-            .sink { logService.append(.init(payload: $0)) }
+            .sink { payload in
+                withAnimation { logService.append(.init(payload: payload)) }
+            }
             .store(in: &cancellables)
 
         MXMetricManager.shared.add(self)
@@ -80,5 +86,18 @@ class Subscriber: NSObject, UNUserNotificationCenterDelegate, MXMetricManagerSub
         for payload in payloads {
             metrics.send(payload)
         }
+    }
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
+        let content = UNMutableNotificationContent()
+        content.userInfo = userInfo
+
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+        print(request)
+
+        return .noData
     }
 }

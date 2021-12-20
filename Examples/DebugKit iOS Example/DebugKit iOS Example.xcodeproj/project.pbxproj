@@ -20,6 +20,7 @@
 		0E2A8459276978C900771782 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0E2A845B276978CC00771782 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E2A845E276978CC00771782 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0E5D0BEB27710F8A00C11A92 /* DebugKit-iOS-Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DebugKit-iOS-Example-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +55,7 @@
 		0E2A8456276978C900771782 /* DebugKit iOS Example */ = {
 			isa = PBXGroup;
 			children = (
+				0E5D0BEB27710F8A00C11A92 /* DebugKit-iOS-Example-Info.plist */,
 				0E2A8468276A4D5A00771782 /* Extensions */,
 				0E2A8457276978C900771782 /* App.swift */,
 				0E2A8459276978C900771782 /* ContentView.swift */,
@@ -293,6 +295,7 @@
 				DEVELOPMENT_TEAM = 5XPAW6SSYC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "DebugKit-iOS-Example-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -322,6 +325,7 @@
 				DEVELOPMENT_TEAM = 5XPAW6SSYC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "DebugKit-iOS-Example-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

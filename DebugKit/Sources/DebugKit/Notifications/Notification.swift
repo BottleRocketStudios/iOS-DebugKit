@@ -13,7 +13,7 @@ public struct Notification: Identifiable {
     // MARK: - Properties
     let notification: UNNotification
 
-    public var id: String { return notification.request.identifier }
+    public let id = UUID()
     public var content: UNNotificationContent { return notification.request.content }
     public var remotePayload: String? {
         guard notification.request.trigger is UNPushNotificationTrigger else { return nil }

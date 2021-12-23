@@ -7,11 +7,20 @@
 
 import SwiftUI
 
+// MARK: - Recordable
 public protocol Recordable: Identifiable {
+    associatedtype Record: Recordable = Self
     associatedtype LogView: View
-    @ViewBuilder static func view(for entry: Log<Self>.Entry) -> LogView
+
+    var record: Record { get }
+    @ViewBuilder static func view(for entry: Log<Record>.Entry) -> LogView
 }
 
+public extension Recordable where Record == Self {
+    var record: Record { return self }
+}
+
+// MARK: - LogService
 public class LogService<Item: Recordable>: ObservableObject {
 
     // MARK: - Subtypes
@@ -33,23 +42,22 @@ public class LogService<Item: Recordable>: ObservableObject {
     }
 
     // MARK: - Properties
-    @Published public var log: Log<Item> {
+    let storage: AnyLogStorage<Item.Record>?
+    @Published public var expirationInterval: ExpirationInterval = .oneWeek
+    @Published public var log: Log<Item.Record> {
         didSet { try? storage?.store(log) }
     }
-
-    public var expirationInterval: ExpirationInterval = .oneWeek
-    let storage: AnyLogStorage<Item>?
 
     // MARK: - Initializer
     public convenience init() {
         self.init(nil)
     }
 
-    public convenience init<Storage: LogStoring>(storage: Storage?) where Storage.Item == Item {
+    public convenience init<Storage: LogStoring>(storage: Storage?) where Storage.Item == Item.Record {
         self.init(storage.map(AnyLogStorage.init))
     }
 
-    private init(_ storage: AnyLogStorage<Item>?) {
+    private init(_ storage: AnyLogStorage<Item.Record>?) {
         self.storage = storage
         self.log = (try? storage?.retrieve()) ?? .init()
     }
@@ -60,7 +68,7 @@ public class LogService<Item: Recordable>: ObservableObject {
             log.trimEntries(olderThan: expiration)
         }
 
-        log.append(item)
+        log.append(item.record)
     }
 
     public func remove(atOffsets offsets: IndexSet) {

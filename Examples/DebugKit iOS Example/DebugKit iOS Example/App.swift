@@ -16,8 +16,8 @@ struct iOSExampleApp: App {
     // MARK: - Properties
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
 
-    @StateObject var metricsLogService: LogService<MetricPayload> = .init(storage: LogFileStorage(url: FileManager.default.temporaryDirectory.appendingPathComponent("metrics")))
-    @StateObject var notificationsLogService: LogService<DebugKit.Notification> = .init(storage: LogFileStorage(url: FileManager.default.temporaryDirectory.appendingPathComponent("notifications2")))
+    @StateObject var metricsLogService: LogService<MXMetricPayload> = .metricPayloads(storedAt: URL.documentsDirectory?.appendingPathComponent("metrics"))
+    @StateObject var notificationsLogService: LogService<UNNotification> = .notifications(storedAt: URL.documentsDirectory?.appendingPathComponent("notifications"))
 
     private let subscriber = Subscriber()
     @State var cancellables: Set<AnyCancellable> = []
@@ -51,24 +51,24 @@ class Subscriber: NSObject, UNUserNotificationCenterDelegate, MXMetricManagerSub
     private var metrics = PassthroughSubject<MXMetricPayload, Never>()
 
     // MARK: - Interface
-    func logIncomingNotifications(to logService: LogService<DebugKit.Notification>,
+    func logIncomingNotifications(to logService: LogService<UNNotification>,
                                   storingIn cancellables: inout Set<AnyCancellable>) {
         notifications
             .receive(on: RunLoop.main)
             .sink { notification in
-                withAnimation { logService.append(.init(notification: notification)) }
+                withAnimation { logService.append(notification) }
             }
             .store(in: &cancellables)
 
         UNUserNotificationCenter.current().delegate = self
     }
 
-    func logIncomingMetricsPayloads(to logService: LogService<MetricPayload>,
+    func logIncomingMetricsPayloads(to logService: LogService<MXMetricPayload>,
                                     storingIn cancellables: inout Set<AnyCancellable>) {
         metrics
             .receive(on: RunLoop.main)
             .sink { payload in
-                withAnimation { logService.append(.init(payload: payload)) }
+                withAnimation { logService.append(payload) }
             }
             .store(in: &cancellables)
 

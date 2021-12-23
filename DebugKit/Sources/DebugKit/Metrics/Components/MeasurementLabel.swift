@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import MetricKit
 
 struct MeasurementLabel: View {
     
@@ -19,7 +18,8 @@ struct MeasurementLabel: View {
         return MeasurementLabel(name: name, value: String(value))
     }
     
-    static func displaying<T: Foundation.Unit>(measurement: Measurement<T>, withName name: String, using formatter: MeasurementFormatter) -> some View {
+    static func displaying<T: Foundation.Unit>(measurement: Measurement<T>,
+                                               withName name: String, using formatter: MeasurementFormatter) -> some View {
         return MeasurementLabel(name: name, value: formatter.string(from: measurement))
     }
     

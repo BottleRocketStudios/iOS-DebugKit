@@ -21,10 +21,23 @@ struct NoEntriesView: View {
 
     // MARK: - View
     var body: some View {
-        VStack {
+        VStack(spacing: 10) {
             Image(systemName: configuration.imageName)
+                .font(Font.system(size: 40, weight: .regular, design: .default))
             Text(configuration.title)
-                .font(.body)
+                .font(.title2)
+                .bold()
         }
+    }
+}
+
+// MARK: - Preview
+struct NoEntriesView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        NoEntriesView(configuration: .default)
+
+        NoEntriesView(configuration: .default)
+            .preferredColorScheme(.dark)
     }
 }

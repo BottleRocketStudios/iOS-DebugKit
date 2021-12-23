@@ -7,13 +7,14 @@
 
 import Foundation
 import SwiftUI
-import MetricKit
 
 struct HistogramView<T: Foundation.Unit>: View {
 
     // MARK: - Preset
-    static func displaying<T: Foundation.Unit>(histogram: Histogram<T>, withTitle title: String, using formatter: MeasurementFormatter) -> some View {
-        return HistogramView<T>(title: title, histogram: histogram, measurementFormatter: formatter, axisFormatter: .standard)
+    static func displaying<T: Foundation.Unit>(histogram: Histogram<T>, withTitle title: String,
+                                               using formatter: MeasurementFormatter, numberFormatter: NumberFormatter = .standard) -> some View {
+        return HistogramView<T>(title: title, histogram: histogram,
+                                measurementFormatter: formatter, numberFormatter: numberFormatter)
             .navigationTitle(title)
     }
 
@@ -21,7 +22,7 @@ struct HistogramView<T: Foundation.Unit>: View {
     let title: String
     let histogram: Histogram<T>
     let measurementFormatter: MeasurementFormatter
-    let axisFormatter: NumberFormatter
+    let numberFormatter: NumberFormatter
 
     @State private var relativePanLocation: CGPoint?
     @State private var currentlyPannedEntry: Histogram<T>.Bucket?
@@ -46,7 +47,7 @@ struct HistogramView<T: Foundation.Unit>: View {
                 }
 
                 HStack(spacing: 0) {
-                    AxisView.displaying(countRange: 0...maxValue, along: .vertical, using: axisFormatter)
+                    AxisView.displaying(countRange: 0...maxValue, along: .vertical, using: numberFormatter)
                         .foregroundColor(backgroundGray)
 
                     ZStack(alignment: .bottom) {
@@ -196,7 +197,7 @@ private extension HistogramView {
         // MARK: - Preset
         static func displaying<T: Foundation.Unit>(measurementRange range: ClosedRange<Measurement<T>>, along axis: Axis,
                                                    using formatter: MeasurementFormatter) -> some View {
-            let values = [range.lowerBound, ((range.upperBound + range.lowerBound) * 0.5), range.upperBound]
+            let values = [range.lowerBound, range.upperBound]
             return AxisView(axis: axis, labels: values.compactMap(formatter.string))
         }
 
@@ -218,6 +219,7 @@ private extension HistogramView {
                 }
                 .padding(.leading)
                 .padding(.top, 8)
+
             } else {
                 VStack(alignment: .leading) {
                     stackContent
@@ -276,10 +278,10 @@ struct HistogramView_Previews: PreviewProvider {
                                                                end: .init(value: 39, unit: UnitDuration.milliseconds), count: 14)]
 
         HistogramView(title: "Time To First Draw", histogram: .init(buckets: buckets),
-                      measurementFormatter: .shortProvidedUnit, axisFormatter: .standard)
+                      measurementFormatter: .shortProvidedUnit, numberFormatter: .standard)
 
         HistogramView(title: "Time To First Draw", histogram: .init(buckets: buckets),
-                      measurementFormatter: .shortProvidedUnit, axisFormatter: .standard)
+                      measurementFormatter: .shortProvidedUnit, numberFormatter: .standard)
             .preferredColorScheme(.dark)
     }
 }

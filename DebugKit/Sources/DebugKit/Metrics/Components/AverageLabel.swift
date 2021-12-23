@@ -16,7 +16,8 @@ struct AverageLabel: View {
     let sampleCount: String
 
     // MARK: - Preset
-    static func displaying<T: Foundation.Unit>(average: MXAverage<T>, withName name: String, using formatter: MeasurementFormatter) -> some View {
+    static func displaying<T: Foundation.Unit>(average: MXAverage<T>,
+                                               withName name: String, using formatter: MeasurementFormatter) -> some View {
         return AverageLabel(name: name, averageValue: formatter.string(from: average.averageMeasurement),
                             sampleCount: "\(average.sampleCount)")
     }

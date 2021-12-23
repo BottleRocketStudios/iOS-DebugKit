@@ -1,5 +1,5 @@
 //
-//  LogList.swift
+//  LogView.swift
 //  
 //
 //  Created by Will McGinty on 12/14/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct LogList<Item: Recordable>: View {
+public struct LogView<Item: Recordable>: View {
 
     // MARK: - Properties
     @ObservedObject var logService: LogService<Item>
@@ -32,7 +32,7 @@ public struct LogList<Item: Recordable>: View {
 }
 
 // MARK: - Helper
-private extension LogList {
+private extension LogView {
 
     func delete(at indexSet: IndexSet) {
         logService.remove(atOffsets: indexSet)
@@ -40,9 +40,9 @@ private extension LogList {
 }
 
 // MARK: - Convenience
-public extension LogList {
+public extension LogView {
 
     static func viewController<T: Recordable>(for logService: LogService<T>) -> UIViewController {
-        return UIHostingController(rootView: LogList<T>(logService: logService))
+        return UIHostingController(rootView: LogView<T>(logService: logService))
     }
 }

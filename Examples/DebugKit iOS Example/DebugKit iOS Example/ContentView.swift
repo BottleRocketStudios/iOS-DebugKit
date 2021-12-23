@@ -11,20 +11,24 @@ import MetricKit
 
 struct ContentView: View {
 
-    @ObservedObject var metricsLogService: LogService<MetricPayload>
-    @ObservedObject var notificationsLogService: LogService<DebugKit.Notification>
+    @ObservedObject var metricsLogService: LogService<MXMetricPayload>
+    @ObservedObject var notificationsLogService: LogService<UNNotification>
 
     var body: some View {
         NavigationView {
             List {
-                NavigationLink("Metrics Log") {
-                    LogList(logService: metricsLogService)
-                        .navigationTitle("Metrics")
-                }
+                Section(header: Text("Logs")) {
+                    if let notificationLog = notificationsLogService {
+                        NavigationLink("Notifications") {
+                            LogView(logService: notificationLog)
+                        }
+                    }
 
-                NavigationLink("Notifications Log") {
-                    LogList(logService: notificationsLogService)
-                        .navigationTitle("Notifications")
+                    if let metricLog = metricsLogService {
+                        NavigationLink("Metrics") {
+                            LogView(logService: metricLog)
+                        }
+                    }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)

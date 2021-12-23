@@ -8,8 +8,7 @@
 import SwiftUI
 import MetricKit
 
-
-public struct PayloadView: View {
+struct PayloadView: View {
     
     let metrics: MetricPayload
     

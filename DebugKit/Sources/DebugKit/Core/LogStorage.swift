@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - LogStoring
 public protocol LogStoring {
     associatedtype Item
 
@@ -14,26 +15,7 @@ public protocol LogStoring {
     func retrieve() throws -> Log<Item>?
 }
 
-class AnyLogStorage<Item>: LogStoring {
-
-    private let _store: (Log<Item>) throws -> Void
-    private let _retrieve: () throws -> Log<Item>?
-
-    init<Storage: LogStoring>(_ storage: Storage) where Storage.Item == Item {
-        self._store = storage.store
-        self._retrieve = storage.retrieve
-    }
-
-    // MARK: - Interface
-    func store(_ log: Log<Item>) throws {
-        try _store(log)
-    }
-
-    func retrieve() throws -> Log<Item>? {
-        return try _retrieve()
-    }
-}
-
+// MARK: - LogFileStorage
 public class LogFileStorage<Item: Codable>: LogStoring {
 
     // MARK: - Properties
@@ -46,14 +28,35 @@ public class LogFileStorage<Item: Codable>: LogStoring {
 
     // MARK: - Interface
     public func store(_ log: Log<Item>) throws {
-        let encoder = JSONEncoder()
-        let data = try encoder.encode(log)
+        let data = try JSONEncoder().encode(log)
         try data.write(to: url, options: [.atomic])
     }
 
     public func retrieve() throws -> Log<Item>? {
-        let decoder = JSONDecoder()
         guard let data = try? Data(contentsOf: url) else { return nil }
-        return try decoder.decode(Log<Item>.self, from: data)
+        return try JSONDecoder().decode(Log<Item>.self, from: data)
+    }
+}
+
+// MARK: - AnyLogStorage
+class AnyLogStorage<Item>: LogStoring {
+
+    // MARK: - Properties
+    private let _store: (Log<Item>) throws -> Void
+    private let _retrieve: () throws -> Log<Item>?
+
+    // MARK: - Initializer
+    init<Storage: LogStoring>(_ storage: Storage) where Storage.Item == Item {
+        self._store = storage.store
+        self._retrieve = storage.retrieve
+    }
+
+    // MARK: - Interface
+    func store(_ log: Log<Item>) throws {
+        try _store(log)
+    }
+
+    func retrieve() throws -> Log<Item>? {
+        return try _retrieve()
     }
 }

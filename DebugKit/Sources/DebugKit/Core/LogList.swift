@@ -20,17 +20,12 @@ public struct LogList<Item: Recordable>: View {
     // MARK: - View
     public var body: some View {
         if logService.log.isEmpty {
-            VStack {
-                Image(systemName: "book")
-                Text("There's nothing here")
-                    .font(.body)
-            }
+            NoEntriesView(configuration: .default)
+
         } else {
             List {
-                ForEach(logService.log) { entry in
-                    Item.view(for: entry)
-                }
-                .onDelete(perform: delete)
+                ForEach(logService.log) { Item.view(for: $0) }
+                    .onDelete(perform: delete)
             }
         }
     }
@@ -44,24 +39,10 @@ private extension LogList {
     }
 }
 
-struct NoEntriesView: View {
+// MARK: - Convenience
+public extension LogList {
 
-    struct Configuration {
-        let title: LocalizedStringKey
-        let imageName: String
-
-        static let `default` = Configuration(title: "There's nothing here!", imageName: "book")
-    }
-
-    // MARK: - Properties
-    let configuration: Configuration
-
-    // MARK: - View
-    var body: some View {
-        VStack {
-            Image(systemName: configuration.imageName)
-            Text(configuration.title)
-                .font(.body)
-        }
+    static func viewController<T: Recordable>(for logService: LogService<T>) -> UIViewController {
+        return UIHostingController(rootView: LogList<T>(logService: logService))
     }
 }

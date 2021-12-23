@@ -33,11 +33,12 @@ public class LogService<Item: Recordable>: ObservableObject {
     }
 
     // MARK: - Properties
-    let storage: AnyLogStorage<Item>?
-    @Published public var expirationInterval: ExpirationInterval = .oneHour
     @Published public var log: Log<Item> {
         didSet { try? storage?.store(log) }
     }
+
+    public var expirationInterval: ExpirationInterval = .oneWeek
+    let storage: AnyLogStorage<Item>?
 
     // MARK: - Initializer
     public convenience init() {

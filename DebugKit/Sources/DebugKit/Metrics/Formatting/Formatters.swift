@@ -25,3 +25,15 @@ extension MeasurementFormatter {
         return formatter
     }()
 }
+
+extension NumberFormatter {
+
+    static let standard: NumberFormatter = {
+        let formatter = NumberFormatter()
+        return formatter
+    }()
+
+    func string(from double: Double) -> String? {
+        return string(from: NSNumber(value: double))
+    }
+}

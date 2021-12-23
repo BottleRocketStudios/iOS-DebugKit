@@ -40,8 +40,8 @@ struct HistogramView<T: Foundation.Unit>: View {
             let indexedEntries = Array(zip(histogram.buckets.indices, histogram.buckets))
             VStack(alignment: .trailing, spacing: 0) {
                 if let highestFrequencyEntry = histogram.highestFrequencyEntry {
-                    informationView(for: "Highest Frequency \(title)",
-                                       value: highestFrequencyEntry.formatted(using: measurementFormatter))
+                    TitleView(title: highestFrequencyEntry.formatted(using: measurementFormatter),
+                              subtitle: "Highest Frequency \(title)")
                     Spacer()
                 }
 
@@ -50,27 +50,28 @@ struct HistogramView<T: Foundation.Unit>: View {
                         .foregroundColor(backgroundGray)
 
                     ZStack(alignment: .bottom) {
-                        BackgroundView()
-                            .foregroundColor(backgroundGray)
-
                         VStack {
-                            GeometryReader { innerGeometry in
+                            GeometryReader { geometry in
                                 HStack(alignment: .bottom) {
                                     ForEach(indexedEntries, id: \.0) { index, entry in
-                                        ItemView(value: entry.unitValue(relativeTo: maxValue),
-                                                 count: entry.count,
+                                        ItemView(unitValue: entry.unitValue(relativeTo: maxValue),
+                                                 absoluteValue: entry.count,
                                                  label: entry.formatted(using: measurementFormatter),
-                                                 maxHeight: innerGeometry.size.height,
                                                  isCurrentlySelected: currentlyPannedEntry == entry,
                                                  inSelectedMode: currentlyPannedEntry != nil)
                                     }
                                 }
                                 .gesture(DragGesture(minimumDistance: 0)
-                                            .onChanged { self.handlePanChanged(to: $0.location, in: innerGeometry.frame(in: .local), isEnding: false) }
-                                            .onEnded { self.handlePanChanged(to: $0.location, in: innerGeometry.frame(in: .local), isEnding: true) })
+                                            .onChanged { self.handlePanChanged(to: $0.location,
+                                                                               in: geometry.frame(in: .local), isEnding: false) }
+                                            .onEnded { self.handlePanChanged(to: $0.location,
+                                                                             in: geometry.frame(in: .local), isEnding: true) })
                             }
                         }
                         .padding([.leading, .trailing])
+
+                        BackgroundView()
+                            .foregroundColor(backgroundGray)
                     }
                 }
 
@@ -88,16 +89,23 @@ struct HistogramView<T: Foundation.Unit>: View {
 // MARK: - Subviews
 private extension HistogramView {
 
-    @ViewBuilder
-    func informationView(for title: String, value: String) -> some View {
-        VStack(alignment: .leading) {
-            Text(title)
-                .font(.caption.bold())
-                .foregroundColor(.gray)
+    struct TitleView: View {
 
-            Text(value)
-                .font(.largeTitle.bold())
-                .foregroundColor(Color(UIColor.label))
+        // MARK: - Properties
+        let title: String
+        let subtitle: String
+
+        // MARK: - View
+        var body: some View {
+            VStack(alignment: .trailing) {
+                Text(subtitle)
+                    .font(.caption.bold())
+                    .foregroundColor(.gray)
+
+                Text(title)
+                    .font(.largeTitle.bold())
+                    .foregroundColor(Color(UIColor.label))
+            }
         }
     }
 }
@@ -108,10 +116,9 @@ private extension HistogramView {
     struct ItemView: View {
 
         // MARK: - Properties
-        let value: Double
-        let count: Int
+        let unitValue: Double
+        let absoluteValue: Int
         let label: String
-        let maxHeight: CGFloat
         let isCurrentlySelected: Bool
         let inSelectedMode: Bool
 
@@ -119,24 +126,24 @@ private extension HistogramView {
 
         // MARK: - View
         var body: some View {
-            ZStack(alignment: .top) {
-                GeometryReader { geometry in
-                    LinearGradient(colors: [.blue,.green], startPoint: .top, endPoint: .bottom)
+            GeometryReader { geometry in
+                ZStack(alignment: .top) {
+                    LinearGradient(colors: [.init(red: 0, green: 41/255.0, blue: 103/255.0),
+                                            .init(red: 0, green: 91/255.0, blue: 210/255.0)], startPoint: .bottom, endPoint: .top)
                         .mask(
                             ZStack(alignment: .bottom) {
                                 Rectangle()
                                     .cornerRadius(6, corners: [.topLeft, .topRight])
-                                    .frame(width: geometry.size.width * 0.8, height: value *  geometry.size.height, alignment: .bottom)
-                                    .scaleEffect(isCurrentlySelected ? CGSize(width: 1.05, height: 1.05) : CGSize(width: 1, height: 1),
-                                                 anchor: .bottom)
+                                    .frame(width: geometry.size.width * 0.8, height: unitValue *  geometry.size.height, alignment: .bottom)
+                                    .scaleEffect(isCurrentlySelected ? CGSize(width: 1.05, height: 1.05) : CGSize(width: 1, height: 1), anchor: .bottom)
                             }
                             .frame(height: geometry.size.height, alignment: .bottom)
                         )
                 }
 
-                VStack {
-                    Text(String(count))
-                        .font(.subheadline)
+                VStack(alignment: .center) {
+                    Text(String(absoluteValue))
+                        .font(.body.bold())
 
                     Text(label)
                         .font(.caption)
@@ -147,8 +154,8 @@ private extension HistogramView {
                 .opacity(isCurrentlySelected ? 1 : 0 )
                 .modifier(SizeModifier())
                 .onPreferenceChange(SizePreferenceKey.self) { self.labelSize = $0 }
-                .offset(x: 0, y: maxHeight - (value * maxHeight) - labelSize.height - (0.05 * value * maxHeight) - 4)
-                .animation(.default, value: isCurrentlySelected)
+                .offset(x: (0.5 * geometry.size.width) - (0.5 * labelSize.width),
+                        y: geometry.size.height - (1.05 * unitValue * geometry.size.height) - labelSize.height - 4)
             }
             .opacity(!inSelectedMode || isCurrentlySelected ? 1 : 0.5)
             .animation(.spring())
@@ -253,41 +260,25 @@ private extension HistogramView {
         currentlyPannedEntry = nil
         relativePanLocation = nil
     }
-
-    func labelOffset(in frame: CGRect) -> CGSize {
-        guard let panLocation = relativePanLocation else { return .zero }
-
-        let index = Int(panLocation.x * CGFloat(histogram.buckets.count))
-        guard index < histogram.buckets.count && index >= 0 else { return .zero }
-
-        let itemWidth = frame.width / CGFloat(histogram.buckets.count)
-        let actualWidth = frame.width - itemWidth
-        return CGSize(width: itemWidth * CGFloat(index) - actualWidth * 0.5, height: 0)
-    }
 }
 
 // MARK: - Preview
 struct HistogramView_Previews: PreviewProvider {
 
     static var previews: some View {
-        HistogramView(title: "Time To First Draw", histogram: .init(buckets: [.init(start: .init(value: 0, unit: UnitDuration.milliseconds),
-                                                                                    end: .init(value: 9, unit: UnitDuration.milliseconds), count: 1),
-                                                                              .init(start: .init(value: 10, unit: UnitDuration.milliseconds),
-                                                                                    end: .init(value: 19, unit: UnitDuration.milliseconds), count: 6),
-                                                                              .init(start: .init(value: 20, unit: UnitDuration.milliseconds),
-                                                                                    end: .init(value: 29, unit: UnitDuration.milliseconds), count: 2),
-                                                                              .init(start: .init(value: 30, unit: UnitDuration.milliseconds),
-                                                                                    end: .init(value: 39, unit: UnitDuration.milliseconds), count: 14)]),
+        let buckets: [Histogram<UnitDuration>.Bucket] = [.init(start: .init(value: 0, unit: UnitDuration.milliseconds),
+                                                               end: .init(value: 9, unit: UnitDuration.milliseconds), count: 1),
+                                                         .init(start: .init(value: 10, unit: UnitDuration.milliseconds),
+                                                               end: .init(value: 19, unit: UnitDuration.milliseconds), count: 6),
+                                                         .init(start: .init(value: 20, unit: UnitDuration.milliseconds),
+                                                               end: .init(value: 29, unit: UnitDuration.milliseconds), count: 2),
+                                                         .init(start: .init(value: 30, unit: UnitDuration.milliseconds),
+                                                               end: .init(value: 39, unit: UnitDuration.milliseconds), count: 14)]
+
+        HistogramView(title: "Time To First Draw", histogram: .init(buckets: buckets),
                       measurementFormatter: .shortProvidedUnit, axisFormatter: .standard)
 
-        HistogramView(title: "Time To First Draw", histogram: .init(buckets: [.init(start: .init(value: 0, unit: UnitDuration.milliseconds),
-                                                                                    end: .init(value: 9, unit: UnitDuration.milliseconds), count: 1),
-                                                                              .init(start: .init(value: 10, unit: UnitDuration.milliseconds),
-                                                                                    end: .init(value: 19, unit: UnitDuration.milliseconds), count: 6),
-                                                                              .init(start: .init(value: 20, unit: UnitDuration.milliseconds),
-                                                                                    end: .init(value: 29, unit: UnitDuration.milliseconds), count: 2),
-                                                                              .init(start: .init(value: 30, unit: UnitDuration.milliseconds),
-                                                                                    end: .init(value: 39, unit: UnitDuration.milliseconds), count: 14)]),
+        HistogramView(title: "Time To First Draw", histogram: .init(buckets: buckets),
                       measurementFormatter: .shortProvidedUnit, axisFormatter: .standard)
             .preferredColorScheme(.dark)
     }

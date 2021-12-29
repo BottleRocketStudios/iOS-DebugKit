@@ -13,6 +13,9 @@
 		0E2A845F276978CC00771782 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E2A845E276978CC00771782 /* Preview Assets.xcassets */; };
 		0E2A84672769796100771782 /* DebugKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0E2A84662769796100771782 /* DebugKit */; };
 		0E999C7F2775197F0026E92C /* URL+Documents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C7E2775197F0026E92C /* URL+Documents.swift */; };
+		0E999C81277BA5FB0026E92C /* PushService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C80277BA5FB0026E92C /* PushService.swift */; };
+		0E999C83277BABAD0026E92C /* DebugOptionsCollectionController+Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C82277BABAD0026E92C /* DebugOptionsCollectionController+Item.swift */; };
+		0E999C85277BE8110026E92C /* EnvironmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C84277BE8110026E92C /* EnvironmentService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +38,9 @@
 		0E2A845E276978CC00771782 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0E5D0BEB27710F8A00C11A92 /* DebugKit-iOS-Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DebugKit-iOS-Example-Info.plist"; sourceTree = SOURCE_ROOT; };
 		0E999C7E2775197F0026E92C /* URL+Documents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Documents.swift"; sourceTree = "<group>"; };
+		0E999C80277BA5FB0026E92C /* PushService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushService.swift; sourceTree = "<group>"; };
+		0E999C82277BABAD0026E92C /* DebugOptionsCollectionController+Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugOptionsCollectionController+Item.swift"; sourceTree = "<group>"; };
+		0E999C84277BE8110026E92C /* EnvironmentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				0E5D0BEB27710F8A00C11A92 /* DebugKit-iOS-Example-Info.plist */,
-				0E2A8468276A4D5A00771782 /* Extensions */,
+				0E2A8468276A4D5A00771782 /* Helper */,
 				0E2A8457276978C900771782 /* App.swift */,
 				0E2A8459276978C900771782 /* ContentView.swift */,
 				0E2A845B276978CC00771782 /* Assets.xcassets */,
@@ -94,12 +100,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		0E2A8468276A4D5A00771782 /* Extensions */ = {
+		0E2A8468276A4D5A00771782 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
 				0E999C7E2775197F0026E92C /* URL+Documents.swift */,
+				0E999C80277BA5FB0026E92C /* PushService.swift */,
+				0E999C84277BE8110026E92C /* EnvironmentService.swift */,
+				0E999C82277BABAD0026E92C /* DebugOptionsCollectionController+Item.swift */,
 			);
-			path = Extensions;
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,8 +186,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E2A845A276978C900771782 /* ContentView.swift in Sources */,
+				0E999C81277BA5FB0026E92C /* PushService.swift in Sources */,
 				0E2A8458276978C900771782 /* App.swift in Sources */,
+				0E999C83277BABAD0026E92C /* DebugOptionsCollectionController+Item.swift in Sources */,
 				0E999C7F2775197F0026E92C /* URL+Documents.swift in Sources */,
+				0E999C85277BE8110026E92C /* EnvironmentService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,7 +334,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bottlerocketstudios.DebugKit-iOS-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -352,7 +364,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bottlerocketstudios.DebugKit-iOS-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -26,7 +26,6 @@ struct NoEntriesView: View {
                 .font(Font.system(size: 40, weight: .regular, design: .default))
             Text(configuration.title)
                 .font(.title2)
-                .bold()
         }
     }
 }

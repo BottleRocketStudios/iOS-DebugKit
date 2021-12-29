@@ -16,6 +16,8 @@ struct iOSExampleApp: App {
     // MARK: - Properties
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
 
+    @StateObject var environmentService: EnvironmentService = EnvironmentService()
+    @StateObject var pushService: PushService = PushService()
     @StateObject var metricsLogService: LogService<MXMetricPayload> = .metricPayloads(storedAt: URL.documentsDirectory?.appendingPathComponent("metrics"))
     @StateObject var notificationsLogService: LogService<UNNotification> = .notifications(storedAt: URL.documentsDirectory?.appendingPathComponent("notifications"))
 
@@ -25,21 +27,16 @@ struct iOSExampleApp: App {
     // MARK: - View
     var body: some Scene {
         WindowGroup {
-            ContentView(metricsLogService: metricsLogService,
+            ContentView(environmentService: environmentService,
+                        pushService: pushService,
+                        metricsLogService: metricsLogService,
                         notificationsLogService: notificationsLogService)
                 .onAppear {
                     self.subscriber.logIncomingMetricsPayloads(to: metricsLogService, storingIn: &cancellables)
                     self.subscriber.logIncomingNotifications(to: notificationsLogService, storingIn: &cancellables)
 
-                    self.registerForPushNotifications()
+                    self.pushService.registerForPushNotifications()
                 }
-        }
-    }
-
-    // MARK: - Interface
-    func registerForPushNotifications() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            debugPrint("Permission granted: \(granted)")
         }
     }
 }
@@ -91,13 +88,13 @@ class Subscriber: NSObject, UNUserNotificationCenterDelegate, MXMetricManagerSub
 
 class AppDelegate: NSObject, UIApplicationDelegate {
 
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
-        let content = UNMutableNotificationContent()
-        content.userInfo = userInfo
-
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
-        print(request)
-
-        return .noData
-    }
+//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) async -> UIBackgroundFetchResult {
+//        let content = UNMutableNotificationContent()
+//        content.userInfo = userInfo
+//
+//        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+//        print(request)
+//
+//        return .noData
+//    }
 }

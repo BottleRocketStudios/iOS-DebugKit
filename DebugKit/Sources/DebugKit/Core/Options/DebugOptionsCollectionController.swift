@@ -14,21 +14,23 @@ protocol DebugOptionsCollectionFlowDelegate: AnyObject {
 public class DebugOptionsCollectionController: NSObject {
 
     // MARK: - Properties
-    typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
+    public typealias DataSource = UICollectionViewDiffableDataSource<DebugOptions.Section, DebugOptions.Item>
 
-    private let collectionView: UICollectionView
-    private let dataSource: DataSource
+    let collectionView: UICollectionView
+    let dataSource: DataSource
 
     weak var delegate: DebugOptionsCollectionFlowDelegate?
 
     // MARK: - Initializer
-    init(collectionView: UICollectionView, delegate: DebugOptionsCollectionFlowDelegate?) {
-        let cellContentProvider = CellContentProvider()
+    init(collectionView: UICollectionView,
+         cellContentProvider: CellContentProvider = .init(),
+         supplementaryContentProvider: (DataSource) -> SupplementaryContentProvider = { .init(dataSource: $0) },
+         delegate: DebugOptionsCollectionFlowDelegate?) {
         self.collectionView = collectionView
         self.dataSource = DataSource(collectionView: collectionView, cellProvider: cellContentProvider.cell)
         self.delegate = delegate
 
-        let supplementaryContentProvider = SupplementaryContentProvider(dataSource: dataSource)
+        let supplementaryContentProvider = supplementaryContentProvider(dataSource)
         dataSource.supplementaryViewProvider = supplementaryContentProvider.supplementaryView
 
         super.init()
@@ -40,8 +42,8 @@ public class DebugOptionsCollectionController: NSObject {
 // MARK: - Interface
 extension DebugOptionsCollectionController {
 
-    func configure(with configuredSections: [ConfiguredSection], animated: Bool = true) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+    func configure(with configuredSections: [DebugOptions.ConfiguredSection], animated: Bool = true) {
+        var snapshot = NSDiffableDataSourceSnapshot<DebugOptions.Section, DebugOptions.Item>()
         for section in configuredSections {
             snapshot.appendSections([section.section])
             snapshot.appendItems(section.items, toSection: section.section)

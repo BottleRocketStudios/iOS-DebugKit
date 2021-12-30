@@ -1,5 +1,5 @@
 //
-//  DebugOptionsCollectionController+Subtypes.swift
+//  DebugOptions+Subtypes.swift
 //  
 //
 //  Created by Will McGinty on 12/27/21.
@@ -8,32 +8,29 @@
 import UIKit
 
 // MARK: - Section Subtypes
-extension DebugOptionsCollectionController {
+public enum DebugOptions {
 
     // MARK: - ConfiguredSection Subtype
     public struct ConfiguredSection {
 
         // MARK: - Properties
-        let section: Section
-        let items: [Item]
+        public let section: Section
+        public let items: [Item]
 
         // MARK: - Initializer
-        public init(section: DebugOptionsCollectionController.Section, items: [DebugOptionsCollectionController.Item]) {
+        public init(section: DebugOptions.Section, items: [DebugOptions.Item]) {
             self.section = section
             self.items = items
         }
 
-
         // MARK: - Preset
-        public static func section<Env: RawRepresentable & CaseIterable>(for environment: Env.Type, with title: String,
-                                                                         currentEnvironment: @autoclosure () -> Env,
-                                                                         setNewEnvironment: @escaping (Env) -> Void) -> Self where Env.RawValue == String {
+        public static func environmentPicker<Env: RawRepresentable>(for environments: [Env], withTitle title: String,
+                                                                    currentEnvironment: @autoclosure () -> Env,
+                                                                    setNewEnvironment: @escaping (Env) -> Void) -> Self where Env.RawValue == String {
             return .init(section: .init(title: title),
-                         items: environment.allCases.map { env in .selection(.init(title: env.rawValue,
-                                                                                   isSelected: env == currentEnvironment(),
-                                                                                   handler: { setNewEnvironment(env) }))
-
-            })
+                         items: environments.map { env in .selection(.init(title: env.rawValue,
+                                                                           isSelected: env == currentEnvironment(),
+                                                                           handler: { setNewEnvironment(env) })) })
         }
     }
 
@@ -41,8 +38,8 @@ extension DebugOptionsCollectionController {
     public struct Section: Hashable {
 
         // MARK: - Properties
-        let title: String?
-        let footerText: String?
+        public let title: String?
+        public let footerText: String?
 
         // MARK: - Initializer
         public init(title: String?, footerText: String? = nil) {
@@ -53,20 +50,19 @@ extension DebugOptionsCollectionController {
 }
 
 // MARK: - Item Subtypes
-
-extension DebugOptionsCollectionController {
+extension DebugOptions {
 
     public enum Item: Hashable {
 
-            // MARK: - Action
-            public struct Action: Hashable {
+        // MARK: - Action
+        public struct Action: Hashable {
 
-                // MARK: - Properties
-                let title: String
-                let subtitle: String?
-                let action: () -> Void
+            // MARK: - Properties
+            public let title: String
+            public let subtitle: String?
+            public let action: () -> Void
 
-                // MARK: - Initializer
+            // MARK: - Initializer
             public init(title: String, subtitle: String? = nil, action: @escaping () -> Void) {
                 self.title = title
                 self.subtitle = subtitle
@@ -93,13 +89,26 @@ extension DebugOptionsCollectionController {
         public struct Navigation: Hashable {
             
             // MARK: - Properties
-            let title: String
-            let destination: UIViewController
+            public let title: String
+            public let destination: () -> UIViewController
 
             // MARK: - Initializer
             public init(title: String, destination: UIViewController) {
+                self.init(title: title, destination: { destination })
+            }
+
+            public init(title: String, destination: @escaping () -> UIViewController) {
                 self.title = title
                 self.destination = destination
+            }
+
+            // MARK: Hashable
+            public func hash(into hasher: inout Hasher) {
+                hasher.combine(title)
+            }
+
+            public static func == (lhs: Navigation, rhs: Navigation) -> Bool {
+                return lhs.title == rhs.title
             }
         }
 
@@ -107,10 +116,10 @@ extension DebugOptionsCollectionController {
         public struct Selection: Hashable {
 
             // MARK: - Properties
-            let title: String
-            let subtitle: String?
-            let isSelected: Bool
-            let handler: () -> Void
+            public let title: String
+            public let subtitle: String?
+            public let isSelected: Bool
+            public let handler: () -> Void
 
             public init(title: String, subtitle: String? = nil, isSelected: Bool, handler: @escaping () -> Void) {
                 self.title = title
@@ -145,13 +154,37 @@ extension DebugOptionsCollectionController {
             switch self {
             case .action(let action): action.handleSelection()
             case .selection(let selection): selection.handleSelection()
-            case .navigation(let navigation): collectionController.delegate?.debugOptionsCollectionController(collectionController, didRequestPresentationOf: navigation.destination)
+            case .navigation(let navigation): collectionController.delegate?.debugOptionsCollectionController(collectionController, didRequestPresentationOf: navigation.destination())
             }
         }
 
-        // MARK: - Preset
+        // MARK: - Preset Actions
         public static func informational(title: String, subtitle: String?) -> Item {
             return .action(.init(title: title, subtitle: subtitle) { UIPasteboard.general.string = [title, subtitle].compactMap { $0 }.joined(separator: "\n") })
+        }
+
+        public static func pushToken(with data: Data?, title: String) -> Item {
+            return informational(title: title, subtitle: data?.map { String(format: "%02x", $0) }.joined() ?? "--")
+        }
+
+        public static func action(title: String, subtitle: String? = nil, action: @escaping () -> Void) -> Item {
+            return .action(.init(title: title, subtitle: subtitle, action: action))
+        }
+
+
+        // MARK: - Preset Selections
+        public static func selection(title: String, subtitle: String? = nil, isSelected: Bool, handler: @escaping () -> Void) -> Item {
+            return .selection(.init(title: title, subtitle: subtitle, isSelected: isSelected, handler: handler))
+        }
+
+
+        // MARK: - Preset Navigations
+        public static func navigation(title: String, destination: UIViewController) -> Item {
+            return .navigation(.init(title: title, destination: destination))
+        }
+
+        public static func navigation(title: String, destination: @escaping () -> UIViewController) -> Item {
+            return .navigation(.init(title: title, destination: destination))
         }
 
         public static func log<T>(for title: String, logService: LogService<T>) -> Item {

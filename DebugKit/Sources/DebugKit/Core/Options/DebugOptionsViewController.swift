@@ -11,9 +11,16 @@ import UIKit
 public class DebugOptionsViewController: UIViewController {
 
     // MARK: - Properties
-    private var configuration: [DebugOptionsCollectionController.ConfiguredSection]?
+    public let appearance: UICollectionLayoutListConfiguration.Appearance
+    public let cellContentProvider: DebugOptionsCollectionController.CellContentProvider
+    public let supplementaryContentProvider: (DebugOptionsCollectionController.DataSource) -> DebugOptionsCollectionController.SupplementaryContentProvider
 
-    private lazy var collectionController = DebugOptionsCollectionController(collectionView: collectionView, delegate: self)
+    private var configuredSections: [DebugOptions.ConfiguredSection]?
+
+    private lazy var collectionController = DebugOptionsCollectionController(collectionView: collectionView,
+                                                                             cellContentProvider: cellContentProvider,
+                                                                             supplementaryContentProvider: supplementaryContentProvider,
+                                                                             delegate: self)
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,13 +29,27 @@ public class DebugOptionsViewController: UIViewController {
 
     private lazy var collectionViewLayout: UICollectionViewLayout = {
         return UICollectionViewCompositionalLayout { _, layoutEnvironment in
-            var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            var configuration = UICollectionLayoutListConfiguration(appearance: self.appearance)
             configuration.headerMode = .supplementary
             configuration.footerMode = .supplementary
 
             return .list(using: configuration, layoutEnvironment: layoutEnvironment)
         }
     }()
+
+    // MARK: - Initializers
+    public init(appearance: UICollectionLayoutListConfiguration.Appearance = .insetGrouped,
+                cellContentProvider: DebugOptionsCollectionController.CellContentProvider = .init(),
+                supplementaryContentProvider: @escaping (DebugOptionsCollectionController.DataSource) -> DebugOptionsCollectionController.SupplementaryContentProvider = { .init(dataSource: $0) }) {
+        self.appearance = appearance
+        self.cellContentProvider = cellContentProvider
+        self.supplementaryContentProvider = supplementaryContentProvider
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - Lifecycle
     public override func viewDidLoad() {
@@ -42,7 +63,7 @@ public class DebugOptionsViewController: UIViewController {
                                      collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)])
 
         // Configure the data source
-        if let configuredSections = configuration {
+        if let configuredSections = configuredSections {
             collectionController.configure(with: configuredSections, animated: false)
         }
     }
@@ -51,8 +72,8 @@ public class DebugOptionsViewController: UIViewController {
 // MARK: - Configurable
 public extension DebugOptionsViewController {
 
-    func configure(with element: [DebugOptionsCollectionController.ConfiguredSection]) {
-        configuration = element
+    func configure(with element: [DebugOptions.ConfiguredSection]) {
+        configuredSections = element
 
         if isViewLoaded {
             collectionController.configure(with: element, animated: true)
@@ -68,30 +89,28 @@ extension DebugOptionsViewController: DebugOptionsCollectionFlowDelegate {
     }
 }
 
-// MARK: - DebugOptionsView
+// MARK: - DebugOptionsView - SwiftUI
 public struct DebugOptionsView: UIViewControllerRepresentable {
 
     // MARK: - Properties
-    let configuredSections: [DebugOptionsCollectionController.ConfiguredSection]
+    let appearance: UICollectionLayoutListConfiguration.Appearance
+    let configuredSections: [DebugOptions.ConfiguredSection]
 
     // MARK: - Initializer
-    public init(configuredSections: [DebugOptionsCollectionController.ConfiguredSection]) {
+    public init(appearance: UICollectionLayoutListConfiguration.Appearance, configuredSections: [DebugOptions.ConfiguredSection]) {
+        self.appearance = appearance
         self.configuredSections = configuredSections
     }
 
     // MARK: - UIViewControllerRepresentable
     public func makeUIViewController(context: Context) -> DebugOptionsViewController {
-        let debugOptions = DebugOptionsViewController()
+        let debugOptions = DebugOptionsViewController(appearance: appearance)
         debugOptions.configure(with: configuredSections)
 
-        //let navigationController = UINavigationController(rootViewController: debugOptions)
-        //return navigationController
         return debugOptions
     }
 
     public func updateUIViewController(_ uiViewController: DebugOptionsViewController, context: Context) {
         uiViewController.configure(with: configuredSections)
-        //print("update")
-
     }
 }

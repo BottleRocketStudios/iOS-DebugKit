@@ -18,10 +18,6 @@ extension MXMetricPayload: Recordable {
 
 public extension LogService {
 
-    static func metricPayloads(storedAt url: URL?) -> LogService<MetricPayload> {
-        return LogService<MetricPayload>(storage: url.map(LogFileStorage.init))
-    }
-
     static func metricPayloads(storedAt url: URL?) -> LogService<MXMetricPayload> {
         return LogService<MXMetricPayload>(storage: url.map(LogFileStorage.init))
     }

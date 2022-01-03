@@ -14,8 +14,10 @@
 		0E2A84672769796100771782 /* DebugKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0E2A84662769796100771782 /* DebugKit */; };
 		0E999C7F2775197F0026E92C /* URL+Documents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C7E2775197F0026E92C /* URL+Documents.swift */; };
 		0E999C81277BA5FB0026E92C /* PushService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C80277BA5FB0026E92C /* PushService.swift */; };
-		0E999C83277BABAD0026E92C /* DebugOptionsCollectionController+Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C82277BABAD0026E92C /* DebugOptionsCollectionController+Item.swift */; };
+		0E999C83277BABAD0026E92C /* DebugOptions+Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C82277BABAD0026E92C /* DebugOptions+Items.swift */; };
 		0E999C85277BE8110026E92C /* EnvironmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C84277BE8110026E92C /* EnvironmentService.swift */; };
+		0E999C91277E3AFE0026E92C /* UICollectionView+Registrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C90277E3AFE0026E92C /* UICollectionView+Registrations.swift */; };
+		0E999C94277E3B6F0026E92C /* ContentSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C93277E3B6F0026E92C /* ContentSubscriber.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,8 +41,10 @@
 		0E5D0BEB27710F8A00C11A92 /* DebugKit-iOS-Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DebugKit-iOS-Example-Info.plist"; sourceTree = SOURCE_ROOT; };
 		0E999C7E2775197F0026E92C /* URL+Documents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Documents.swift"; sourceTree = "<group>"; };
 		0E999C80277BA5FB0026E92C /* PushService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushService.swift; sourceTree = "<group>"; };
-		0E999C82277BABAD0026E92C /* DebugOptionsCollectionController+Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugOptionsCollectionController+Item.swift"; sourceTree = "<group>"; };
+		0E999C82277BABAD0026E92C /* DebugOptions+Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugOptions+Items.swift"; sourceTree = "<group>"; };
 		0E999C84277BE8110026E92C /* EnvironmentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentService.swift; sourceTree = "<group>"; };
+		0E999C90277E3AFE0026E92C /* UICollectionView+Registrations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Registrations.swift"; sourceTree = "<group>"; };
+		0E999C93277E3B6F0026E92C /* ContentSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSubscriber.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				0E5D0BEB27710F8A00C11A92 /* DebugKit-iOS-Example-Info.plist */,
+				0E999C92277E3B250026E92C /* Services */,
 				0E2A8468276A4D5A00771782 /* Helper */,
 				0E2A8457276978C900771782 /* App.swift */,
 				0E2A8459276978C900771782 /* ContentView.swift */,
@@ -104,11 +109,20 @@
 			isa = PBXGroup;
 			children = (
 				0E999C7E2775197F0026E92C /* URL+Documents.swift */,
-				0E999C80277BA5FB0026E92C /* PushService.swift */,
-				0E999C84277BE8110026E92C /* EnvironmentService.swift */,
-				0E999C82277BABAD0026E92C /* DebugOptionsCollectionController+Item.swift */,
+				0E999C82277BABAD0026E92C /* DebugOptions+Items.swift */,
+				0E999C90277E3AFE0026E92C /* UICollectionView+Registrations.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		0E999C92277E3B250026E92C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0E999C80277BA5FB0026E92C /* PushService.swift */,
+				0E999C84277BE8110026E92C /* EnvironmentService.swift */,
+				0E999C93277E3B6F0026E92C /* ContentSubscriber.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,9 +200,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E2A845A276978C900771782 /* ContentView.swift in Sources */,
+				0E999C94277E3B6F0026E92C /* ContentSubscriber.swift in Sources */,
 				0E999C81277BA5FB0026E92C /* PushService.swift in Sources */,
 				0E2A8458276978C900771782 /* App.swift in Sources */,
-				0E999C83277BABAD0026E92C /* DebugOptionsCollectionController+Item.swift in Sources */,
+				0E999C91277E3AFE0026E92C /* UICollectionView+Registrations.swift in Sources */,
+				0E999C83277BABAD0026E92C /* DebugOptions+Items.swift in Sources */,
 				0E999C7F2775197F0026E92C /* URL+Documents.swift in Sources */,
 				0E999C85277BE8110026E92C /* EnvironmentService.swift in Sources */,
 			);

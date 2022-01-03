@@ -11,11 +11,13 @@ import UIKit
 public class DebugOptionsViewController: UIViewController {
 
     // MARK: - Properties
-    public let appearance: UICollectionLayoutListConfiguration.Appearance
-    public let cellContentProvider: DebugOptionsCollectionController.CellContentProvider
-    public let supplementaryContentProvider: (DebugOptionsCollectionController.DataSource) -> DebugOptionsCollectionController.SupplementaryContentProvider
 
-    private var configuredSections: [DebugOptions.ConfiguredSection]?
+    // TODO: Wrap this in some kind of appearance struct?
+    public let appearance: UICollectionLayoutListConfiguration.Appearance
+    public let cellContentProvider: CellContentProvider
+    public let supplementaryContentProvider: (DebugOption.DataSource) -> SupplementaryContentProvider
+
+    private var configuredSections: [DebugOption.ConfiguredSection]?
 
     private lazy var collectionController = DebugOptionsCollectionController(collectionView: collectionView,
                                                                              cellContentProvider: cellContentProvider,
@@ -39,8 +41,8 @@ public class DebugOptionsViewController: UIViewController {
 
     // MARK: - Initializers
     public init(appearance: UICollectionLayoutListConfiguration.Appearance = .insetGrouped,
-                cellContentProvider: DebugOptionsCollectionController.CellContentProvider = .init(),
-                supplementaryContentProvider: @escaping (DebugOptionsCollectionController.DataSource) -> DebugOptionsCollectionController.SupplementaryContentProvider = { .init(dataSource: $0) }) {
+                cellContentProvider: CellContentProvider = .init(),
+                supplementaryContentProvider: @escaping (DebugOption.DataSource) -> SupplementaryContentProvider = { .init(dataSource: $0) }) {
         self.appearance = appearance
         self.cellContentProvider = cellContentProvider
         self.supplementaryContentProvider = supplementaryContentProvider
@@ -72,7 +74,7 @@ public class DebugOptionsViewController: UIViewController {
 // MARK: - Configurable
 public extension DebugOptionsViewController {
 
-    func configure(with element: [DebugOptions.ConfiguredSection]) {
+    func configure(with element: [DebugOption.ConfiguredSection]) {
         configuredSections = element
 
         if isViewLoaded {
@@ -92,25 +94,26 @@ extension DebugOptionsViewController: DebugOptionsCollectionFlowDelegate {
 // MARK: - DebugOptionsView - SwiftUI
 public struct DebugOptionsView: UIViewControllerRepresentable {
 
+    // TODO: Ensure this has the same customization properties as the UIViewController
+
     // MARK: - Properties
-    let appearance: UICollectionLayoutListConfiguration.Appearance
-    let configuredSections: [DebugOptions.ConfiguredSection]
+    // TODO: Should this be a state var?
+    let configuredSections: [DebugOption.ConfiguredSection]
 
     // MARK: - Initializer
-    public init(appearance: UICollectionLayoutListConfiguration.Appearance, configuredSections: [DebugOptions.ConfiguredSection]) {
-        self.appearance = appearance
+    public init(configuredSections: [DebugOption.ConfiguredSection]) {
         self.configuredSections = configuredSections
     }
 
     // MARK: - UIViewControllerRepresentable
     public func makeUIViewController(context: Context) -> DebugOptionsViewController {
-        let debugOptions = DebugOptionsViewController(appearance: appearance)
-        debugOptions.configure(with: configuredSections)
+        let debugOptionsViewController = DebugOptionsViewController()
+        debugOptionsViewController.configure(with: configuredSections)
 
-        return debugOptions
+        return debugOptionsViewController
     }
 
-    public func updateUIViewController(_ uiViewController: DebugOptionsViewController, context: Context) {
-        uiViewController.configure(with: configuredSections)
+    public func updateUIViewController(_ viewController: DebugOptionsViewController, context: Context) {
+        viewController.configure(with: configuredSections)
     }
 }

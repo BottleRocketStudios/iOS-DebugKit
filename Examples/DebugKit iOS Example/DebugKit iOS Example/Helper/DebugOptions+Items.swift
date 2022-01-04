@@ -3,6 +3,7 @@
 //  DebugKit iOS Example
 //
 //  Created by Will McGinty on 12/28/21.
+//  Copyright © 2020 Bottle Rocket Studios. All rights reserved.
 //
 
 import DebugKit

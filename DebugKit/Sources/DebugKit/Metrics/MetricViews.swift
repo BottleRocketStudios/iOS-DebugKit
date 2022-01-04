@@ -1,8 +1,9 @@
 //
-//  MetricView.swift
+//  MetricViews.swift
+//  DebugKit
 //  
 //
-//  Created by Will McGinty on 12/15/21.
+//  Copyright © 2022 Bottle Rocket Studios. All rights reserved.
 //
 
 import MetricKit

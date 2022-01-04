@@ -1,8 +1,9 @@
 //
 //  NoEntriesView.swift
+//  DebugKit
 //  
 //
-//  Created by Will McGinty on 12/22/21.
+//  Copyright © 2022 Bottle Rocket Studios. All rights reserved.
 //
 
 import SwiftUI

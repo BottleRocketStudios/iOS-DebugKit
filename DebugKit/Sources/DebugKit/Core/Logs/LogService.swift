@@ -1,8 +1,9 @@
 //
 //  LogService.swift
+//  DebugKit
 //  
 //
-//  Created by Will McGinty on 12/14/21.
+//  Copyright © 2022 Bottle Rocket Studios. All rights reserved.
 //
 
 import SwiftUI
@@ -73,5 +74,39 @@ public class LogService<Item: Recordable>: ObservableObject {
 
     public func remove(atOffsets offsets: IndexSet) {
         log.remove(atOffsets: offsets)
+    }
+}
+
+
+import CoreLocation
+
+public struct Geofence: Recordable, CustomStringConvertible {
+
+    public let id = UUID()
+    public var description: String { return id.uuidString }
+
+    public static func view(for entry: Log<Geofence>.Entry) -> some View {
+        VStack {
+            Text(entry.date, style: .date)
+            Text(entry.element.description)
+        }
+    }
+}
+
+public struct GeofenceEntry: Recordable {
+    public enum Event: String {
+        case enter, exit
+    }
+
+    public let id = UUID()
+    public let event: Event
+    public let geofence: Geofence
+
+    public static func view(for entry: Log<GeofenceEntry>.Entry) -> some View {
+        VStack {
+            Text(entry.date, style: .date)
+            Text(entry.element.event.rawValue)
+            Geofence.view(for: entry.map(\.geofence))
+        }
     }
 }

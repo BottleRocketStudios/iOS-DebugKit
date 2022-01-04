@@ -1,8 +1,9 @@
 //
 //  LogStorage.swift
+//  DebugKit
 //  
 //
-//  Created by Will McGinty on 12/16/21.
+//  Copyright © 2022 Bottle Rocket Studios. All rights reserved.
 //
 
 import Foundation

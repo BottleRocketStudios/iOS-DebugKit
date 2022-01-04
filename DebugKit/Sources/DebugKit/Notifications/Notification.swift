@@ -1,8 +1,9 @@
 //
 //  Notification.swift
+//  DebugKit
 //  
 //
-//  Created by Will McGinty on 12/16/21.
+//  Copyright © 2022 Bottle Rocket Studios. All rights reserved.
 //
 
 import UserNotifications
@@ -135,10 +136,10 @@ private extension Notification.EntryView {
                             HStack(alignment: .firstTextBaseline) {
                                 Text(titleContent.label.localizedUppercase)
                                     .font(.caption2.bold())
-                                    .foregroundColor(.accentColor)
+                                    .foregroundColor(.accentColor.opacity(0.75))
 
                                 Text(titleContent.content)
-                                    .font(.body)
+                                    .font(.subheadline)
                                     .lineLimit(1)
                                     .truncationMode(.middle)
                             }

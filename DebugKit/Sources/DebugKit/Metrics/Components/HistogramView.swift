@@ -1,8 +1,9 @@
 //
 //  Histogram.swift
+//  DebugKit
 //  
 //
-//  Created by Will McGinty on 6/19/21.
+//  Copyright © 2022 Bottle Rocket Studios. All rights reserved.
 //
 
 import Foundation

@@ -1,8 +1,9 @@
 //
-//  File.swift
+//  NavigationLink+Metric.swift
+//  DebugKit
 //  
 //
-//  Created by Will McGinty on 1/4/22.
+//  Copyright © 2022 Bottle Rocket Studios. All rights reserved.
 //
 
 import SwiftUI

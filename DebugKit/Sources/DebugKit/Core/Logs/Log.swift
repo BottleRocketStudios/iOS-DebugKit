@@ -1,8 +1,9 @@
 //
 //  Log.swift
+//  DebugKit
 //  
 //
-//  Created by Will McGinty on 12/14/21.
+//  Copyright © 2022 Bottle Rocket Studios. All rights reserved.
 //
 
 import SwiftUI
@@ -10,8 +11,15 @@ import SwiftUI
 public struct Log<Element> {
 
     public struct Entry {
+
+        // MARK: - Properties
         public let date: Date
         public let element: Element
+
+        // MARK: - Interface
+        public func map<T>(_ transform: (Element) -> T) -> Log<T>.Entry {
+            return .init(date: date, element: transform(element))
+        }
     }
 
     // MARK: - Properties

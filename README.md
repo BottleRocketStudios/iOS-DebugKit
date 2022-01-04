@@ -6,7 +6,7 @@
 
 DebugKit is designed to make it as simple as possible to build and display useful information about your project. It was built to replace all the individual debugging view controllers, making it easy to use the functionality that is needed in your specific use case, without the need to write it yourself. The framework includes a simple way to build a `DebugOptionsViewController` (or `DebugOptionsView` in Swift UI), containing a variety of debugging related information.
 
-To utilize `DebugViewController`, the first step is instantiation:
+To utilize `DebugOptionsViewController`, the first step is instantiation:
 
 ```swift
 let viewController = DebugOptionsViewController()
@@ -19,7 +19,7 @@ Once you have the view controller, the only remaining step is populating it with
 ```swift
 viewController.configure(with: [.init(section: .init(title: "General"),
                                         items: [.version(for: .main), .build(for: .main), .pushToken(with: pushService.deviceToken, title: "Push Token")]),
-                                .init(section: .init(title: "Debug"), 
+                                .init(section: .init(title: "Debug"),
                                         items: [.crashTest()]),
                                 .init(section: .init(title: "Logs"),
                                         items: [.log(for: "Metrics", logService: metricsLogService), .log(for: "Notifications", logService: notificationsLogService)]))
@@ -44,7 +44,7 @@ extension DebugOption.Item {
 
 ### Logging
 
-In addition to simple action and selection items, the `DebugItem` is designed to work seamlessly with another capability of `DebugKit` - the `LogService`. This service is designed to record instances of any object, writing them to disk and displaying them in the `DebugViewController` on demand. 
+In addition to simple action and selection items, the `DebugItem` is designed to work seamlessly with another capability of `DebugKit` - the `LogService`. This service is designed to record instances of any object, writing them to disk and displaying them in the `DebugViewController` on demand.
 
 The `LogService` works with any type that conforms to the `Recordable` protocol, allowing entries in this log to be visually displayed using Swift UI. These logs can be in memory only, or optionally written to some persisten storage if desired. The `LogService` will accept any item conforming to `LogStoring` upon initialization, and a default `LogFileStorage` is provided by the framework.
 

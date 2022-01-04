@@ -33,57 +33,51 @@ struct HistogramView<T: Foundation.Unit>: View {
     // MARK: - View
     var body: some View {
         let maxValue = Double(histogram.buckets.map(\.count).max() ?? 0) * 1.1
+        let indexedEntries = Array(zip(histogram.buckets.indices, histogram.buckets))
 
-        if histogram.buckets.isEmpty {
-            NoEntriesView(configuration: .default)
-
-        } else {
-            let indexedEntries = Array(zip(histogram.buckets.indices, histogram.buckets))
-            VStack(alignment: .trailing, spacing: 0) {
-                if let highestFrequencyEntry = histogram.highestFrequencyEntry {
-                    TitleView(title: highestFrequencyEntry.formatted(using: measurementFormatter),
-                              subtitle: "Highest Frequency \(title)")
-                    Spacer()
-                }
-
-                HStack(spacing: 0) {
-                    AxisView.displaying(countRange: 0...maxValue, along: .vertical, using: numberFormatter)
-                        .foregroundColor(backgroundGray)
-
-                    ZStack(alignment: .bottom) {
-                        VStack {
-                            GeometryReader { geometry in
-                                HStack(alignment: .bottom) {
-                                    ForEach(indexedEntries, id: \.0) { index, entry in
-                                        ItemView(unitValue: entry.unitValue(relativeTo: maxValue),
-                                                 absoluteValue: entry.count,
-                                                 label: entry.formatted(using: measurementFormatter),
-                                                 isCurrentlySelected: currentlyPannedEntry == entry,
-                                                 inSelectedMode: currentlyPannedEntry != nil)
-                                    }
-                                }
-                                .gesture(DragGesture(minimumDistance: 0)
-                                            .onChanged { self.handlePanChanged(to: $0.location,
-                                                                               in: geometry.frame(in: .local), isEnding: false) }
-                                            .onEnded { self.handlePanChanged(to: $0.location,
-                                                                             in: geometry.frame(in: .local), isEnding: true) })
-                            }
-                        }
-                        .padding([.leading, .trailing])
-
-                        BackgroundView()
-                            .foregroundColor(backgroundGray)
-                    }
-                }
-
-                if let measurementRange = histogram.measurementRange {
-                    AxisView.displaying(measurementRange: measurementRange, along: .horizontal, using: measurementFormatter)
-                        .foregroundColor(backgroundGray)
-                }
-
+        VStack(alignment: .trailing, spacing: 0) {
+            if let highestFrequencyEntry = histogram.highestFrequencyEntry {
+                TitleView(title: highestFrequencyEntry.formatted(using: measurementFormatter),
+                          subtitle: "Highest Frequency \(title)")
+                 Spacer()
             }
-            .padding()
+
+            HStack(spacing: 0) {
+                AxisView.displaying(countRange: 0...maxValue, along: .vertical, using: numberFormatter)
+                    .foregroundColor(backgroundGray)
+
+                ZStack(alignment: .bottom) {
+                    VStack {
+                        GeometryReader { geometry in
+                            HStack(alignment: .bottom) {
+                                ForEach(indexedEntries, id: \.0) { index, entry in
+                                    ItemView(unitValue: entry.unitValue(relativeTo: maxValue),
+                                             absoluteValue: entry.count,
+                                             label: entry.formatted(using: measurementFormatter),
+                                             isCurrentlySelected: currentlyPannedEntry == entry,
+                                             inSelectedMode: currentlyPannedEntry != nil)
+                                }
+                            }
+                            .gesture(DragGesture(minimumDistance: 0)
+                                        .onChanged { self.handlePanChanged(to: $0.location,
+                                                                           in: geometry.frame(in: .local), isEnding: false) }
+                                        .onEnded { self.handlePanChanged(to: $0.location,
+                                                                         in: geometry.frame(in: .local), isEnding: true) })
+                        }
+                    }
+                    .padding([.leading, .trailing])
+
+                    BackgroundView()
+                        .foregroundColor(backgroundGray)
+                }
+            }
+
+            if let measurementRange = histogram.measurementRange {
+                AxisView.displaying(measurementRange: measurementRange, along: .horizontal, using: measurementFormatter)
+                    .foregroundColor(backgroundGray)
+            }
         }
+        .padding()
     }
 }
 
@@ -98,14 +92,14 @@ private extension HistogramView {
 
         // MARK: - View
         var body: some View {
-            VStack(alignment: .trailing) {
-                Text(subtitle)
-                    .font(.caption.bold())
-                    .foregroundColor(.gray)
-
+            VStack(alignment: .trailing, spacing: 0) {
                 Text(title)
                     .font(.largeTitle.bold())
                     .foregroundColor(Color(UIColor.label))
+
+                Text(subtitle)
+                    .font(.caption.bold())
+                    .foregroundColor(.gray)
             }
         }
     }
@@ -129,8 +123,7 @@ private extension HistogramView {
         var body: some View {
             GeometryReader { geometry in
                 ZStack(alignment: .top) {
-                    LinearGradient(colors: [.init(red: 0, green: 41/255.0, blue: 103/255.0),
-                                            .init(red: 0, green: 91/255.0, blue: 210/255.0)], startPoint: .bottom, endPoint: .top)
+                    LinearGradient(colors: [.blue, .green], startPoint: .bottom, endPoint: .top)
                         .mask(
                             ZStack(alignment: .bottom) {
                                 Rectangle()
@@ -138,7 +131,7 @@ private extension HistogramView {
                                     .frame(width: geometry.size.width * 0.8, height: unitValue *  geometry.size.height, alignment: .bottom)
                                     .scaleEffect(isCurrentlySelected ? CGSize(width: 1.05, height: 1.05) : CGSize(width: 1, height: 1), anchor: .bottom)
                             }
-                            .frame(height: geometry.size.height, alignment: .bottom)
+                                .frame(height: geometry.size.height, alignment: .bottom)
                         )
                 }
 
@@ -195,14 +188,12 @@ private extension HistogramView {
         }
 
         // MARK: - Preset
-        static func displaying<T: Foundation.Unit>(measurementRange range: ClosedRange<Measurement<T>>, along axis: Axis,
-                                                   using formatter: MeasurementFormatter) -> some View {
+        static func displaying<T: Foundation.Unit>(measurementRange range: ClosedRange<Measurement<T>>, along axis: Axis, using formatter: MeasurementFormatter) -> some View {
             let values = [range.lowerBound, range.upperBound]
             return AxisView(axis: axis, labels: values.compactMap(formatter.string))
         }
 
-        static func displaying(countRange range: ClosedRange<Double>, along axis: Axis,
-                               using formatter: NumberFormatter) -> some View {
+        static func displaying(countRange range: ClosedRange<Double>, along axis: Axis, using formatter: NumberFormatter) -> some View {
             let values = [range.upperBound, ((range.upperBound + range.lowerBound) * 0.5), range.lowerBound]
             return AxisView(axis: axis, labels: values.compactMap(formatter.string))
         }
@@ -253,14 +244,10 @@ private extension HistogramView {
             currentlyPannedEntry = histogram.buckets[pannedIndex]
 
             if isEnding {
-                resetPan()
+                currentlyPannedEntry = nil
+                relativePanLocation = nil
             }
         }
-    }
-
-    func resetPan() {
-        currentlyPannedEntry = nil
-        relativePanLocation = nil
     }
 }
 
@@ -277,11 +264,11 @@ struct HistogramView_Previews: PreviewProvider {
                                                          .init(start: .init(value: 30, unit: UnitDuration.milliseconds),
                                                                end: .init(value: 39, unit: UnitDuration.milliseconds), count: 14)]
 
-        HistogramView(title: "Time To First Draw", histogram: .init(buckets: buckets),
-                      measurementFormatter: .shortProvidedUnit, numberFormatter: .standard)
+        HistogramView(title: "Metric Being Histogrammed", histogram: .init(buckets: buckets),
+                      measurementFormatter: .providedUnit, numberFormatter: .standard)
 
-        HistogramView(title: "Time To First Draw", histogram: .init(buckets: buckets),
-                      measurementFormatter: .shortProvidedUnit, numberFormatter: .standard)
+        HistogramView(title: "Metric Being Histogrammed", histogram: .init(buckets: buckets),
+                      measurementFormatter: .providedUnit, numberFormatter: .standard)
             .preferredColorScheme(.dark)
     }
 }

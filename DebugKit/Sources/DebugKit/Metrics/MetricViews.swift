@@ -13,24 +13,16 @@ protocol MetricConfigurableView: View {
     init(payload: MetricPayload, metric: Metric)
 }
 
-extension NavigationLink {
 
-    init?(title: LocalizedStringKey, systemImage: String, destination: Destination.Type,
-          payload: MetricPayload, keyPath: KeyPath<MetricPayload, Destination.Metric?>) where Destination: MetricConfigurableView, Label == SwiftUI.Label<Text, Image> {
-        guard let metric = payload[keyPath: keyPath] else { return nil }
-        self.init(destination: destination.init(payload: payload, metric: metric),
-                  label: { Label(title, systemImage: systemImage) })
-    }
-}
 
 // MARK: - MetricView
 struct MetricView<T: Foundation.Unit>: View {
 
     // MARK: - Kind Subtype
     enum Kind {
-        case histogram(Histogram<T>, formatter: MeasurementFormatter = .shortNaturalScale)
-        case measurement(Measurement<T>, formatter: MeasurementFormatter = .shortNaturalScale)
-        case average(MXAverage<T>, formatter: MeasurementFormatter = .shortNaturalScale)
+        case histogram(Histogram<T>, formatter: MeasurementFormatter = .naturalScale)
+        case measurement(Measurement<T>, formatter: MeasurementFormatter = .naturalScale)
+        case average(MXAverage<T>, formatter: MeasurementFormatter = .naturalScale)
         case value(Int)
     }
 
@@ -44,7 +36,7 @@ struct MetricView<T: Foundation.Unit>: View {
             switch kind {
             case let .histogram(histogram, formatter): HistogramView.displaying(histogram: histogram, withTitle: title, using: formatter)
             case let .measurement(measurement, formatter): MeasurementLabel.displaying(measurement: measurement, withName: title, using: formatter)
-            case let .average(average, formatter): AverageLabel.displaying(average: average, withName: title, using: formatter)
+            case let .average(average, formatter): AverageLabel.displaying(average: average, using: formatter, withTitle: title)
             case .value(let value): MeasurementLabel.displaying(value: value, withName: title)
             }
         }
@@ -75,7 +67,7 @@ struct CellularMetricsView: MetricConfigurableView {
     // MARK: - View
     var body: some View {
         if let cellularConditions = payload.cellularConditions {
-            MetricView(title: "Cellular Conditions", kind: .histogram(cellularConditions, formatter: .shortProvidedUnit))
+            MetricView(title: "Cellular Conditions", kind: .histogram(cellularConditions, formatter: .providedUnit))
         } else {
             NoEntriesView(configuration: .default)
                 .navigationTitle("Cellular Conditions")
@@ -125,7 +117,7 @@ struct DisplayMetricsView: MetricConfigurableView {
         Group {
             if let averagePixelLuminance = metric.averagePixelLuminance {
                 List {
-                    MetricView(title: "Average Pixel Luminance", kind: .average(averagePixelLuminance, formatter: .shortProvidedUnit))
+                    MetricView(title: "Average Pixel Luminance", kind: .average(averagePixelLuminance, formatter: .providedUnit))
                 }
             } else {
                 NoEntriesView(configuration: .default)
@@ -145,25 +137,25 @@ struct ExitMetricsView: MetricConfigurableView {
     var body: some View {
         List {
             Section(header: Text("Foreground Exits")) {
-                MetricView(title: "Normal Foreground Exits", kind: .value(metric.foregroundExitData.cumulativeNormalAppExitCount))
-                MetricView(title: "Abnormal Foreground Exits", kind: .value(metric.foregroundExitData.cumulativeAbnormalExitCount))
-                MetricView(title: "Bad Access Foreground Exits", kind: .value(metric.foregroundExitData.cumulativeBadAccessExitCount))
-                MetricView(title: "Watchdog Foreground Exits", kind: .value(metric.foregroundExitData.cumulativeAppWatchdogExitCount))
-                MetricView(title: "Illegal Instruction Foreground Exits", kind: .value(metric.foregroundExitData.cumulativeIllegalInstructionExitCount))
-                MetricView(title: "OOM Foreground Exits", kind: .value(metric.foregroundExitData.cumulativeMemoryResourceLimitExitCount))
+                MetricView(title: "Normal", kind: .value(metric.foregroundExitData.cumulativeNormalAppExitCount))
+                MetricView(title: "Abnormal", kind: .value(metric.foregroundExitData.cumulativeAbnormalExitCount))
+                MetricView(title: "Bad Access", kind: .value(metric.foregroundExitData.cumulativeBadAccessExitCount))
+                MetricView(title: "Watchdog", kind: .value(metric.foregroundExitData.cumulativeAppWatchdogExitCount))
+                MetricView(title: "Illegal Instruction", kind: .value(metric.foregroundExitData.cumulativeIllegalInstructionExitCount))
+                MetricView(title: "OOM", kind: .value(metric.foregroundExitData.cumulativeMemoryResourceLimitExitCount))
             }
 
             Section(header: Text("Background Exits")) {
-                MetricView(title: "Normal Background Exits", kind: .value(metric.backgroundExitData.cumulativeNormalAppExitCount))
-                MetricView(title: "Abnormal Background Exits", kind: .value(metric.backgroundExitData.cumulativeAbnormalExitCount))
-                MetricView(title: "Bad Access Background Exits", kind: .value(metric.backgroundExitData.cumulativeBadAccessExitCount))
-                MetricView(title: "Watchdog Background Exits", kind: .value(metric.backgroundExitData.cumulativeAppWatchdogExitCount))
-                MetricView(title: "Illegal Instruction Background Exits", kind: .value(metric.backgroundExitData.cumulativeIllegalInstructionExitCount))
-                MetricView(title: "Memory Exceeded Background Exits", kind: .value(metric.backgroundExitData.cumulativeMemoryResourceLimitExitCount))
-                MetricView(title: "Memory Pressure Background Exits", kind: .value(metric.backgroundExitData.cumulativeMemoryPressureExitCount))
-                MetricView(title: "CPU Resources Exceeded Background Exits", kind: .value(metric.backgroundExitData.cumulativeCPUResourceLimitExitCount))
-                MetricView(title: "Suspend with Locked File Background Exits", kind: .value(metric.backgroundExitData.cumulativeSuspendedWithLockedFileExitCount))
-                MetricView(title: "Task Assertion Background Exits", kind: .value(metric.backgroundExitData.cumulativeBackgroundTaskAssertionTimeoutExitCount))
+                MetricView(title: "Normal", kind: .value(metric.backgroundExitData.cumulativeNormalAppExitCount))
+                MetricView(title: "Abnormal", kind: .value(metric.backgroundExitData.cumulativeAbnormalExitCount))
+                MetricView(title: "Bad Access", kind: .value(metric.backgroundExitData.cumulativeBadAccessExitCount))
+                MetricView(title: "Watchdog", kind: .value(metric.backgroundExitData.cumulativeAppWatchdogExitCount))
+                MetricView(title: "Illegal Instruction", kind: .value(metric.backgroundExitData.cumulativeIllegalInstructionExitCount))
+                MetricView(title: "Memory Exceeded", kind: .value(metric.backgroundExitData.cumulativeMemoryResourceLimitExitCount))
+                MetricView(title: "Memory Pressure", kind: .value(metric.backgroundExitData.cumulativeMemoryPressureExitCount))
+                MetricView(title: "CPU Resources Exceeded", kind: .value(metric.backgroundExitData.cumulativeCPUResourceLimitExitCount))
+                MetricView(title: "Suspend with Locked File", kind: .value(metric.backgroundExitData.cumulativeSuspendedWithLockedFileExitCount))
+                MetricView(title: "Task Assertion", kind: .value(metric.backgroundExitData.cumulativeBackgroundTaskAssertionTimeoutExitCount))
             }
         }
         .navigationTitle("Application Exit")
@@ -194,20 +186,19 @@ struct LaunchMetricsView: MetricConfigurableView {
     // MARK: - View
     var body: some View {
         List {
-            if let resumeTime = payload.resumeTime {
+            if let resumeTime = payload.resumeTime, !resumeTime.buckets.isEmpty {
                 NavigationLink("Resume Time") {
                     MetricView(title: "Resume Time", kind: .histogram(resumeTime))
                 }
             }
 
-            if let timeToFirstDraw = payload.timeToFirstDraw {
+            if let timeToFirstDraw = payload.timeToFirstDraw, !timeToFirstDraw.buckets.isEmpty {
                 NavigationLink("Time To First Draw") {
                     MetricView(title: "Time To First Draw", kind: .histogram(timeToFirstDraw))
                 }
             }
 
-            if let optimizedTimeToFirstDraw = payload.optimizedTimeToFirstDraw {
-
+            if let optimizedTimeToFirstDraw = payload.optimizedTimeToFirstDraw, !optimizedTimeToFirstDraw.buckets.isEmpty {
                 NavigationLink("Optimized Time To First Draw") {
                     MetricView(title: "Optimized Time To First Draw", kind: .histogram(optimizedTimeToFirstDraw))
                 }

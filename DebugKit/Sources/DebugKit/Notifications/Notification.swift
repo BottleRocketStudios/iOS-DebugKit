@@ -53,7 +53,10 @@ extension Notification: Codable {
 extension Notification: Recordable {
 
     public static func view(for entry: Log<Self>.Entry) -> some View {
-        EntryView(date: entry.date, notification: entry.element)
+        let content = entry.element.content
+        EntryView(contentConfiguration: .init(date: entry.date, category: content.categoryIdentifier,
+                                              title: content.title, subtitle: content.subtitle, message: content.body),
+                  remotePayload: entry.element.remotePayload)
     }
 }
 
@@ -63,49 +66,20 @@ private extension Notification {
     struct EntryView: View  {
 
         // MARK: - Properties
-        let date: Date
-        let notification: Notification
+        let contentConfiguration: ContentView.Configuration
+        let remotePayload: String?
 
         // MARK: - View
         var body: some View {
-            if let payload = notification.remotePayload {
-                NavigationLink(destination: payloadJSONView(for: payload), label: { payloadContentView })
+            if let payload = remotePayload {
+                NavigationLink(destination: payloadJSONView(for: payload),
+                               label: { ContentView(configuration: contentConfiguration) })
             } else {
-                payloadContentView
+                ContentView(configuration: contentConfiguration)
             }
         }
 
         // MARK: - Subviews
-        @ViewBuilder
-        private var payloadContentView: some View {
-            VStack(alignment: .leading) {
-                HStack(spacing: 4) {
-                    Image(systemName: "cloud")
-                        .foregroundColor(.accentColor)
-                    Text(date, style: .date)
-                    Text(date, style: .time)
-                }
-                .font(.caption.bold())
-
-                Spacer()
-                
-                ForEach(notification.titledContent, id: \.0) { titleContent in
-                    if !titleContent.content.isEmpty {
-                        HStack(alignment: .firstTextBaseline) {
-                            Text(titleContent.label)
-                                .font(.caption)
-                                .foregroundColor(.accentColor)
-
-                            Text(titleContent.content)
-                                .font(.caption)
-                                .lineLimit(1)
-                                .truncationMode(.head)
-                        }
-                    }
-                }
-            }
-        }
-
         @ViewBuilder
         private func payloadJSONView(for payload: String) -> some View {
             ScrollView(.vertical, showsIndicators: true) {
@@ -121,13 +95,76 @@ private extension Notification {
     }
 }
 
-// MARK: - Display Helpers
-private extension Notification {
+// MARK: - ContentView
+private extension Notification.EntryView {
 
-    var titledContent: [(label: String, content: String)] {
-        return [("Category", content.categoryIdentifier),
-                ("Title", content.title),
-                ("Subtitle", content.subtitle),
-                ("Body", content.body)]
+    struct ContentView: View {
+
+        // MARK: - Subtypes
+        struct Configuration {
+
+            // MARK: - Properties
+            let date: Date
+            let category: String
+            let title: String
+            let subtitle: String
+            let message: String
+
+            // MARK: - Interface
+            var titledContent: [(label: String, content: String)] {
+                return [("Category", category), ("Title", title), ("Subtitle", subtitle), ("Body", message)]
+            }
+        }
+
+        // MARK: - Properties
+        let configuration: Configuration
+
+        // MARK: - View
+        var body: some View {
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(spacing: 4) {
+                    Text(configuration.date, style: .date)
+                    Text(configuration.date, style: .time)
+                }
+                .font(.caption)
+                .foregroundColor(Color(UIColor.secondaryLabel))
+
+                VStack(alignment: .leading) {
+                    ForEach(configuration.titledContent, id: \.0) { titleContent in
+                        if !titleContent.content.isEmpty {
+                            HStack(alignment: .firstTextBaseline) {
+                                Text(titleContent.label.localizedUppercase)
+                                    .font(.caption2.bold())
+                                    .foregroundColor(.accentColor)
+
+                                Text(titleContent.content)
+                                    .font(.body)
+                                    .lineLimit(1)
+                                    .truncationMode(.middle)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Preview
+struct NotificationEntryView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        let config = Notification.EntryView.ContentView.Configuration(date: Date(),
+                                                                      category: "com.test.test",
+                                                                      title: "title title title",
+                                                                      subtitle: "subtitle subtitle subtitle",
+                                                                      message: "message message message")
+
+        Notification.EntryView(contentConfiguration: config, remotePayload: nil)
+            .previewLayout(.sizeThatFits)
+
+        Notification.EntryView(contentConfiguration: config, remotePayload: nil)
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }

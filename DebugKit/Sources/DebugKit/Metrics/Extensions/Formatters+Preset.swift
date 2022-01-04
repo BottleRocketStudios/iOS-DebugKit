@@ -9,19 +9,17 @@ import Foundation
 
 extension MeasurementFormatter {
 
-    static let shortNaturalScale: MeasurementFormatter = {
+    static let naturalScale: MeasurementFormatter = {
         let formatter = MeasurementFormatter()
-        formatter.unitStyle = .short
+        formatter.unitStyle = .medium
         formatter.unitOptions = .naturalScale
-
         return formatter
     }()
 
-    static let shortProvidedUnit: MeasurementFormatter = {
+    static let providedUnit: MeasurementFormatter = {
         let formatter = MeasurementFormatter()
-        formatter.unitStyle = .short
+        formatter.unitStyle = .medium
         formatter.unitOptions = .providedUnit
-
         return formatter
     }()
 }
@@ -36,4 +34,13 @@ extension NumberFormatter {
     func string(from double: Double) -> String? {
         return string(from: NSNumber(value: double))
     }
+}
+
+extension DateIntervalFormatter {
+
+    static let standard: DateIntervalFormatter = {
+        let formatter = DateIntervalFormatter()
+        formatter.dateStyle = .medium
+        return formatter
+    }()
 }

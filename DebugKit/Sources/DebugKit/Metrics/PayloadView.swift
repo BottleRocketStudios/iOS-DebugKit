@@ -19,24 +19,22 @@ struct PayloadView: View {
     public var body: some View {
         List {
             Section(header: Text("Hardware Metrics")) {
-                NavigationLink(title: "Cellular Conditions", systemImage: "phone.connection", destination: CellularMetricsView.self,
-                               payload: metrics, keyPath: \.cellularConditionMetrics)
-                NavigationLink(title: "CPU", systemImage: "cpu", destination: CPUMetricsView.self, payload: metrics, keyPath: \.cpuMetrics)
-                NavigationLink(title: "GPU", systemImage: "gamecontroller", destination: GPUMetricsView.self, payload: metrics, keyPath: \.gpuMetrics)
-                NavigationLink(title: "Disk IO", systemImage: "internaldrive", destination: DiskIOMetricsView.self, payload: metrics, keyPath: \.diskIOMetrics)
-                NavigationLink(title: "Display", systemImage: "display", destination: DisplayMetricsView.self, payload: metrics, keyPath: \.displayMetrics)
-                NavigationLink(title: "Memory", systemImage: "memorychip", destination: MemoryMetricsView.self, payload: metrics, keyPath: \.memoryMetrics)
+                NavigationLink(metric: .cellularConditions, destination: CellularMetricsView.self, payload: metrics, keyPath: \.cellularConditionMetrics)
+                NavigationLink(metric: .cpu, destination: CPUMetricsView.self, payload: metrics, keyPath: \.cpuMetrics)
+                NavigationLink(metric: .gpu, destination: GPUMetricsView.self, payload: metrics, keyPath: \.gpuMetrics)
+                NavigationLink(metric: .diskIO, destination: DiskIOMetricsView.self, payload: metrics, keyPath: \.diskIOMetrics)
+                NavigationLink(metric: .display, destination: DisplayMetricsView.self, payload: metrics, keyPath: \.displayMetrics)
+                NavigationLink(metric: .memory, destination: MemoryMetricsView.self, payload: metrics, keyPath: \.memoryMetrics)
             }
             
             Section(header: Text("Software Metrics")) {
-                NavigationLink(title: "Animation", systemImage: "wand.and.rays", destination: AnimationMetricsView.self, payload: metrics, keyPath: \.animationMetrics)
-                NavigationLink(title: "Application Exit", systemImage: "xmark.octagon", destination: ExitMetricsView.self, payload: metrics, keyPath: \.applicationExitMetrics)
-                NavigationLink(title: "Application Time", systemImage: "timer", destination: TimeMetricsView.self, payload: metrics, keyPath: \.applicationTimeMetrics)
-                NavigationLink(title: "Launch", systemImage: "airplane.departure", destination: LaunchMetricsView.self, payload: metrics, keyPath: \.applicationLaunchMetrics)
-                NavigationLink(title: "Location Activity", systemImage: "location", destination: LocationMetricsView.self, payload: metrics, keyPath: \.locationActivityMetrics)
-                NavigationLink(title: "Network Transfer", systemImage: "network", destination: NetworkMetricsView.self, payload: metrics, keyPath: \.networkTransferMetrics)
-                NavigationLink(title: "Responsiveness", systemImage: "dial.max.fill", destination: ResponsivenessMetricsView.self,
-                               payload: metrics, keyPath: \.applicationResponsivenessMetrics)
+                NavigationLink(metric: .animation, destination: AnimationMetricsView.self, payload: metrics, keyPath: \.animationMetrics)
+                NavigationLink(metric: .appExit, destination: ExitMetricsView.self, payload: metrics, keyPath: \.applicationExitMetrics)
+                NavigationLink(metric: .appTime, destination: TimeMetricsView.self, payload: metrics, keyPath: \.applicationTimeMetrics)
+                NavigationLink(metric: .launch, destination: LaunchMetricsView.self, payload: metrics, keyPath: \.applicationLaunchMetrics)
+                NavigationLink(metric: .location, destination: LocationMetricsView.self, payload: metrics, keyPath: \.locationActivityMetrics)
+                NavigationLink(metric: .network, destination: NetworkMetricsView.self, payload: metrics, keyPath: \.networkTransferMetrics)
+                NavigationLink(metric: .responsiveness, destination: ResponsivenessMetricsView.self, payload: metrics, keyPath: \.applicationResponsivenessMetrics)
             }
         }
     }

@@ -17,10 +17,8 @@ public struct MetricPayload: Identifiable {
 
     // Histogram Data Sets
     let cellularConditions: Histogram<MXUnitSignalBars>?
-
     let timeToFirstDraw: Histogram<UnitDuration>?
     let optimizedTimeToFirstDraw: Histogram<UnitDuration>?
-
     let resumeTime: Histogram<UnitDuration>?
     let hangTime: Histogram<UnitDuration>?
 
@@ -45,6 +43,11 @@ public struct MetricPayload: Identifiable {
     // MARK: - Dynamic Member Lookup
     subscript<T>(dynamicMember keyPath: KeyPath<MXMetricPayload, T>) -> T {
         payload[keyPath: keyPath]
+    }
+
+    // MARK: - Interface
+    var metricCount: Int {
+        return Metric.allCases.filter { $0.contained(in: payload) }.count
     }
 }
 
@@ -76,7 +79,11 @@ extension MetricPayload: Recordable {
 
     public static func view(for entry: Log<Self>.Entry) -> some View {
         NavigationLink(destination: { PayloadView(metrics: entry.element) },
-                       label: { EntryView(date: entry.date, payload: entry.element) })
+                       label: { EntryView(configuration: .init(applicationVersion: entry.element.latestApplicationVersion,
+                                                               osVersion: entry.element.metaData?.osVersion,
+                                                               startDate: entry.element.timeStampBegin,
+                                                               endDate: entry.element.timeStampEnd,
+                                                               metricCount: entry.element.metricCount)) })
     }
 }
 
@@ -85,46 +92,71 @@ private extension MetricPayload {
 
     struct EntryView: View  {
 
+        // MARK: - Subtypes
+        struct Configuration {
+
+            // MARK: - Properties
+            let applicationVersion: String
+            let osVersion: String?
+            let startDate: Date
+            let endDate: Date
+            let metricCount: Int
+
+            // MARK: - Interface
+            var interval: DateInterval {
+                return DateInterval(start: startDate, end: endDate)
+            }
+            var titledContent: [(label: String, content: String)] {
+                return [("Total Metrics", String(metricCount)), ("App Version", applicationVersion), ("OS Version", osVersion ?? "")]
+            }
+        }
+
         // MARK: - Properties
-        let date: Date
-        let payload: MetricPayload
+        let configuration: Configuration
 
         // MARK: - View
         var body: some View {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(DateIntervalFormatter.standard.string(from: configuration.interval) ?? "")
+                .font(.caption)
+                .foregroundColor(Color(UIColor.secondaryLabel))
 
-                HStack(spacing: 4) {
-                    Image(systemName: "chart.bar.doc.horizontal")
-                        .foregroundColor(.accentColor)
+                VStack(alignment: .leading) {
+                    ForEach(configuration.titledContent, id: \.0) { titleContent in
+                        if !titleContent.content.isEmpty {
+                            HStack(alignment: .firstTextBaseline) {
+                                Text(titleContent.label.localizedUppercase)
+                                    .font(.caption2.bold())
+                                    .foregroundColor(.accentColor)
 
-                    Text("App Version \(payload.latestApplicationVersion)")
-                }
-                .font(.caption.bold())
-
-                HStack {
-                    Text("Collection Start")
-                        .font(.caption)
-                        .foregroundColor(.accentColor)
-
-                    Group {
-                        Text(payload.timeStampBegin, style: .date)
-                        Text(payload.timeStampBegin, style: .time)
+                                Text(titleContent.content)
+                                    .font(.body)
+                                    .lineLimit(1)
+                                    .truncationMode(.middle)
+                            }
+                        }
                     }
-                    .font(.caption)
                 }
-
-                HStack {
-                    Text("Collection End")
-                        .font(.caption)
-                        .foregroundColor(.accentColor)
-
-                    Group {
-                        Text(payload.timeStampEnd, style: .date)
-                        Text(payload.timeStampEnd, style: .time)
-                    }
-                    .font(.caption)
-                }
-            }.padding()
+            }
         }
+    }
+}
+
+// MARK: - Preview
+struct MetricEntryView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        let config = MetricPayload.EntryView.Configuration(applicationVersion: "10.0.0",
+                                                           osVersion: "15.0",
+                                                           startDate: Date(),
+                                                           endDate: Date().advanced(by: 86400),
+                                                           metricCount: 7)
+
+        MetricPayload.EntryView(configuration: config)
+            .previewLayout(.sizeThatFits)
+
+        MetricPayload.EntryView(configuration: config)
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }

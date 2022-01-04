@@ -8,7 +8,6 @@
 import MetricKit
 import SwiftUI
 
-/// Currently, the buckets of an `MXHistogram` can only be enumerated once - leading to false negative empty data sets. To work around this, all `MXHistogram` are read at initialization time into `Histogram` objects. FB9811513
 struct Histogram<UnitType: Unit> {
 
     // MARK: - Bucket Subtype
@@ -41,13 +40,6 @@ struct Histogram<UnitType: Unit> {
         self.buckets = buckets
     }
 
-    init(histogram: MXHistogram<UnitType>) {
-        self.buckets = histogram.bucketEnumerator.compactMap {
-            guard let bucket = $0 as? MXHistogramBucket<UnitType> else { return nil }
-            return .init(start: bucket.bucketStart, end: bucket.bucketEnd, count: bucket.bucketCount)
-        }
-    }
-
     // MARK: - Interface
     var measurementRange: ClosedRange<Measurement<UnitType>>? {
         guard let min = buckets.map(\.start).min(), let max = buckets.map(\.end).max() else { return nil }
@@ -56,5 +48,19 @@ struct Histogram<UnitType: Unit> {
 
     var highestFrequencyEntry: Bucket? {
         return buckets.max(by: { $0.count < $1.count })
+    }
+}
+
+
+// MARK: - Convenience
+extension Histogram {
+
+    /// Currently, the buckets of an `MXHistogram` can only be enumerated once - leading to false negative empty data sets. To work around this, all `MXHistogram` are read at initialization time into `Histogram` objects. FB9811513
+    ///
+    init(histogram: MXHistogram<UnitType>) {
+        self.buckets = histogram.bucketEnumerator.compactMap {
+            guard let bucket = $0 as? MXHistogramBucket<UnitType> else { return nil }
+            return .init(start: bucket.bucketStart, end: bucket.bucketEnd, count: bucket.bucketCount)
+        }
     }
 }

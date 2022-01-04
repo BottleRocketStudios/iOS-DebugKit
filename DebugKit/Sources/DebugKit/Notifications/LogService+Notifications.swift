@@ -25,5 +25,4 @@ public extension LogService {
     static func notifications(storedAt url: URL?) -> LogService<UNNotification> {
         return LogService<UNNotification>(storage: url.map(LogFileStorage.init))
     }
-
 }

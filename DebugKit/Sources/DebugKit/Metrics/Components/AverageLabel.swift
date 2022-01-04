@@ -11,25 +11,23 @@ import MetricKit
 struct AverageLabel: View {
 
     // MARK: - Properties
-    let name: String
+    let title: String
     let averageValue: String
     let sampleCount: String
 
     // MARK: - Preset
-    static func displaying<T: Foundation.Unit>(average: MXAverage<T>,
-                                               withName name: String, using formatter: MeasurementFormatter) -> some View {
-        return AverageLabel(name: name, averageValue: formatter.string(from: average.averageMeasurement),
-                            sampleCount: "\(average.sampleCount)")
+    static func displaying<T: Foundation.Unit>(average: MXAverage<T>, using formatter: MeasurementFormatter, withTitle title: String) -> some View {
+        return AverageLabel(title: title, averageValue: formatter.string(from: average.averageMeasurement), sampleCount: "\(average.sampleCount)")
     }
 
     // MARK: - Body
     var body: some View {
         HStack {
-            Text(name)
+            Text(title)
             Spacer()
-            VStack {
+            VStack(alignment: .trailing) {
                 Text(averageValue)
-                Text("(\(sampleCount) samples)")
+                Text("\(sampleCount) samples")
                     .font(.caption)
             }
         }
@@ -40,7 +38,11 @@ struct AverageLabel: View {
 struct AverageLabel_Previews: PreviewProvider {
 
     static var previews: some View {
-        AverageLabel(name: "Average Value", averageValue: "5", sampleCount: "100")
+        AverageLabel(title: "Average Value", averageValue: "5", sampleCount: "100")
             .previewLayout(.sizeThatFits)
+
+        AverageLabel(title: "Average Value", averageValue: "5", sampleCount: "100")
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }

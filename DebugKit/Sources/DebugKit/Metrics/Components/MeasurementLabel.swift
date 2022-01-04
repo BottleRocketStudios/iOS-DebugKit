@@ -18,8 +18,7 @@ struct MeasurementLabel: View {
         return MeasurementLabel(name: name, value: String(value))
     }
     
-    static func displaying<T: Foundation.Unit>(measurement: Measurement<T>,
-                                               withName name: String, using formatter: MeasurementFormatter) -> some View {
+    static func displaying<T: Foundation.Unit>(measurement: Measurement<T>, withName name: String, using formatter: MeasurementFormatter) -> some View {
         return MeasurementLabel(name: name, value: formatter.string(from: measurement))
     }
     
@@ -29,6 +28,7 @@ struct MeasurementLabel: View {
             Text(name)
             Spacer()
             Text(value)
+                .foregroundColor(Color(UIColor.secondaryLabel))
         }
     }
 }
@@ -37,7 +37,11 @@ struct MeasurementLabel: View {
 struct MeasurementLabel_Previews: PreviewProvider {
     
     static var previews: some View {
-        MeasurementLabel(name: "Measurement", value: "value")
+        MeasurementLabel(name: "Measurement Title", value: "125 m/s")
             .previewLayout(.sizeThatFits)
+
+        MeasurementLabel(name: "Measurement Title", value: "125 m/s")
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
     }
 }

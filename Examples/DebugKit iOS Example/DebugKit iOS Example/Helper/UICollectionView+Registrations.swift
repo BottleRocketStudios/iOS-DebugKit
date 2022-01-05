@@ -39,7 +39,7 @@ extension UICollectionView.CellRegistration {
         }
     }
 
-    static var testNavigation: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Navigation> {
+    static var testNavigation: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Presentation> {
         return .init { cell, _, navigation in
             var contentConfiguration = cell.defaultContentConfiguration()
             contentConfiguration.text = navigation.title

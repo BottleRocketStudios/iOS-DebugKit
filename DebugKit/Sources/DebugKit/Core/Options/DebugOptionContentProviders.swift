@@ -14,12 +14,12 @@ public class CellContentProvider {
     // MARK: - Properties
     public let actionCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Action>
     public let selectionCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Selection>
-    public let navigationCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Navigation>
+    public let navigationCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Presentation>
 
     // MARK: - Initializers
     public init(actionCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Action> = .defaultDebugItemActionCell,
                 selectionCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Selection> = .defaultDebugItemSelectionCell,
-                navigationCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Navigation> = .defaultDebugItemNavigationCell) {
+                navigationCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Presentation> = .defaultDebugItemNavigationCell) {
         self.actionCell = actionCell
         self.selectionCell = selectionCell
         self.navigationCell = navigationCell
@@ -30,7 +30,7 @@ public class CellContentProvider {
         switch content {
         case let .action(action): return collectionView.dequeueConfiguredReusableCell(using: actionCell, for: indexPath, item: action)
         case let .selection(selection): return collectionView.dequeueConfiguredReusableCell(using: selectionCell, for: indexPath, item: selection)
-        case let .navigation(navigation): return collectionView.dequeueConfiguredReusableCell(using: navigationCell, for: indexPath, item: navigation)
+        case let .presentation(navigation): return collectionView.dequeueConfiguredReusableCell(using: navigationCell, for: indexPath, item: navigation)
         }
     }
 }
@@ -88,7 +88,7 @@ public extension UICollectionView.CellRegistration {
         }
     }
 
-    static var defaultDebugItemNavigationCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Navigation> {
+    static var defaultDebugItemNavigationCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Presentation> {
         return .init { cell, _, configuration in
             var contentConfiguration = cell.defaultContentConfiguration()
             contentConfiguration.text = configuration.title

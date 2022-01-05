@@ -28,7 +28,7 @@ struct ContentView: View {
                                                                     items: [.version(for: .main, title: "Version"), .build(for: .main, title: "Build"),
                                                                             .pushToken(with: pushService.deviceToken, title: "Push Token")]),
                                                               .init(section: .init(title: "Debug"),
-                                                                    items: [.crashTest()]),
+                                                                    items: [.crashTest(), .wormholy()]),
                                                               .init(section: .init(title: "Logs"),
                                                                     items: [.log(for: "Metrics", logService: metricsLogService),
                                                                             .log(for: "Notifications", logService: notificationsLogService)]),
@@ -45,6 +45,19 @@ struct ContentView: View {
             Button("Present Debug Content") {
                 isPresentingDebugOptions = true
             }
+
+            Button("Fetch Todos") {
+                fetchTodos()
+            }
+        }
+    }
+
+    func fetchTodos() {
+        let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1")!
+        Task { @MainActor in
+            let (response, data) = try await URLSession.shared.data(from: url, delegate: nil)
+            debugPrint("Response: \(response)")
+            debugPrint("Data: \(data)")
         }
     }
 }

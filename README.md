@@ -25,11 +25,11 @@ viewController.configure(with: [.init(section: .init(title: "General"),
                                         items: [.log(for: "Metrics", logService: metricsLogService), .log(for: "Notifications", logService: notificationsLogService)]))
 ```
 
-There are a variety of built in `DebugOption` presets, including displaying a build / version number, as well as a device APNS token. For custom actions, it is very easy to extend `DebugOption`. There are three types of `DebugOption` - action, selection and navigation.
+There are a variety of built in `DebugOption` presets, including displaying a build / version number, as well as a device APNS token. For custom actions, it is very easy to extend `DebugOption`. There are three types of `DebugOption` - action, selection and presentation.
 
 - Action: Selection of this item invokes some kind of action determined by a handler
 - Selection: Selection of this item updates the selected state of the menu, useful for things like an environment picker
-- Navigation: Selection of this item causes a navigation push to a given view controller
+- Presentation: Selection of this item causes either a navigation push or modal presentation to a given view controller
 
 To implement the `crashTest()` item above, for example, would involve the following:
 
@@ -63,7 +63,7 @@ func didReceive(_ payloads: [MXMetricPayload]) {
 By default, this logs entries will persist for 1 week from recording, although this is customizable through the `LogService.expirationInterval` property. Once the time comes to display this log in a `DebugOptionsViewController` (or `DebugOptionsView`), this can be done using another convenience function on `DebugOption` where it can easily be added to a `DebugOptionsViewController`:
 
 ```swift
-let option = DebugOption.log<T>(for: "Title". logService: metricLogService)
+let option = DebugOption.log<T>(for: "Title", logService: metricLogService)
 ```
 
 ## Example

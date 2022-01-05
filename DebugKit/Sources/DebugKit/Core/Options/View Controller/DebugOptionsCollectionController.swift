@@ -9,7 +9,8 @@
 import UIKit
 
 protocol DebugOptionsCollectionFlowDelegate: AnyObject {
-    func debugOptionsCollectionController(_ controller: DebugOptionsCollectionController, didRequestPresentationOf viewController: UIViewController)
+    func debugOptionsCollectionController(_ controller: DebugOptionsCollectionController,
+                                          didRequestPresentationOf viewController: UIViewController, style: DebugOption.Item.Presentation.Style)
 }
 
 class DebugOptionsCollectionController: NSObject {

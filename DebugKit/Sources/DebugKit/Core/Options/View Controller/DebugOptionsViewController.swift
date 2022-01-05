@@ -87,8 +87,12 @@ public extension DebugOptionsViewController {
 // MARK: - DebugOptionsCollectionFlowDelegate
 extension DebugOptionsViewController: DebugOptionsCollectionFlowDelegate {
 
-    func debugOptionsCollectionController(_ controller: DebugOptionsCollectionController, didRequestPresentationOf viewController: UIViewController) {
-        navigationController?.pushViewController(viewController, animated: true)
+    func debugOptionsCollectionController(_ controller: DebugOptionsCollectionController,
+                                          didRequestPresentationOf viewController: UIViewController, style: DebugOption.Item.Presentation.Style) {
+        switch style {
+        case .navigation: navigationController?.pushViewController(viewController, animated: true)
+        case .modal: present(viewController, animated: true)
+        }
     }
 }
 

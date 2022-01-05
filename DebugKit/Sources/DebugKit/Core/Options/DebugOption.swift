@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 // MARK: - Core Subtypes
 public enum DebugOption {
@@ -104,6 +105,40 @@ public extension DebugOption.Item {
         }
     }
 
+    // MARK: - Selection
+    struct Selection: Hashable {
+
+        // MARK: - Properties
+        public let title: String
+        public let subtitle: String?
+        public let isSelected: Bool
+        public let handler: (Selection) -> Void
+
+        // MARK: - Initializer
+        public init(title: String, subtitle: String? = nil, isSelected: Bool, handler: @escaping (Selection) -> Void) {
+            self.title = title
+            self.subtitle = subtitle
+            self.isSelected = isSelected
+            self.handler = handler
+        }
+
+        // MARK: - Interface
+        func handleSelection() {
+            handler(self)
+        }
+
+        // MARK: Hashable
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(title)
+            hasher.combine(subtitle)
+            hasher.combine(isSelected)
+        }
+
+        public static func == (lhs: Selection, rhs: Selection) -> Bool {
+            return lhs.title == rhs.title && lhs.subtitle == rhs.subtitle && lhs.isSelected == rhs.isSelected
+        }
+    }
+
     // MARK: - Navigation
     struct Presentation: Hashable {
 
@@ -139,40 +174,6 @@ public extension DebugOption.Item {
             return lhs.title == rhs.title && lhs.style == rhs.style
         }
     }
-
-    // MARK: - Selection
-    struct Selection: Hashable {
-
-        // MARK: - Properties
-        public let title: String
-        public let subtitle: String?
-        public let isSelected: Bool
-        public let handler: (Selection) -> Void
-
-        // MARK: - Initializer
-        public init(title: String, subtitle: String? = nil, isSelected: Bool, handler: @escaping (Selection) -> Void) {
-            self.title = title
-            self.subtitle = subtitle
-            self.isSelected = isSelected
-            self.handler = handler
-        }
-
-        // MARK: - Interface
-        func handleSelection() {
-            handler(self)
-        }
-
-        // MARK: Hashable
-        public func hash(into hasher: inout Hasher) {
-            hasher.combine(title)
-            hasher.combine(subtitle)
-            hasher.combine(isSelected)
-        }
-
-        public static func == (lhs: Selection, rhs: Selection) -> Bool {
-            return lhs.title == rhs.title && lhs.subtitle == rhs.subtitle && lhs.isSelected == rhs.isSelected
-        }
-    }
 }
 
 // MARK: - Item Presets
@@ -204,24 +205,24 @@ extension DebugOption.Item {
         return .selection(.init(title: title, subtitle: subtitle, isSelected: isSelected, handler: handler))
     }
 
-    // MARK: - Navigations
-    public static func navigation(title: String, destination: UIViewController) -> Self {
-        return .presentation(.init(title: title, style: .navigation, destination: destination))
+    // MARK: - Presentations
+    public static func presentation(of style: Self.Presentation.Style, withTitle title: String, to destination: UIViewController) -> Self {
+        return .presentation(.init(title: title, style: style, destination: destination))
     }
 
-    public static func navigation(title: String, destination: @escaping () -> UIViewController) -> Self {
-        return .presentation(.init(title: title, style: .navigation, destination: destination))
+    public static func presentation(of style: Self.Presentation.Style, withTitle title: String, to destination: @escaping () -> UIViewController) -> Self {
+        return .presentation(.init(title: title, style: style, destination: destination))
+    }
+
+    public static func presentation<T: View>(of style: Self.Presentation.Style, withTitle title: String, to destination: T) -> Self {
+        return .presentation(of: style, withTitle: title, to: UIHostingController(rootView: destination))
+    }
+
+    public static func presentation<T: View>(of style: Self.Presentation.Style, withTitle title: String, to destination: @escaping () -> T) -> Self {
+        return .presentation(of: style, withTitle: title) { UIHostingController(rootView: destination()) }
     }
 
     public static func log<T>(for title: String, logService: LogService<T>) -> Self {
         return .presentation(.init(title: title, style: .navigation, destination: LogView<T>.viewController(for: logService, title: title)))
-    }
-
-    public static func modalPresentation(title: String, destination: UIViewController) -> Self {
-        return .presentation(.init(title: title, style: .modal, destination: destination))
-    }
-
-    public static func modalPresentation(title: String, destination: @escaping () -> UIViewController) -> Self {
-        return .presentation(.init(title: title, style: .modal, destination: destination))
     }
 }

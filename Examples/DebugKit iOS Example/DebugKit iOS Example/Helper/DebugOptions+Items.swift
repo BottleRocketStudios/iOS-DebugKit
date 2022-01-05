@@ -20,6 +20,6 @@ extension DebugOption.Item {
             return .informational(title: "Wormholy not available")
         }
 
-        return .modalPresentation(title: "Network Traffic", destination: wormholyViewController)
+        return .presentation(of: .modal, withTitle: "Network Traffic", to: wormholyViewController)
     }
 }

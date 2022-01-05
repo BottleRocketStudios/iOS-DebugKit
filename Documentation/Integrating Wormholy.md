@@ -31,7 +31,7 @@ The extension below will return a fallback informational item when Wormholy is n
 Note that because Wormholy nests it's content inside a `UINavigationController`, you will not be able to present this navigationally inside your `DebugOptionsViewController`s main navigation stack.
 
 ![An example implementation of debug menu](./Images/DebugMenu.png)
-![An example of presenting Wormholy from the debug menu](./Images/WormholyUI.md)
+![An example of presenting Wormholy from the debug menu](./Images/WormholyUI.png)
 
 ## Disabling Shake to Present
 

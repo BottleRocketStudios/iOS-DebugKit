@@ -30,6 +30,9 @@ The extension below will return a fallback informational item when Wormholy is n
 
 Note that because Wormholy nests it's content inside a `UINavigationController`, you will not be able to present this navigationally inside your `DebugOptionsViewController`s main navigation stack.
 
+[An example implementation of debug menu](Documentation/Images/DebugMenu.png)
+[An example of presenting Wormholy from the debug menu](Documentation/Images/WormholyUI.md)
+
 ## Disabling Shake to Present
 
 The default way to use Wormholy is through a shake gesture - in the case you are implementing Wormholy into your `DebugOptionsViewController`, you may also want to disable the shake gesture that is used by default. This can be done by adding an environment variable, `WORMHOLY_SHAKE_ENABLED` = `NO`.

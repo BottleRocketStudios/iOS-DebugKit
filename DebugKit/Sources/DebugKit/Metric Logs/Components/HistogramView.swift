@@ -82,7 +82,26 @@ struct HistogramView<T: Foundation.Unit>: View {
     }
 }
 
-// MARK: - Subviews
+// MARK: - Helper
+private extension HistogramView {
+
+    func handlePanChanged(to location: CGPoint, in frame: CGRect, isEnding: Bool) {
+        withAnimation(.spring()) {
+            relativePanLocation = CGPoint(x: location.x / frame.width, y: location.y / frame.height)
+            guard let pannedIndex = relativePanLocation.map({ Int($0.x * CGFloat(histogram.buckets.count)) }),
+                  pannedIndex < histogram.buckets.count, pannedIndex >= 0 else { return }
+
+            currentlyPannedEntry = histogram.buckets[pannedIndex]
+
+            if isEnding {
+                currentlyPannedEntry = nil
+                relativePanLocation = nil
+            }
+        }
+    }
+}
+
+// MARK: - TitleView Subtype
 private extension HistogramView {
 
     struct TitleView: View {
@@ -158,11 +177,12 @@ private extension HistogramView {
     }
 }
 
-// MARK: - BackgroundView
+// MARK: - BackgroundView Subtype
 private extension HistogramView {
 
     struct BackgroundView: View {
 
+        // MARK: - View
         var body: some View {
             VStack(spacing: 0) {
                 HStack {
@@ -178,12 +198,12 @@ private extension HistogramView {
     }
 }
 
-// MARK: - AxisView
+// MARK: - AxisView Subtype
 private extension HistogramView {
 
     struct AxisView: View {
 
-        // MARK: - Subtypes
+        // MARK: - Axis Subtype
         enum Axis {
             case vertical, horizontal
         }
@@ -233,24 +253,8 @@ private extension HistogramView {
     }
 }
 
-// MARK: - Helper
-private extension HistogramView {
 
-    func handlePanChanged(to location: CGPoint, in frame: CGRect, isEnding: Bool) {
-        withAnimation(.spring()) {
-            relativePanLocation = CGPoint(x: location.x / frame.width, y: location.y / frame.height)
-            guard let pannedIndex = relativePanLocation.map({ Int($0.x * CGFloat(histogram.buckets.count)) }),
-                  pannedIndex < histogram.buckets.count, pannedIndex >= 0 else { return }
-
-            currentlyPannedEntry = histogram.buckets[pannedIndex]
-
-            if isEnding {
-                currentlyPannedEntry = nil
-                relativePanLocation = nil
-            }
-        }
-    }
-}
+#if DEBUG
 
 // MARK: - Preview
 struct HistogramView_Previews: PreviewProvider {
@@ -273,3 +277,5 @@ struct HistogramView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
+
+#endif

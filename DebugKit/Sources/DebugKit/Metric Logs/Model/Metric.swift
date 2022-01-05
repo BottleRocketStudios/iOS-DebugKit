@@ -10,6 +10,7 @@ import Foundation
 import MetricKit
 
 enum Metric: CaseIterable {
+    // Hardware
     case cellularConditions
     case cpu
     case gpu
@@ -17,6 +18,7 @@ enum Metric: CaseIterable {
     case display
     case memory
 
+    //Software
     case animation
     case appExit
     case appTime

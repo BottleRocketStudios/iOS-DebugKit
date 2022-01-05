@@ -14,8 +14,6 @@ protocol MetricConfigurableView: View {
     init(payload: MetricPayload, metric: Metric)
 }
 
-
-
 // MARK: - MetricView
 struct MetricView<T: Foundation.Unit>: View {
 

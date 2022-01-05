@@ -21,7 +21,7 @@ struct AverageLabel: View {
         return AverageLabel(title: title, averageValue: formatter.string(from: average.averageMeasurement), sampleCount: "\(average.sampleCount)")
     }
 
-    // MARK: - Body
+    // MARK: - View
     var body: some View {
         HStack {
             Text(title)
@@ -35,6 +35,9 @@ struct AverageLabel: View {
     }
 }
 
+
+#if DEBUG
+
 // MARK: - Preview
 struct AverageLabel_Previews: PreviewProvider {
 
@@ -47,3 +50,5 @@ struct AverageLabel_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
+
+#endif

@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+// MARK: - NavigationLink + Metric
 extension NavigationLink {
 
     init?(metric: Metric, destination: Destination.Type,
@@ -17,6 +18,9 @@ extension NavigationLink {
                   label: { Label(metric.title, systemImage: metric.systemImageName) })
     }
 }
+
+
+#if DEBUG
 
 // MARK: - Preview
 struct MetricNavigationLink_Previews: PreviewProvider {
@@ -28,3 +32,5 @@ struct MetricNavigationLink_Previews: PreviewProvider {
         }
     }
 }
+
+#endif

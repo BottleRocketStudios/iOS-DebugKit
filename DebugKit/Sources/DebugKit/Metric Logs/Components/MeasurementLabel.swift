@@ -23,7 +23,7 @@ struct MeasurementLabel: View {
         return MeasurementLabel(name: name, value: formatter.string(from: measurement))
     }
     
-    // MARK: - Body
+    // MARK: - View
     var body: some View {
         HStack {
             Text(name)
@@ -33,6 +33,9 @@ struct MeasurementLabel: View {
         }
     }
 }
+
+
+#if DEBUG
 
 // MARK: - Preview
 struct MeasurementLabel_Previews: PreviewProvider {
@@ -46,3 +49,5 @@ struct MeasurementLabel_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
+
+#endif

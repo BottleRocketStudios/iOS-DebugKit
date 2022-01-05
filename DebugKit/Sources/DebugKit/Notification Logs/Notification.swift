@@ -12,11 +12,11 @@ import SwiftUI
 public struct Notification: Identifiable {
 
     // MARK: - Properties
+    public let id = UUID()
     let notification: UNNotification
 
-    public let id = UUID()
-    public var content: UNNotificationContent { return notification.request.content }
-    public var remotePayload: String? {
+    var content: UNNotificationContent { return notification.request.content }
+    var remotePayload: String? {
         guard notification.request.trigger is UNPushNotificationTrigger else { return nil }
         let jsonData = try? JSONSerialization.data(withJSONObject: content.userInfo, options: [.prettyPrinted])
         return jsonData.flatMap { String(data: $0, encoding: .utf8) }
@@ -37,14 +37,12 @@ extension Notification: Codable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-
         let notificationData = try container.decode(Data.self, forKey: .notificationData)
         self.init(notification: try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(notificationData) as! UNNotification)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-
         let notificationData = try NSKeyedArchiver.archivedData(withRootObject: notification, requiringSecureCoding: true)
         try container.encode(notificationData, forKey: .notificationData)
     }
@@ -96,12 +94,12 @@ private extension Notification {
     }
 }
 
-// MARK: - ContentView
+// MARK: - ContentView Subtype
 private extension Notification.EntryView {
 
     struct ContentView: View {
 
-        // MARK: - Subtypes
+        // MARK: - Configuration Subtype
         struct Configuration {
 
             // MARK: - Properties
@@ -151,6 +149,8 @@ private extension Notification.EntryView {
     }
 }
 
+#if DEBUG
+
 // MARK: - Preview
 struct NotificationEntryView_Previews: PreviewProvider {
 
@@ -169,3 +169,5 @@ struct NotificationEntryView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
+
+#endif

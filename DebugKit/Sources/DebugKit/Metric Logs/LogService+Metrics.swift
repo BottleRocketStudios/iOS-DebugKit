@@ -9,6 +9,7 @@
 import MetricKit
 import SwiftUI
 
+// MARK: - MXMetricPayload + Recordable
 extension MXMetricPayload: Recordable {
     public var record: MetricPayload { return .init(payload: self) }
 
@@ -17,6 +18,7 @@ extension MXMetricPayload: Recordable {
     }
 }
 
+// MARK: - LogService + MXMetricPayloads
 public extension LogService {
 
     static func metricPayloads(storedAt url: URL?) -> LogService<MXMetricPayload> {

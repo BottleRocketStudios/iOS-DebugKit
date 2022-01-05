@@ -1,5 +1,5 @@
 //
-//  MeasurementFormatters.swift
+//  Formatters+Preset.swift
 //  DebugKit
 //  
 //
@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - MeasurementFormatter + Preset
 extension MeasurementFormatter {
 
     static let naturalScale: MeasurementFormatter = {
@@ -25,6 +26,7 @@ extension MeasurementFormatter {
     }()
 }
 
+// MARK: - NumberFormatter + Preset
 extension NumberFormatter {
 
     static let standard: NumberFormatter = {
@@ -37,6 +39,7 @@ extension NumberFormatter {
     }
 }
 
+// MARK: - DateIntervalFormatter + Preset
 extension DateIntervalFormatter {
 
     static let standard: DateIntervalFormatter = {

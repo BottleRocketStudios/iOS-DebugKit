@@ -13,32 +13,29 @@ import SwiftUI
 public struct MetricPayload: Identifiable {
 
     // MARK: - Properties
-    public let id: UUID
+    public let id = UUID()
     let payload: MXMetricPayload
 
     // Histogram Data Sets
     let cellularConditions: Histogram<MXUnitSignalBars>?
-    let timeToFirstDraw: Histogram<UnitDuration>?
-    let optimizedTimeToFirstDraw: Histogram<UnitDuration>?
     let resumeTime: Histogram<UnitDuration>?
     let hangTime: Histogram<UnitDuration>?
+    let timeToFirstDraw: Histogram<UnitDuration>?
+    let optimizedTimeToFirstDraw: Histogram<UnitDuration>?
 
     // MARK: - Initializers
     public init(payload: MXMetricPayload) {
-        self.id = UUID()
         self.payload = payload
 
         cellularConditions = payload.cellularConditionMetrics.map { .init(histogram: $0.histogrammedCellularConditionTime) }
-        
+        resumeTime = payload.applicationLaunchMetrics.map { .init(histogram: $0.histogrammedApplicationResumeTime) }
+        hangTime = payload.applicationResponsivenessMetrics.map { .init(histogram: $0.histogrammedApplicationHangTime) }
         timeToFirstDraw = payload.applicationLaunchMetrics.map { .init(histogram: $0.histogrammedTimeToFirstDraw) }
         if #available(iOS 15.2, *) {
             optimizedTimeToFirstDraw = payload.applicationLaunchMetrics.map { .init(histogram: $0.histogrammedOptimizedTimeToFirstDraw) }
         } else {
             optimizedTimeToFirstDraw = nil
         }
-
-        resumeTime = payload.applicationLaunchMetrics.map { .init(histogram: $0.histogrammedApplicationResumeTime) }
-        hangTime = payload.applicationResponsivenessMetrics.map { .init(histogram: $0.histogrammedApplicationHangTime) }
     }
 
     // MARK: - Dynamic Member Lookup
@@ -61,18 +58,15 @@ extension MetricPayload: Codable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-
         let payloadData = try container.decode(Data.self, forKey: .payloadData)
         self.init(payload: try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(payloadData) as! MXMetricPayload)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-
         let payloadData = try NSKeyedArchiver.archivedData(withRootObject: payload, requiringSecureCoding: true)
         try container.encode(payloadData, forKey: .payloadData)
     }
-
 }
 
 // MARK: - Recordable
@@ -93,7 +87,7 @@ private extension MetricPayload {
 
     struct EntryView: View  {
 
-        // MARK: - Subtypes
+        // MARK: - Configuration Subtype
         struct Configuration {
 
             // MARK: - Properties
@@ -107,6 +101,7 @@ private extension MetricPayload {
             var interval: DateInterval {
                 return DateInterval(start: startDate, end: endDate)
             }
+
             var titledContent: [(label: String, content: String)] {
                 return [("Total Metrics", String(metricCount)), ("App Version", applicationVersion), ("OS Version", osVersion ?? "")]
             }
@@ -119,8 +114,8 @@ private extension MetricPayload {
         var body: some View {
             VStack(alignment: .leading, spacing: 10) {
                 Text(DateIntervalFormatter.standard.string(from: configuration.interval) ?? "")
-                .font(.caption)
-                .foregroundColor(Color(UIColor.secondaryLabel))
+                    .font(.caption)
+                    .foregroundColor(Color(UIColor.secondaryLabel))
 
                 VStack(alignment: .leading) {
                     ForEach(configuration.titledContent, id: \.0) { titleContent in
@@ -143,6 +138,9 @@ private extension MetricPayload {
     }
 }
 
+
+#if DEBUG
+
 // MARK: - Preview
 struct MetricEntryView_Previews: PreviewProvider {
 
@@ -161,3 +159,5 @@ struct MetricEntryView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
+
+#endif

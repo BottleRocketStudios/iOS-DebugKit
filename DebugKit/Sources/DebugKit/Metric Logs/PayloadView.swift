@@ -10,13 +10,16 @@ import SwiftUI
 import MetricKit
 
 struct PayloadView: View {
-    
+
+    // MARK: - Properties
     let metrics: MetricPayload
-    
+
+    // MARK: - Initializer
     public init(metrics: MetricPayload) {
         self.metrics = metrics
     }
-    
+
+    // MARK: - View
     public var body: some View {
         List {
             Section(header: Text("Hardware Metrics")) {

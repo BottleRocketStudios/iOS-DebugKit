@@ -9,6 +9,7 @@
 import UserNotifications
 import SwiftUI
 
+// MARK: - UNNotification + Recordable
 extension UNNotification: Recordable {
     public var record: Notification { return .init(notification: self) }
 
@@ -17,11 +18,8 @@ extension UNNotification: Recordable {
     }
 }
 
+// MARK: - LogService + UNNotifications
 public extension LogService {
-
-    static func notifications(storedAt url: URL?) -> LogService<Notification> {
-        return LogService<Notification>(storage: url.map(LogFileStorage.init))
-    }
 
     static func notifications(storedAt url: URL?) -> LogService<UNNotification> {
         return LogService<UNNotification>(storage: url.map(LogFileStorage.init))

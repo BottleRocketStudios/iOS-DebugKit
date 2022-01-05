@@ -40,6 +40,13 @@ public class LogService<Item: Recordable>: ObservableObject {
         public static var oneHour: Self { return Self(timeInterval: 3600) }
         public static var oneDay: Self { Self(timeInterval: 3600 * 24) }
         public static var oneWeek: Self { Self(timeInterval: 3600 * 24 * 7) }
+
+        // MARK: - Interface
+        func trim(log: inout Log<Item.Record>, on date: Date = Date()) {
+            if let timeInterval = timeInterval {
+                log.trimEntries(olderThan: timeInterval, on: date)
+            }
+        }
     }
 
     // MARK: - Properties
@@ -49,7 +56,7 @@ public class LogService<Item: Recordable>: ObservableObject {
         didSet { try? storage?.store(log) }
     }
 
-    // MARK: - Initializer
+    // MARK: - Initializers
     public convenience init() {
         self.init(nil)
     }
@@ -61,52 +68,17 @@ public class LogService<Item: Recordable>: ObservableObject {
     private init(_ storage: AnyLogStorage<Item.Record>?) {
         self.storage = storage
         self.log = (try? storage?.retrieve()) ?? .init()
+
+        expirationInterval.trim(log: &log)
     }
 
     // MARK: - Interface
     public func append(_ item: Item) {
-        if let expiration = expirationInterval.timeInterval {
-            log.trimEntries(olderThan: expiration)
-        }
-
+        expirationInterval.trim(log: &log)
         log.append(item.record)
     }
 
     public func remove(atOffsets offsets: IndexSet) {
         log.remove(atOffsets: offsets)
-    }
-}
-
-
-import CoreLocation
-
-public struct Geofence: Recordable, CustomStringConvertible {
-
-    public let id = UUID()
-    public var description: String { return id.uuidString }
-
-    public static func view(for entry: Log<Geofence>.Entry) -> some View {
-        VStack {
-            Text(entry.date, style: .date)
-            Text(entry.element.description)
-        }
-    }
-}
-
-public struct GeofenceEntry: Recordable {
-    public enum Event: String {
-        case enter, exit
-    }
-
-    public let id = UUID()
-    public let event: Event
-    public let geofence: Geofence
-
-    public static func view(for entry: Log<GeofenceEntry>.Entry) -> some View {
-        VStack {
-            Text(entry.date, style: .date)
-            Text(entry.element.event.rawValue)
-            Geofence.view(for: entry.map(\.geofence))
-        }
     }
 }

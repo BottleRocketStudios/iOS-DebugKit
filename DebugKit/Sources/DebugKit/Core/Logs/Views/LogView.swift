@@ -25,7 +25,7 @@ public struct LogView<Item: Recordable>: View {
  
         } else {
             List {
-                ForEach(logService.log) { Item.view(for: $0) }
+                ForEach(logService.log, content: Item.view)
                     .onDelete(perform: delete)
             }
         }

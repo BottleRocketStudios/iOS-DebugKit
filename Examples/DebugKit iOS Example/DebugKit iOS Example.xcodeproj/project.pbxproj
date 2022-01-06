@@ -19,6 +19,7 @@
 		0E999C85277BE8110026E92C /* EnvironmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C84277BE8110026E92C /* EnvironmentService.swift */; };
 		0E999C91277E3AFE0026E92C /* UICollectionView+Registrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C90277E3AFE0026E92C /* UICollectionView+Registrations.swift */; };
 		0E999C94277E3B6F0026E92C /* ContentSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C93277E3B6F0026E92C /* ContentSubscriber.swift */; };
+		0EAB72CC2787A9E200C2AE71 /* ColorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAB72CB2787A9E200C2AE71 /* ColorsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +48,7 @@
 		0E999C84277BE8110026E92C /* EnvironmentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentService.swift; sourceTree = "<group>"; };
 		0E999C90277E3AFE0026E92C /* UICollectionView+Registrations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Registrations.swift"; sourceTree = "<group>"; };
 		0E999C93277E3B6F0026E92C /* ContentSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSubscriber.swift; sourceTree = "<group>"; };
+		0EAB72CB2787A9E200C2AE71 /* ColorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +85,8 @@
 			isa = PBXGroup;
 			children = (
 				0E5D0BEB27710F8A00C11A92 /* DebugKit-iOS-Example-Info.plist */,
-				0E999C92277E3B250026E92C /* Services */,
 				0E2A8468276A4D5A00771782 /* Helper */,
+				0E999C92277E3B250026E92C /* Services */,
 				0E2A8457276978C900771782 /* App.swift */,
 				0E2A8459276978C900771782 /* ContentView.swift */,
 				0E2A845B276978CC00771782 /* Assets.xcassets */,
@@ -115,6 +117,7 @@
 				0E999C7E2775197F0026E92C /* URL+Documents.swift */,
 				0E999C82277BABAD0026E92C /* DebugOptions+Items.swift */,
 				0E999C90277E3AFE0026E92C /* UICollectionView+Registrations.swift */,
+				0EAB72CB2787A9E200C2AE71 /* ColorsView.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EAB72CC2787A9E200C2AE71 /* ColorsView.swift in Sources */,
 				0E2A845A276978C900771782 /* ContentView.swift in Sources */,
 				0E999C94277E3B6F0026E92C /* ContentSubscriber.swift in Sources */,
 				0E999C81277BA5FB0026E92C /* PushService.swift in Sources */,

@@ -22,4 +22,10 @@ extension DebugOption.Item {
 
         return .presentation(of: .modal, withTitle: "Network Traffic", to: wormholyViewController)
     }
+
+    public static func colorReview() -> Self {
+        return .presentation(of: .navigation, withTitle: "Color Review") {
+            ColorsView(colors: [.blue, .brown, .cyan, .green, .indigo, .mint, .orange, .yellow, .pink, .red])
+        }
+    }
 }

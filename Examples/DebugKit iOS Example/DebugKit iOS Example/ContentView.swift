@@ -28,7 +28,7 @@ struct ContentView: View {
                                                                     items: [.version(for: .main, title: "Version"), .build(for: .main, title: "Build"),
                                                                             .pushToken(with: pushService.deviceToken, title: "Push Token")]),
                                                               .init(section: .init(title: "Debug"),
-                                                                    items: [.crashTest(), .wormholy()]),
+                                                                    items: [.crashTest(), .wormholy(), .colorReview()]),
                                                               .init(section: .init(title: "Logs"),
                                                                     items: [.log(for: "Metrics", logService: metricsLogService),
                                                                             .log(for: "Notifications", logService: notificationsLogService)]),

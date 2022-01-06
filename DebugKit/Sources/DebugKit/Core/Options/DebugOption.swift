@@ -15,7 +15,7 @@ public enum DebugOption {
     public typealias DataSource = UICollectionViewDiffableDataSource<Section, Item>
 
     // MARK: - ConfiguredSection Subtype
-    public struct ConfiguredSection {
+    public struct ConfiguredSection: Hashable {
 
         // MARK: - Properties
         public let section: Section
@@ -193,7 +193,7 @@ extension DebugOption.Item {
     }
 
     public static func pushToken(with data: Data?, title: String) -> Self {
-        return informational(title: title, subtitle: data?.map { String(format: "%02x", $0) }.joined() ?? "--")
+        return informational(title: title, subtitle: data?.map { String(format: "%02x", $0) }.joined() ?? "No Token")
     }
 
     public static func action(title: String, subtitle: String? = nil, action: @escaping () -> Void) -> Self {

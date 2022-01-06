@@ -11,7 +11,7 @@ import UIKit
 
 extension UICollectionView.CellRegistration {
 
-    static var testAction: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Action> {
+    static var customActionCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Action> {
         return .init { cell, _, action in
             var contentConfiguration = cell.defaultContentConfiguration()
             contentConfiguration.text = action.title
@@ -25,7 +25,7 @@ extension UICollectionView.CellRegistration {
         }
     }
 
-    static var testSelection: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Selection> {
+    static var customSelectionCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Selection> {
         return .init { cell, _, selection in
             var contentConfiguration = cell.defaultContentConfiguration()
             contentConfiguration.text = selection.title
@@ -39,7 +39,7 @@ extension UICollectionView.CellRegistration {
         }
     }
 
-    static var testNavigation: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Presentation> {
+    static var customPresentationCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Presentation> {
         return .init { cell, _, navigation in
             var contentConfiguration = cell.defaultContentConfiguration()
             contentConfiguration.text = navigation.title

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import MetricKit
 
 public struct LogView<Item: Recordable>: View {
 
@@ -50,3 +51,20 @@ public extension LogView {
         return hostingController
     }
 }
+
+#if DEBUG
+
+// MARK: - Preview
+struct LogView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        LogView(logService: LogService<MXMetricPayload>.init())
+            .previewLayout(.sizeThatFits)
+
+//        LogView(logService: .init())
+//            .previewLayout(.sizeThatFits)
+//            .preferredColorScheme(.dark)
+    }
+}
+
+#endif

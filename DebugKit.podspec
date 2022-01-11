@@ -21,7 +21,6 @@ s.author            = { 'Bottle Rocket Studios' => 'will.mcginty@bottlerocketstu
 s.source            = { :git => 'https://github.com/bottlerocketstudios/iOS-DebugKit.git', :tag => s.version.to_s }
 s.source_files      = 'DebugKit/Sources/DebugKit/**/*'
 s.ios.deployment_target = '14.0'
-s.tvos.deployment_target = '14.0'
 s.swift_version = '5.5'
 
 end

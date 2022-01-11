@@ -1,11 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <FileRef
+      location = "group:README.md">
+   </FileRef>
    <Group
       location = "group:Examples"
       name = "Examples">
+      <Group
+         location = "group:iOS Example"
+         name = "iOS Example">
+         <FileRef
+            location = "group:iOS Example.xcodeproj">
+         </FileRef>
+         <Group
+            location = "group:Sources"
+            name = "Sources">
+            <Group
+               location = "group:Assets.xcassets"
+               name = "Assets.xcassets">
+               <Group
+                  location = "group:AppIcon.appiconset"
+                  name = "AppIcon.appiconset">
+                  <FileRef
+                     location = "group:Contents.json">
+                  </FileRef>
+               </Group>
+               <Group
+                  location = "group:AccentColor.colorset"
+                  name = "AccentColor.colorset">
+                  <FileRef
+                     location = "group:Contents.json">
+                  </FileRef>
+               </Group>
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+            <Group
+               location = "group:Preview Content"
+               name = "Preview Content">
+               <Group
+                  location = "group:Preview Assets.xcassets"
+                  name = "Preview Assets.xcassets">
+                  <FileRef
+                     location = "group:Contents.json">
+                  </FileRef>
+               </Group>
+            </Group>
+            <FileRef
+               location = "group:App.swift">
+            </FileRef>
+            <Group
+               location = "group:Helper"
+               name = "Helper">
+               <FileRef
+                  location = "group:URL+Documents.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:DebugOptions+Items.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:ColorsView.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:UICollectionView+Registrations.swift">
+               </FileRef>
+            </Group>
+            <FileRef
+               location = "group:ContentView.swift">
+            </FileRef>
+            <Group
+               location = "group:Services"
+               name = "Services">
+               <FileRef
+                  location = "group:PushService.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:EnvironmentService.swift">
+               </FileRef>
+               <FileRef
+                  location = "group:ContentSubscriber.swift">
+               </FileRef>
+            </Group>
+         </Group>
+      </Group>
+   </Group>
+   <Group
+      location = "group:Documentation"
+      name = "Documentation">
+      <Group
+         location = "group:Images"
+         name = "Images">
+         <FileRef
+            location = "group:WormholyUI.png">
+         </FileRef>
+         <FileRef
+            location = "group:DebugMenu.png">
+         </FileRef>
+      </Group>
       <FileRef
-         location = "group:DebugKit iOS Example/DebugKit iOS Example.xcodeproj">
+         location = "group:Conforming to Recordable.md">
+      </FileRef>
+      <FileRef
+         location = "group:Integrating Wormholy.md">
       </FileRef>
    </Group>
    <FileRef

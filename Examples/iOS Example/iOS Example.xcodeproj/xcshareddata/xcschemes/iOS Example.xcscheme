@@ -17,7 +17,7 @@
                BlueprintIdentifier = "0E2A8453276978C900771782"
                BuildableName = "DebugKit iOS Example.app"
                BlueprintName = "DebugKit iOS Example"
-               ReferencedContainer = "container:DebugKit iOS Example.xcodeproj">
+               ReferencedContainer = "container:iOS Example.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,16 +47,9 @@
             BlueprintIdentifier = "0E2A8453276978C900771782"
             BuildableName = "DebugKit iOS Example.app"
             BlueprintName = "DebugKit iOS Example"
-            ReferencedContainer = "container:DebugKit iOS Example.xcodeproj">
+            ReferencedContainer = "container:iOS Example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "WORMHOLY_SHAKE_ENABLED"
-            value = "NO"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -71,7 +64,7 @@
             BlueprintIdentifier = "0E2A8453276978C900771782"
             BuildableName = "DebugKit iOS Example.app"
             BlueprintName = "DebugKit iOS Example"
-            ReferencedContainer = "container:DebugKit iOS Example.xcodeproj">
+            ReferencedContainer = "container:iOS Example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

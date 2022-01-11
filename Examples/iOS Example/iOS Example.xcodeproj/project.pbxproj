@@ -40,7 +40,7 @@
 		0E2A8459276978C900771782 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0E2A845B276978CC00771782 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E2A845E276978CC00771782 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		0E5D0BEB27710F8A00C11A92 /* DebugKit-iOS-Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DebugKit-iOS-Example-Info.plist"; sourceTree = SOURCE_ROOT; };
+		0E5D0BEB27710F8A00C11A92 /* iOS-Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOS-Example-Info.plist"; sourceTree = SOURCE_ROOT; };
 		0E8ED85B27861D1C005AB53F /* Wormholy.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Wormholy.xcframework; path = ../../Carthage/Build/Wormholy.xcframework; sourceTree = "<group>"; };
 		0E999C7E2775197F0026E92C /* URL+Documents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Documents.swift"; sourceTree = "<group>"; };
 		0E999C80277BA5FB0026E92C /* PushService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushService.swift; sourceTree = "<group>"; };
@@ -67,7 +67,8 @@
 		0E2A844B276978C900771782 = {
 			isa = PBXGroup;
 			children = (
-				0E2A8456276978C900771782 /* DebugKit iOS Example */,
+				0E5D0BEB27710F8A00C11A92 /* iOS-Example-Info.plist */,
+				0E2A8456276978C900771782 /* Sources */,
 				0E2A8455276978C900771782 /* Products */,
 				0E2A84652769796100771782 /* Frameworks */,
 			);
@@ -81,10 +82,9 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0E2A8456276978C900771782 /* DebugKit iOS Example */ = {
+		0E2A8456276978C900771782 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				0E5D0BEB27710F8A00C11A92 /* DebugKit-iOS-Example-Info.plist */,
 				0E2A8468276A4D5A00771782 /* Helper */,
 				0E999C92277E3B250026E92C /* Services */,
 				0E2A8457276978C900771782 /* App.swift */,
@@ -92,7 +92,7 @@
 				0E2A845B276978CC00771782 /* Assets.xcassets */,
 				0E2A845D276978CC00771782 /* Preview Content */,
 			);
-			path = "DebugKit iOS Example";
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		0E2A845D276978CC00771782 /* Preview Content */ = {
@@ -171,7 +171,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0E2A844F276978C900771782 /* Build configuration list for PBXProject "DebugKit iOS Example" */;
+			buildConfigurationList = 0E2A844F276978C900771782 /* Build configuration list for PBXProject "iOS Example" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -344,11 +344,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"DebugKit iOS Example/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sources/Preview Content\"";
 				DEVELOPMENT_TEAM = 5XPAW6SSYC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "DebugKit-iOS-Example-Info.plist";
+				INFOPLIST_FILE = "iOS-Example-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -374,11 +374,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"DebugKit iOS Example/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sources/Preview Content\"";
 				DEVELOPMENT_TEAM = 5XPAW6SSYC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "DebugKit-iOS-Example-Info.plist";
+				INFOPLIST_FILE = "iOS-Example-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -400,7 +400,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0E2A844F276978C900771782 /* Build configuration list for PBXProject "DebugKit iOS Example" */ = {
+		0E2A844F276978C900771782 /* Build configuration list for PBXProject "iOS Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0E2A8460276978CC00771782 /* Debug */,

@@ -7,6 +7,9 @@
    <FileRef
       location = "group:CHANGELOG.md">
    </FileRef>
+   <FileRef
+      location = "group:DebugKit.podspec">
+   </FileRef>
    <Group
       location = "group:Examples"
       name = "Examples">

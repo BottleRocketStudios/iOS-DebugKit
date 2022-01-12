@@ -11,17 +11,6 @@
       location = "group:DebugKit.podspec">
    </FileRef>
    <Group
-      location = "group:Examples"
-      name = "Examples">
-      <Group
-         location = "group:iOS Example"
-         name = "iOS Example">
-         <FileRef
-            location = "group:iOS Example.xcodeproj">
-         </FileRef>
-      </Group>
-   </Group>
-   <Group
       location = "group:Documentation"
       name = "Documentation">
       <Group
@@ -39,6 +28,13 @@
       </FileRef>
       <FileRef
          location = "group:Integrating Wormholy.md">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:/Users/will.mcginty/Developer/Open Source/iOS-DebugKit/Examples"
+      name = "Examples">
+      <FileRef
+         location = "group:Example.xcodeproj">
       </FileRef>
    </Group>
    <FileRef

@@ -2,7 +2,6 @@
 //  LogView.swift
 //  DebugKit
 //  
-//
 //  Copyright © 2022 Bottle Rocket Studios. All rights reserved.
 //
 
@@ -60,10 +59,6 @@ struct LogView_Previews: PreviewProvider {
     static var previews: some View {
         LogView(logService: LogService<MXMetricPayload>.init())
             .previewLayout(.sizeThatFits)
-
-//        LogView(logService: .init())
-//            .previewLayout(.sizeThatFits)
-//            .preferredColorScheme(.dark)
     }
 }
 

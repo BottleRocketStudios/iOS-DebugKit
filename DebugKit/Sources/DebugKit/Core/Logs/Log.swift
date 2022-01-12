@@ -2,7 +2,6 @@
 //  Log.swift
 //  DebugKit
 //  
-//
 //  Copyright © 2022 Bottle Rocket Studios. All rights reserved.
 //
 

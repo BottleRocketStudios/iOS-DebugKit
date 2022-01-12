@@ -1,8 +1,8 @@
 //
 //  ColorsView.swift
-//  DebugKit iOS Example
+//  Example
 //
-//  Created by Will McGinty on 1/6/22.
+//  Copyright © 2020 Bottle Rocket Studios. All rights reserved.
 //
 
 import SwiftUI

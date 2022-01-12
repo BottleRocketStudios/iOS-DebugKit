@@ -11,8 +11,9 @@
 		0E2A845A276978C900771782 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A8459276978C900771782 /* ContentView.swift */; };
 		0E2A845C276978CC00771782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E2A845B276978CC00771782 /* Assets.xcassets */; };
 		0E2A845F276978CC00771782 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E2A845E276978CC00771782 /* Preview Assets.xcassets */; };
-		0E2A84672769796100771782 /* DebugKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0E2A84662769796100771782 /* DebugKit */; };
 		0E3F8D48278E544900C9E69A /* Wormholy.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3F8D47278E544900C9E69A /* Wormholy.xcframework */; };
+		0E3F8DEF278F5FF400C9E69A /* DebugKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3F8DEE278F5FF400C9E69A /* DebugKit.framework */; };
+		0E3F8DF0278F5FF800C9E69A /* DebugKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0E3F8DEE278F5FF400C9E69A /* DebugKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E999C7F2775197F0026E92C /* URL+Documents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C7E2775197F0026E92C /* URL+Documents.swift */; };
 		0E999C81277BA5FB0026E92C /* PushService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C80277BA5FB0026E92C /* PushService.swift */; };
 		0E999C83277BABAD0026E92C /* DebugOptions+Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C82277BABAD0026E92C /* DebugOptions+Items.swift */; };
@@ -29,6 +30,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				0E3F8DF0278F5FF800C9E69A /* DebugKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,8 +43,8 @@
 		0E2A845B276978CC00771782 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E2A845E276978CC00771782 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0E3F8D47278E544900C9E69A /* Wormholy.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Wormholy.xcframework; path = ../Carthage/Build/Wormholy.xcframework; sourceTree = "<group>"; };
+		0E3F8DEE278F5FF400C9E69A /* DebugKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DebugKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5D0BEB27710F8A00C11A92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
-		0E8ED85B27861D1C005AB53F /* Wormholy.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Wormholy.xcframework; path = ../../Carthage/Build/Wormholy.xcframework; sourceTree = "<group>"; };
 		0E999C7E2775197F0026E92C /* URL+Documents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Documents.swift"; sourceTree = "<group>"; };
 		0E999C80277BA5FB0026E92C /* PushService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushService.swift; sourceTree = "<group>"; };
 		0E999C82277BABAD0026E92C /* DebugOptions+Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugOptions+Items.swift"; sourceTree = "<group>"; };
@@ -57,8 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E3F8DEF278F5FF400C9E69A /* DebugKit.framework in Frameworks */,
 				0E3F8D48278E544900C9E69A /* Wormholy.xcframework in Frameworks */,
-				0E2A84672769796100771782 /* DebugKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,8 +109,8 @@
 		0E2A84652769796100771782 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0E3F8DEE278F5FF400C9E69A /* DebugKit.framework */,
 				0E3F8D47278E544900C9E69A /* Wormholy.xcframework */,
-				0E8ED85B27861D1C005AB53F /* Wormholy.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -152,7 +154,6 @@
 			);
 			name = "iOS Example";
 			packageProductDependencies = (
-				0E2A84662769796100771782 /* DebugKit */,
 			);
 			productName = "DebugKit iOS Example";
 			productReference = 0E2A8454276978C900771782 /* iOS Example.app */;
@@ -422,13 +423,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		0E2A84662769796100771782 /* DebugKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DebugKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0E2A844C276978C900771782 /* Project object */;
 }

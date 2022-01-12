@@ -2,42 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:README.md">
+      location = "group:DebugKit/DebugKit.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:CHANGELOG.md">
-   </FileRef>
-   <FileRef
-      location = "group:DebugKit.podspec">
-   </FileRef>
-   <Group
-      location = "group:Documentation"
-      name = "Documentation">
-      <Group
-         location = "group:Images"
-         name = "Images">
-         <FileRef
-            location = "group:WormholyUI.png">
-         </FileRef>
-         <FileRef
-            location = "group:DebugMenu.png">
-         </FileRef>
-      </Group>
-      <FileRef
-         location = "group:Conforming to Recordable.md">
-      </FileRef>
-      <FileRef
-         location = "group:Integrating Wormholy.md">
-      </FileRef>
-   </Group>
-   <Group
-      location = "group:/Users/will.mcginty/Developer/Open Source/iOS-DebugKit/Examples"
-      name = "Examples">
-      <FileRef
-         location = "group:Example.xcodeproj">
-      </FileRef>
-   </Group>
-   <FileRef
-      location = "group:DebugKit">
+      location = "group:/Users/will.mcginty/Developer/Open Source/iOS-DebugKit/Example/Example.xcodeproj">
    </FileRef>
 </Workspace>

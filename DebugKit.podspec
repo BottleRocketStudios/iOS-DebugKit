@@ -19,7 +19,7 @@ s.homepage          = 'https://github.com/BottleRocketStudios/iOS-DebugKit'
 s.license           = { :type => 'Apache 2.0', :file => 'LICENSE' }
 s.author            = { 'Bottle Rocket Studios' => 'will.mcginty@bottlerocketstudios.com' }
 s.source            = { :git => 'https://github.com/bottlerocketstudios/iOS-DebugKit.git', :tag => s.version.to_s }
-s.source_files      = 'DebugKit/Sources/DebugKit/**/*'
+s.source_files      = 'Sources/**/*'
 s.ios.deployment_target = '14.0'
 s.swift_version = '5.5'
 

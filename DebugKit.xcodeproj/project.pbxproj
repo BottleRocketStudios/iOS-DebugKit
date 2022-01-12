@@ -37,9 +37,9 @@
 /* Begin PBXFileReference section */
 		0E3F8D74278F5AA200C9E69A /* DebugKit iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DebugKit iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E3F8D79278F5AA200C9E69A /* DebugKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugKitTests.swift; sourceTree = "<group>"; };
-		0E3F8D9E278F5B8600C9E69A /* DebugKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = DebugKit.podspec; path = ../DebugKit.podspec; sourceTree = "<group>"; };
-		0E3F8DA0278F5B9800C9E69A /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
-		0E3F8DA1278F5B9D00C9E69A /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		0E3F8D9E278F5B8600C9E69A /* DebugKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DebugKit.podspec; sourceTree = "<group>"; };
+		0E3F8DA0278F5B9800C9E69A /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		0E3F8DA1278F5B9D00C9E69A /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		0E3F8DA6278F5BF600C9E69A /* WormholyUI.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WormholyUI.png; sourceTree = "<group>"; };
 		0E3F8DA7278F5BF600C9E69A /* DebugMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DebugMenu.png; sourceTree = "<group>"; };
 		0E3F8DA9278F5BF600C9E69A /* Conforming to Recordable.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Conforming to Recordable.md"; sourceTree = "<group>"; };
@@ -121,8 +121,7 @@
 				0E3F8DC1278F5CB400C9E69A /* Metric Logs */,
 				0E3F8DBE278F5CB400C9E69A /* Notification Logs */,
 			);
-			name = Sources;
-			path = ../Sources;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		0E3F8D78278F5AA200C9E69A /* Tests */ = {
@@ -130,8 +129,7 @@
 			children = (
 				0E3F8D79278F5AA200C9E69A /* DebugKitTests.swift */,
 			);
-			name = Tests;
-			path = ../Tests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		0E3F8D97278F5B4A00C9E69A /* Deployment */ = {
@@ -154,8 +152,7 @@
 				0E3F8DA5278F5BF600C9E69A /* Images */,
 				0E3F8DA8278F5BF600C9E69A /* Guides */,
 			);
-			name = Documentation;
-			path = ../Documentation;
+			path = Documentation;
 			sourceTree = "<group>";
 		};
 		0E3F8DA5278F5BF600C9E69A /* Images */ = {

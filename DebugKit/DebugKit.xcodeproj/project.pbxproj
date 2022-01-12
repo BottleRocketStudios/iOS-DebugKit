@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0E3F8D7A278F5AA200C9E69A /* DebugKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F8D79278F5AA200C9E69A /* DebugKitTests.swift */; };
-		0E3F8DF9278F626400C9E69A /* DebugKit_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3F8DF8278F626400C9E69A /* DebugKit_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0E3F8DF9278F626400C9E69A /* DebugKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3F8DF8278F626400C9E69A /* DebugKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0E3F8DFD278F62CB00C9E69A /* DebugOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F8DB1278F5CB400C9E69A /* DebugOption.swift */; };
 		0E3F8DFE278F62CB00C9E69A /* DebugOptionContentProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F8DB2278F5CB400C9E69A /* DebugOptionContentProviders.swift */; };
 		0E3F8DFF278F62CB00C9E69A /* DebugOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F8DB4278F5CB400C9E69A /* DebugOptionsViewController.swift */; };
@@ -72,7 +72,7 @@
 		0E3F8DCF278F5CB400C9E69A /* Metric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metric.swift; sourceTree = "<group>"; };
 		0E3F8DD0278F5CB400C9E69A /* Histogram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Histogram.swift; sourceTree = "<group>"; };
 		0E3F8DF6278F626400C9E69A /* DebugKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DebugKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E3F8DF8278F626400C9E69A /* DebugKit_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugKit_iOS.h; sourceTree = "<group>"; };
+		0E3F8DF8278F626400C9E69A /* DebugKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugKit.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +116,7 @@
 		0E3F8D6C278F5AA200C9E69A /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				0E3F8DF8278F626400C9E69A /* DebugKit_iOS.h */,
+				0E3F8DF8278F626400C9E69A /* DebugKit.h */,
 				0E3F8DAF278F5CB400C9E69A /* Core */,
 				0E3F8DC1278F5CB400C9E69A /* Metric Logs */,
 				0E3F8DBE278F5CB400C9E69A /* Notification Logs */,
@@ -208,9 +208,9 @@
 		0E3F8DB6278F5CB400C9E69A /* Logs */ = {
 			isa = PBXGroup;
 			children = (
+				0E3F8DB9278F5CB400C9E69A /* Views */,
 				0E3F8DB7278F5CB400C9E69A /* Log.swift */,
 				0E3F8DB8278F5CB400C9E69A /* LogStorage.swift */,
-				0E3F8DB9278F5CB400C9E69A /* Views */,
 				0E3F8DBB278F5CB400C9E69A /* LogService.swift */,
 			);
 			path = Logs;
@@ -291,7 +291,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E3F8DF9278F626400C9E69A /* DebugKit_iOS.h in Headers */,
+				0E3F8DF9278F626400C9E69A /* DebugKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,7 +603,7 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bottlerocketstudios.DebugKit-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bottlerocketstudios.DebugKit;
 				PRODUCT_NAME = DebugKit;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -630,7 +630,7 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bottlerocketstudios.DebugKit-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bottlerocketstudios.DebugKit;
 				PRODUCT_NAME = DebugKit;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

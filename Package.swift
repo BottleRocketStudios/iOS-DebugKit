@@ -7,7 +7,6 @@ let package = Package(
     name: "DebugKit",
     platforms: [.iOS(.v14)],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "DebugKit", targets: ["DebugKit"]),
     ],

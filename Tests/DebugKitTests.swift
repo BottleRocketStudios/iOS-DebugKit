@@ -1,6 +1,6 @@
 //
 //  DebugKitTests.swift
-//  DebugKitTests
+//  Tests
 //
 //  Created by Will McGinty on 1/12/22.
 //

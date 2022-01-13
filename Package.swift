@@ -5,18 +5,14 @@ import PackageDescription
 
 let package = Package(
     name: "DebugKit",
-    platforms: [.iOS(.v14)],
+    platforms: [
+        .iOS(.v14)
+    ],
     products: [
-        .library(
-            name: "DebugKit", targets: ["DebugKit"]),
+        .library(name: "DebugKit", targets: ["DebugKit"]),
     ],
     targets: [
-        .target(
-            name: "DebugKit",
-            path: "Sources",
-            dependencies: []),
-        .testTarget(
-            name: "DebugKitTests",
-            dependencies: ["DebugKit"]),
+        .target(name: "DebugKit", path: "Sources"),
+        .testTarget(name: "DebugKitTests", dependencies: ["DebugKit"]),
     ]
 )

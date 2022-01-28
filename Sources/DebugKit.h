@@ -1,6 +1,6 @@
 //
-//  DebugKit_iOS.h
-//  DebugKit iOS
+//  DebugKit.h
+//  DebugKit
 //
 //
 

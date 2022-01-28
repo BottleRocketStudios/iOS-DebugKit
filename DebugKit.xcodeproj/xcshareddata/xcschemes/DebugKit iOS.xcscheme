@@ -14,9 +14,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0E3F8DF5278F626400C9E69A"
-               BuildableName = "DebugKit.framework"
+               BlueprintIdentifier = "0EB84AC927A4B6B500B70900"
+               BuildableName = "DebugKit_iOS.framework"
                BlueprintName = "DebugKit iOS"
+               ReferencedContainer = "container:DebugKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "0EB84AD027A4B6B600B70900"
+               BuildableName = "DebugKit iOSTests.xctest"
+               BlueprintName = "DebugKit iOSTests"
                ReferencedContainer = "container:DebugKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +46,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0E3F8D73278F5AA200C9E69A"
-               BuildableName = "DebugKit iOS Tests.xctest"
-               BlueprintName = "DebugKit iOS Tests"
+               BlueprintIdentifier = "0EB84AD027A4B6B600B70900"
+               BuildableName = "DebugKit iOSTests.xctest"
+               BlueprintName = "DebugKit iOSTests"
                ReferencedContainer = "container:DebugKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -60,8 +74,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0E3F8DF5278F626400C9E69A"
-            BuildableName = "DebugKit.framework"
+            BlueprintIdentifier = "0EB84AC927A4B6B500B70900"
+            BuildableName = "DebugKit_iOS.framework"
             BlueprintName = "DebugKit iOS"
             ReferencedContainer = "container:DebugKit.xcodeproj">
          </BuildableReference>

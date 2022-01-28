@@ -13,6 +13,6 @@ let package = Package(
     ],
     targets: [
         .target(name: "DebugKit", path: "Sources"),
-        .testTarget(name: "DebugKitTests", dependencies: ["DebugKit"]),
+        .testTarget(name: "DebugKitTests", dependencies: ["DebugKit"], path: "Tests"),
     ]
 )

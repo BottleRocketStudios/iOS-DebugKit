@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E4ECA7027B19E9B008E4AE8 /* LogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4ECA6E27B19E92008E4AE8 /* LogTests.swift */; };
 		0EB84AD227A4B6B600B70900 /* DebugKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB84ACA27A4B6B500B70900 /* DebugKit.framework */; };
 		0EB84AE027A4B72200B70900 /* DebugKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3F8DF8278F626400C9E69A /* DebugKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0EB84AE127A4B72700B70900 /* DebugOptionContentProviders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F8DB2278F5CB400C9E69A /* DebugOptionContentProviders.swift */; };
@@ -80,6 +81,7 @@
 		0E3F8DCF278F5CB400C9E69A /* Metric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metric.swift; sourceTree = "<group>"; };
 		0E3F8DD0278F5CB400C9E69A /* Histogram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Histogram.swift; sourceTree = "<group>"; };
 		0E3F8DF8278F626400C9E69A /* DebugKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DebugKit.h; sourceTree = "<group>"; };
+		0E4ECA6E27B19E92008E4AE8 /* LogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTests.swift; sourceTree = "<group>"; };
 		0EB84ACA27A4B6B500B70900 /* DebugKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DebugKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0EB84AD127A4B6B600B70900 /* DebugKit iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DebugKit iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -137,6 +139,7 @@
 		0E3F8D78278F5AA200C9E69A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				0E4ECA6E27B19E92008E4AE8 /* LogTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E4ECA7027B19E9B008E4AE8 /* LogTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

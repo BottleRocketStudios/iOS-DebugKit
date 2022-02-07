@@ -51,8 +51,6 @@ public extension LogView {
     }
 }
 
-#if DEBUG
-
 // MARK: - Preview
 struct LogView_Previews: PreviewProvider {
 
@@ -61,5 +59,3 @@ struct LogView_Previews: PreviewProvider {
             .previewLayout(.sizeThatFits)
     }
 }
-
-#endif

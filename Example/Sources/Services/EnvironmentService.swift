@@ -9,11 +9,13 @@ import Foundation
 
 class EnvironmentService: ObservableObject {
 
+    // MARK: - Environment Subtype
     enum Environment: String, CaseIterable {
         case prod
         case staging
         case development
     }
 
+    // MARK: - Properties
     @Published var selectedEnvironment: Environment = .prod
 }

@@ -9,8 +9,15 @@ import SwiftUI
 
 struct ColorsView: View {
 
-    @State var colors: [Color]
+    // MARK: - Properties
+    @State private var colors: [Color]
 
+    // MARK: - Initializers
+    init(colors: [Color]) {
+        self.colors = colors
+    }
+    
+    // MARK: - View
     var body: some View {
         List {
             ForEach(colors, id: \.self) { color in
@@ -36,6 +43,7 @@ struct ColorsView: View {
     }
 }
 
+// MARK: - Color + RBG Extraction
 extension Color {
 
     var rgbValues: (red: CGFloat, green: CGFloat, blue: CGFloat) {

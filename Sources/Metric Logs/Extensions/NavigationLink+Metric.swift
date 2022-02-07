@@ -18,9 +18,6 @@ extension NavigationLink {
     }
 }
 
-
-#if DEBUG
-
 // MARK: - Preview
 struct MetricNavigationLink_Previews: PreviewProvider {
 
@@ -31,5 +28,3 @@ struct MetricNavigationLink_Previews: PreviewProvider {
         }
     }
 }
-
-#endif

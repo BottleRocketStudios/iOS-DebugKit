@@ -32,7 +32,6 @@
 		0EB84AF527A4B74500B70900 /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F8DD0278F5CB400C9E69A /* Histogram.swift */; };
 		0EB84AF627A4B74800B70900 /* LogService+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F8DBF278F5CB400C9E69A /* LogService+Notifications.swift */; };
 		0EB84AF727A4B74800B70900 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F8DC0278F5CB400C9E69A /* Notification.swift */; };
-		0EB84AF827A4B75800B70900 /* DebugKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E3F8D79278F5AA200C9E69A /* DebugKitTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +45,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0E3F8D79278F5AA200C9E69A /* DebugKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugKitTests.swift; sourceTree = "<group>"; };
 		0E3F8D9E278F5B8600C9E69A /* DebugKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DebugKit.podspec; sourceTree = "<group>"; };
 		0E3F8DA0278F5B9800C9E69A /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		0E3F8DA1278F5B9D00C9E69A /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -139,7 +137,6 @@
 		0E3F8D78278F5AA200C9E69A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				0E3F8D79278F5AA200C9E69A /* DebugKitTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -433,7 +430,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0EB84AF827A4B75800B70900 /* DebugKitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

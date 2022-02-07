@@ -28,25 +28,20 @@ struct MeasurementLabel: View {
             Text(name)
             Spacer()
             Text(value)
-                .foregroundColor(Color(UIColor.secondaryLabel))
+                .foregroundColor(.secondary)
         }
     }
 }
-
-
-#if DEBUG
 
 // MARK: - Preview
 struct MeasurementLabel_Previews: PreviewProvider {
     
     static var previews: some View {
-        MeasurementLabel(name: "Measurement Title", value: "125 m/s")
-            .previewLayout(.sizeThatFits)
-
-        MeasurementLabel(name: "Measurement Title", value: "125 m/s")
-            .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.dark)
+        Group {
+            MeasurementLabel(name: "Measurement Title", value: "125 m/s")
+            MeasurementLabel(name: "Measurement Title", value: "125 m/s")
+                .preferredColorScheme(.dark)
+        }
+        .previewLayout(.sizeThatFits)
     }
 }
-
-#endif

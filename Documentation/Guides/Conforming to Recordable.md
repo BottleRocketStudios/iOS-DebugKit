@@ -44,7 +44,7 @@ The view can be as simplex or complex as needed, but will be rendered inside a `
 
 ## Forwarding to a `Recordable` Property
 
-Often times it becomes necessary to wrap a type inside another. In the case this occurs to a `Recordable` type, it is very easy to forward that conformance on to the wrapper object. Suppose we have the following set up, and we want to use `Geofence` conformance in our `GeofenceEntry` type:
+Often times it becomes necessary to wrap a type inside another. In cases where this wrapped type is already `Recordable`, it is very easy to forward that conformance on to the wrapper object. Suppose we have the following set up, and we want to use `Geofence` conformance in our `GeofenceEntry` type:
 
 ```swift
 public struct Geofence: Recordable, CustomStringConvertible {

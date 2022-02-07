@@ -114,7 +114,7 @@ private extension MetricPayload {
             VStack(alignment: .leading, spacing: 10) {
                 Text(DateIntervalFormatter.standard.string(from: configuration.interval) ?? "")
                     .font(.caption)
-                    .foregroundColor(Color(UIColor.secondaryLabel))
+                    .foregroundColor(.secondary)
 
                 VStack(alignment: .leading) {
                     ForEach(configuration.titledContent, id: \.0) { titleContent in
@@ -137,26 +137,21 @@ private extension MetricPayload {
     }
 }
 
-
-#if DEBUG
-
 // MARK: - Preview
 struct MetricEntryView_Previews: PreviewProvider {
 
+    private static let config = MetricPayload.EntryView.Configuration(applicationVersion: "10.0.0",
+                                                                      osVersion: "15.0",
+                                                                      startDate: Date(),
+                                                                      endDate: Date().advanced(by: 86400),
+                                                                      metricCount: 7)
+    
     static var previews: some View {
-        let config = MetricPayload.EntryView.Configuration(applicationVersion: "10.0.0",
-                                                           osVersion: "15.0",
-                                                           startDate: Date(),
-                                                           endDate: Date().advanced(by: 86400),
-                                                           metricCount: 7)
-
-        MetricPayload.EntryView(configuration: config)
-            .previewLayout(.sizeThatFits)
-
-        MetricPayload.EntryView(configuration: config)
-            .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.dark)
+        Group {
+            MetricPayload.EntryView(configuration: config)
+            MetricPayload.EntryView(configuration: config)
+                .preferredColorScheme(.dark)
+        }
+        .previewLayout(.sizeThatFits)
     }
 }
-
-#endif

@@ -1,6 +1,6 @@
 # Integrating Wormholy
 
-DebugKit does not come with Wormholy as a dependency, though it is very simple to integrate into the `DebugOptionsViewController`
+DebugKit does not come with Wormholy as a dependency, though it is very simple to integrate into the `DebugOptionsViewController`.
 
 ## Integrating the Framework
 
@@ -35,4 +35,4 @@ Note that because Wormholy nests it's content inside a `UINavigationController`,
 
 ## Disabling Shake to Present
 
-The default way to use Wormholy is through a shake gesture - in the case you are implementing Wormholy into your `DebugOptionsViewController`, you may also want to disable the shake gesture that is used by default. This can be done by adding an environment variable, `WORMHOLY_SHAKE_ENABLED` = `NO`.
+The default way to use Wormholy is through a shake gesture - in the case you are implementing Wormholy into your `DebugOptionsViewController`, you may also want to disable the shake gesture that is used by default. This can be done by adding an environment variable: `WORMHOLY_SHAKE_ENABLED` = `NO`.

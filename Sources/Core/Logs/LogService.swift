@@ -50,6 +50,7 @@ public class LogService<Item: Recordable>: ObservableObject {
 
     // MARK: - Properties
     let storage: AnyLogStorage<Item.Record>?
+    @Published public var isEnabled = true
     @Published public var expirationInterval: ExpirationInterval = .oneWeek
     @Published public var log: Log<Item.Record> {
         didSet { try? storage?.store(log) }
@@ -73,11 +74,17 @@ public class LogService<Item: Recordable>: ObservableObject {
 
     // MARK: - Interface
     public func append(_ item: Item) {
-        expirationInterval.trim(log: &log)
-        log.append(item.record)
+        if isEnabled {
+            expirationInterval.trim(log: &log)
+            log.append(item.record)
+        }
     }
 
     public func remove(atOffsets offsets: IndexSet) {
         log.remove(atOffsets: offsets)
+    }
+
+    public func clear() {
+        log.clear()
     }
 }

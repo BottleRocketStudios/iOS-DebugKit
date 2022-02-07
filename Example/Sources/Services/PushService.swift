@@ -9,8 +9,10 @@ import UserNotifications
 
 class PushService: ObservableObject {
 
+    // MARK: - Properties
     @Published var deviceToken: Data?
 
+    // MARK: - Interface
     func registerForPushNotifications() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             debugPrint("Permission granted: \(granted)")

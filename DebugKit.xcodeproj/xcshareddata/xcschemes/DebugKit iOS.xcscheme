@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0EB84AC927A4B6B500B70900"
-               BuildableName = "DebugKit_iOS.framework"
+               BuildableName = "DebugKit.framework"
                BlueprintName = "DebugKit iOS"
                ReferencedContainer = "container:DebugKit.xcodeproj">
             </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0EB84AC927A4B6B500B70900"
-            BuildableName = "DebugKit_iOS.framework"
+            BuildableName = "DebugKit.framework"
             BlueprintName = "DebugKit iOS"
             ReferencedContainer = "container:DebugKit.xcodeproj">
          </BuildableReference>

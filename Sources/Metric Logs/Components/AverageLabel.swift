@@ -5,8 +5,8 @@
 //  Copyright © 2022 Bottle Rocket Studios. All rights reserved.
 //
 
-import SwiftUI
 import MetricKit
+import SwiftUI
 
 struct AverageLabel: View {
 
@@ -34,20 +34,15 @@ struct AverageLabel: View {
     }
 }
 
-
-#if DEBUG
-
 // MARK: - Preview
 struct AverageLabel_Previews: PreviewProvider {
 
     static var previews: some View {
-        AverageLabel(title: "Average Value", averageValue: "5", sampleCount: "100")
-            .previewLayout(.sizeThatFits)
-
-        AverageLabel(title: "Average Value", averageValue: "5", sampleCount: "100")
-            .previewLayout(.sizeThatFits)
-            .preferredColorScheme(.dark)
+        Group {
+            AverageLabel(title: "Average Value", averageValue: "5", sampleCount: "100")
+            AverageLabel(title: "Average Value", averageValue: "5", sampleCount: "100")
+                .preferredColorScheme(.dark)
+        }
+        .previewLayout(.sizeThatFits)
     }
 }
-
-#endif

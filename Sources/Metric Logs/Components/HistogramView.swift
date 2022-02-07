@@ -65,7 +65,7 @@ struct HistogramView<T: Foundation.Unit>: View {
                                                                          in: geometry.frame(in: .local), isEnding: true) })
                         }
                     }
-                    .padding([.leading, .trailing])
+                    .padding(.horizontal)
 
                     BackgroundView()
                         .foregroundColor(backgroundGray)
@@ -235,7 +235,7 @@ private extension HistogramView {
                 VStack(alignment: .leading) {
                     stackContent
                 }
-                .padding([.trailing], 6)
+                .padding(.trailing, 6)
             }
         }
 
@@ -252,29 +252,26 @@ private extension HistogramView {
     }
 }
 
-
-#if DEBUG
-
 // MARK: - Preview
 struct HistogramView_Previews: PreviewProvider {
 
+    private static let buckets: [Histogram<UnitDuration>.Bucket] = [.init(start: .init(value: 0, unit: UnitDuration.milliseconds),
+                                                                          end: .init(value: 9, unit: UnitDuration.milliseconds), count: 1),
+                                                                    .init(start: .init(value: 10, unit: UnitDuration.milliseconds),
+                                                                          end: .init(value: 19, unit: UnitDuration.milliseconds), count: 6),
+                                                                    .init(start: .init(value: 20, unit: UnitDuration.milliseconds),
+                                                                          end: .init(value: 29, unit: UnitDuration.milliseconds), count: 2),
+                                                                    .init(start: .init(value: 30, unit: UnitDuration.milliseconds),
+                                                                          end: .init(value: 39, unit: UnitDuration.milliseconds), count: 14)]
+
     static var previews: some View {
-        let buckets: [Histogram<UnitDuration>.Bucket] = [.init(start: .init(value: 0, unit: UnitDuration.milliseconds),
-                                                               end: .init(value: 9, unit: UnitDuration.milliseconds), count: 1),
-                                                         .init(start: .init(value: 10, unit: UnitDuration.milliseconds),
-                                                               end: .init(value: 19, unit: UnitDuration.milliseconds), count: 6),
-                                                         .init(start: .init(value: 20, unit: UnitDuration.milliseconds),
-                                                               end: .init(value: 29, unit: UnitDuration.milliseconds), count: 2),
-                                                         .init(start: .init(value: 30, unit: UnitDuration.milliseconds),
-                                                               end: .init(value: 39, unit: UnitDuration.milliseconds), count: 14)]
+        Group {
+            HistogramView(title: "Metric Being Histogrammed", histogram: .init(buckets: buckets),
+                          measurementFormatter: .providedUnit, numberFormatter: .standard)
 
-        HistogramView(title: "Metric Being Histogrammed", histogram: .init(buckets: buckets),
-                      measurementFormatter: .providedUnit, numberFormatter: .standard)
-
-        HistogramView(title: "Metric Being Histogrammed", histogram: .init(buckets: buckets),
-                      measurementFormatter: .providedUnit, numberFormatter: .standard)
-            .preferredColorScheme(.dark)
+            HistogramView(title: "Metric Being Histogrammed", histogram: .init(buckets: buckets),
+                          measurementFormatter: .providedUnit, numberFormatter: .standard)
+                .preferredColorScheme(.dark)
+        }
     }
 }
-
-#endif

@@ -5,8 +5,9 @@
 //  Copyright © 2022 Bottle Rocket Studios. All rights reserved.
 //
 
-import UserNotifications
 import SwiftUI
+import UserNotifications
+
 
 public struct Notification: Identifiable {
 
@@ -125,7 +126,7 @@ private extension Notification.EntryView {
                     Text(configuration.date, style: .time)
                 }
                 .font(.caption)
-                .foregroundColor(Color(UIColor.secondaryLabel))
+                .foregroundColor(.secondary)
 
                 VStack(alignment: .leading) {
                     ForEach(configuration.titledContent, id: \.0) { titleContent in
@@ -148,8 +149,6 @@ private extension Notification.EntryView {
     }
 }
 
-#if DEBUG
-
 // MARK: - Preview
 struct NotificationEntryView_Previews: PreviewProvider {
 
@@ -168,5 +167,3 @@ struct NotificationEntryView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
-
-#endif

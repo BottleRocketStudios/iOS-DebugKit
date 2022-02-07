@@ -5,10 +5,10 @@
 //  Copyright © 2020 Bottle Rocket Studios. All rights reserved.
 //
 
-import SwiftUI
-import MetricKit
-import DebugKit
 import Combine
+import DebugKit
+import MetricKit
+import SwiftUI
 
 @main
 struct iOSExampleApp: App {
@@ -16,11 +16,11 @@ struct iOSExampleApp: App {
     // MARK: - Properties
     private let subscriber = ContentSubscriber()
 
-    @StateObject var environmentService: EnvironmentService = EnvironmentService()
-    @StateObject var pushService: PushService = PushService()
-    @StateObject var metricsLogService: LogService<MXMetricPayload> = .metricPayloads(storedAt: URL.documentsDirectory?.appendingPathComponent("metrics"))
-    @StateObject var notificationsLogService: LogService<UNNotification> = .notifications(storedAt: URL.documentsDirectory?.appendingPathComponent("notifications"))
-    @State var cancellables: Set<AnyCancellable> = []
+    @StateObject private var environmentService = EnvironmentService()
+    @StateObject private var pushService = PushService()
+    @StateObject private var metricsLogService: LogService<MXMetricPayload> = .metricPayloads(storedAt: URL.documentsDirectory?.appendingPathComponent("metrics"))
+    @StateObject private var notificationsLogService: LogService<UNNotification> = .notifications(storedAt: URL.documentsDirectory?.appendingPathComponent("notifications"))
+    @State private var cancellables: Set<AnyCancellable> = []
 
     // MARK: - View
     var body: some Scene {

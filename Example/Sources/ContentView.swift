@@ -5,19 +5,21 @@
 //  Copyright © 2020 Bottle Rocket Studios. All rights reserved.
 //
 
-import SwiftUI
 import DebugKit
 import MetricKit
+import SwiftUI
 
 struct ContentView: View {
 
+    // MARK: - Properties
     @ObservedObject var environmentService: EnvironmentService
     @ObservedObject var pushService: PushService
     @ObservedObject var metricsLogService: LogService<MXMetricPayload>
     @ObservedObject var notificationsLogService: LogService<UNNotification>
 
-    @State private var isPresentingDebugOptions: Bool = false
+    @State private var isPresentingDebugOptions = false
 
+    // MARK: - View
     var body: some View {
         VStack {
             Text("App content")
@@ -50,7 +52,11 @@ struct ContentView: View {
             }
         }
     }
+}
 
+    // MARK: - Helper
+private extension ContentView {
+    
     func fetchTodos() {
         let url = URL(string: "https://jsonplaceholder.typicode.com/todos/1")!
         Task { @MainActor in

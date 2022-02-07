@@ -64,12 +64,14 @@ struct CellularMetricsView: MetricConfigurableView {
 
     // MARK: - View
     var body: some View {
-        if let cellularConditions = payload.cellularConditions {
-            MetricView(title: "Cellular Conditions", kind: .histogram(cellularConditions, formatter: .providedUnit))
-        } else {
-            NoEntriesView(configuration: .default)
-                .navigationTitle("Cellular Conditions")
+        Group {
+            if let cellularConditions = payload.cellularConditions {
+                MetricView(title: "Cellular Conditions", kind: .histogram(cellularConditions, formatter: .providedUnit))
+            } else {
+                NoEntriesView(configuration: .default)
+            }
         }
+        .navigationTitle("Cellular Conditions")
     }
 }
 
@@ -268,13 +270,14 @@ struct ResponsivenessMetricsView: MetricConfigurableView {
 
     // MARK: - View
     var body: some View {
-
-        if let hangTime = payload.hangTime {
-            MetricView(title: "Hang Time", kind: .histogram(hangTime))
-        } else {
-            NoEntriesView(configuration: .default)
-                .navigationTitle("Responsiveness")
+        Group {
+            if let hangTime = payload.hangTime {
+                MetricView(title: "Hang Time", kind: .histogram(hangTime))
+            } else {
+                NoEntriesView(configuration: .default)
+            }
         }
+        .navigationTitle("Responsiveness")
     }
 }
 

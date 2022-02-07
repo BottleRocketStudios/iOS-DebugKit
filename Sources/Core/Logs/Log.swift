@@ -48,6 +48,10 @@ extension Log: MutableCollection {
     public mutating func remove(atOffsets offsets: IndexSet) {
         entries.remove(atOffsets: offsets)
     }
+
+    public mutating func clear() {
+        entries.removeAll()
+    }
 }
 
 // MARK: - RandomAccessCollection

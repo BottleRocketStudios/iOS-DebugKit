@@ -34,9 +34,10 @@ struct NoEntriesView: View {
 struct NoEntriesView_Previews: PreviewProvider {
 
     static var previews: some View {
-        NoEntriesView(configuration: .default)
-
-        NoEntriesView(configuration: .default)
-            .preferredColorScheme(.dark)
+        Group {
+            NoEntriesView(configuration: .default)
+            NoEntriesView(configuration: .default)
+                .preferredColorScheme(.dark)
+        }
     }
 }

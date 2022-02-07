@@ -11,9 +11,10 @@
 		0E2A845A276978C900771782 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A8459276978C900771782 /* ContentView.swift */; };
 		0E2A845C276978CC00771782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E2A845B276978CC00771782 /* Assets.xcassets */; };
 		0E2A845F276978CC00771782 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E2A845E276978CC00771782 /* Preview Assets.xcassets */; };
-		0E3F8D48278E544900C9E69A /* Wormholy.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3F8D47278E544900C9E69A /* Wormholy.xcframework */; };
 		0E3F8DEF278F5FF400C9E69A /* DebugKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3F8DEE278F5FF400C9E69A /* DebugKit.framework */; };
 		0E3F8DF0278F5FF800C9E69A /* DebugKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0E3F8DEE278F5FF400C9E69A /* DebugKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0E4ECA6C27B19CB3008E4AE8 /* Wormholy.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3F8D47278E544900C9E69A /* Wormholy.xcframework */; };
+		0E4ECA6D27B19CB3008E4AE8 /* Wormholy.xcframework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0E3F8D47278E544900C9E69A /* Wormholy.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0E999C7F2775197F0026E92C /* URL+Documents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C7E2775197F0026E92C /* URL+Documents.swift */; };
 		0E999C81277BA5FB0026E92C /* PushService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C80277BA5FB0026E92C /* PushService.swift */; };
 		0E999C83277BABAD0026E92C /* DebugOptions+Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E999C82277BABAD0026E92C /* DebugOptions+Items.swift */; };
@@ -30,6 +31,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				0E4ECA6D27B19CB3008E4AE8 /* Wormholy.xcframework in CopyFiles */,
 				0E3F8DF0278F5FF800C9E69A /* DebugKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,8 +61,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E4ECA6C27B19CB3008E4AE8 /* Wormholy.xcframework in Frameworks */,
 				0E3F8DEF278F5FF400C9E69A /* DebugKit.framework in Frameworks */,
-				0E3F8D48278E544900C9E69A /* Wormholy.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

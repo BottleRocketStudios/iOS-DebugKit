@@ -13,15 +13,15 @@ public class CellContentProvider {
     // MARK: - Properties
     public let actionCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Action>
     public let selectionCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Selection>
-    public let navigationCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Presentation>
+    public let presentationCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Presentation>
 
     // MARK: - Initializers
     public init(actionCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Action> = .defaultDebugItemActionCell,
                 selectionCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Selection> = .defaultDebugItemSelectionCell,
-                navigationCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Presentation> = .defaultDebugItemNavigationCell) {
+                presentationCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Presentation> = .defaultDebugItemPresentationCell) {
         self.actionCell = actionCell
         self.selectionCell = selectionCell
-        self.navigationCell = navigationCell
+        self.presentationCell = presentationCell
     }
 
     // MARK: - Interface
@@ -29,7 +29,7 @@ public class CellContentProvider {
         switch content {
         case let .action(action): return collectionView.dequeueConfiguredReusableCell(using: actionCell, for: indexPath, item: action)
         case let .selection(selection): return collectionView.dequeueConfiguredReusableCell(using: selectionCell, for: indexPath, item: selection)
-        case let .presentation(navigation): return collectionView.dequeueConfiguredReusableCell(using: navigationCell, for: indexPath, item: navigation)
+        case let .presentation(presentation): return collectionView.dequeueConfiguredReusableCell(using: presentationCell, for: indexPath, item: presentation)
         }
     }
 }
@@ -87,7 +87,7 @@ public extension UICollectionView.CellRegistration {
         }
     }
 
-    static var defaultDebugItemNavigationCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Presentation> {
+    static var defaultDebugItemPresentationCell: UICollectionView.CellRegistration<UICollectionViewListCell, DebugOption.Item.Presentation> {
         return .init { cell, _, configuration in
             var contentConfiguration = cell.defaultContentConfiguration()
             contentConfiguration.text = configuration.title

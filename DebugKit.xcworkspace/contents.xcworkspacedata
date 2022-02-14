@@ -5,6 +5,6 @@
       location = "group:DebugKit.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:/Users/will.mcginty/Developer/Open Source/iOS-DebugKit/Example/Example.xcodeproj">
+      location = "group:Example/Example.xcodeproj">
    </FileRef>
 </Workspace>

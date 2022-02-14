@@ -10,10 +10,10 @@ import SwiftUI
 // MARK: - Recordable
 public protocol Recordable: Identifiable {
     associatedtype Record: Recordable = Self
-    associatedtype LogView: View
+    associatedtype RecordView: View
 
     var record: Record { get }
-    @ViewBuilder static func view(for entry: Log<Record>.Entry) -> LogView
+    @ViewBuilder static func view(for entry: Log<Record>.Entry) -> RecordView
 }
 
 public extension Recordable where Record == Self {
@@ -41,9 +41,9 @@ public class LogService<Item: Recordable>: ObservableObject {
         public static var oneWeek: Self { Self(timeInterval: 3600 * 24 * 7) }
 
         // MARK: - Interface
-        func trim(log: inout Log<Item.Record>, on date: Date = Date()) {
+        func trim(log: inout Log<Item.Record>, from date: Date = Date()) {
             if let timeInterval = timeInterval {
-                log.trimEntries(olderThan: timeInterval, on: date)
+                log.trimEntries(olderThan: timeInterval, from: date)
             }
         }
     }
@@ -53,30 +53,31 @@ public class LogService<Item: Recordable>: ObservableObject {
     @Published public var isEnabled = true
     @Published public var expirationInterval: ExpirationInterval = .oneWeek
     @Published public var log: Log<Item.Record> {
-        didSet { try? storage?.store(log) }
+        didSet { storeLog() }
     }
 
     // MARK: - Initializers
-    public convenience init() {
-        self.init(nil)
+    public init() {
+        self.storage = nil
+        self.log = .init()
     }
 
-    public convenience init<Storage: LogStoring>(storage: Storage?) where Storage.Item == Item.Record {
-        self.init(storage.map(AnyLogStorage.init))
+    public convenience init<Storage: LogStoring>(storage: Storage) throws where Storage.Item == Item.Record {
+        try self.init(AnyLogStorage(storage))
     }
 
-    private init(_ storage: AnyLogStorage<Item.Record>?) {
+    private init(_ storage: AnyLogStorage<Item.Record>) throws {
         self.storage = storage
-        self.log = (try? storage?.retrieve()) ?? .init()
+        self.log = try storage.retrieve() ?? .init()
 
         expirationInterval.trim(log: &log)
     }
 
     // MARK: - Interface
-    public func append(_ item: Item) {
+    public func insert(_ item: Item) {
         if isEnabled {
             expirationInterval.trim(log: &log)
-            log.append(item.record)
+            log.insert(item.record)
         }
     }
 
@@ -86,5 +87,17 @@ public class LogService<Item: Recordable>: ObservableObject {
 
     public func clear() {
         log.clear()
+    }
+}
+
+// MARK: - Helper
+private extension LogService {
+
+    func storeLog() {
+        do {
+            try storage?.store(log)
+        } catch {
+            debugPrint("Error storing updated log: \(error)")
+        }
     }
 }

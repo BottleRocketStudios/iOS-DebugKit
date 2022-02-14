@@ -52,7 +52,7 @@ For example, if you wanted to keep a log of the `MXMetricPayload` the OS deliver
 
 ```swift
 // Create the log service (with optional file storage)
-let metricLogService = LogService<MXMetricPayload>.metricPayloads(storedAt: myOptionalURL)
+let metricLogService = LogService<MXMetricPayload>.metricPayloads(storedAt: myFileURL)
 
 // then conform to MXMetricManagerSubscriber to append to the log
 func didReceive(_ payloads: [MXMetricPayload]) {
@@ -80,7 +80,11 @@ Requires iOS 14.0
 
 ### Swift Package Manager
 
-Add this to your project using Swift Package Manager. In Xcode: File > Swift Packages > Add Package Dependency... and you're done. Alternative installations options are shown below for legacy projects.
+Add this to your project using Swift Package Manager. In Xcode: File > Swift Packages > Add Package Dependency... and you're done. If you are editing `Package.swift` directly, you can import the package as follows:
+
+```swift
+.package(url: "https://github.com/BottleRocketStudios/iOS-DebugKit.git", from: "1.0.0"),
+```
 
 ### Carthage
 
@@ -90,7 +94,7 @@ Add the following to your [Cartfile](https://github.com/Carthage/Carthage/blob/m
 github "BottleRocketStudios/iOS-DebugKit"
 ```
 
-Run `carthage update` and follow the steps as described in Carthage's [README](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
+Run `carthage bootstrap` and follow the steps as described in Carthage's [README](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
 
 
 ## Author

@@ -37,11 +37,11 @@ public struct Log<Element> {
 // MARK: - MutableCollection
 extension Log: MutableCollection {
 
-    public mutating func append(_ item: Element, on date: Date = Date()) {
+    public mutating func insert(_ item: Element, on date: Date = Date()) {
         entries.insert(.init(date: date, element: item), at: startIndex)
     }
 
-    public mutating func trimEntries(olderThan timeInterval: TimeInterval, on date: Date = Date()) {
+    public mutating func trimEntries(olderThan timeInterval: TimeInterval, from date: Date = Date()) {
         entries.removeAll(where: { date.timeIntervalSince($0.date) > timeInterval })
     }
 

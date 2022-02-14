@@ -54,8 +54,33 @@ public extension LogView {
 // MARK: - Preview
 struct LogView_Previews: PreviewProvider {
 
+    struct Record: Recordable {
+        var id = UUID()
+
+        static func view(for entry: Log<Record>.Entry) -> some View {
+            VStack(alignment: .leading) {
+                Text(entry.date, style: .date)
+                Text(entry.id.uuidString)
+                    .lineLimit(1)
+            }
+        }
+    }
+
+    static let logService: LogService<Record> = {
+        let logService = LogService<Record>()
+        logService.insert(Record())
+        logService.insert(Record())
+        logService.insert(Record())
+
+        return logService
+    }()
+
     static var previews: some View {
-        LogView(logService: LogService<MXMetricPayload>.init())
-            .previewLayout(.sizeThatFits)
+        Group {
+            LogView(logService: logService)
+            
+            LogView(logService: LogService<Record>())
+        }
+        .previewLayout(.device)
     }
 }

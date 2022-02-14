@@ -15,16 +15,18 @@ public struct Notification: Identifiable {
     public let id = UUID()
     let notification: UNNotification
 
-    var content: UNNotificationContent { return notification.request.content }
-    var remotePayload: String? {
-        guard notification.request.trigger is UNPushNotificationTrigger else { return nil }
-        let jsonData = try? JSONSerialization.data(withJSONObject: content.userInfo, options: [.prettyPrinted])
-        return jsonData.flatMap { String(data: $0, encoding: .utf8) }
-    }
-
     // MARK: - Initializer
     public init(notification: UNNotification) {
         self.notification = notification
+    }
+
+    // MARK: - Interface
+    var content: UNNotificationContent { return notification.request.content }
+
+    func remotePayloadString() throws -> String? {
+        guard notification.request.trigger is UNPushNotificationTrigger else { return nil }
+        let jsonData = try JSONSerialization.data(withJSONObject: content.userInfo, options: [.prettyPrinted])
+        return String(data: jsonData, encoding: .utf8)
     }
 }
 
@@ -55,7 +57,7 @@ extension Notification: Recordable {
         let content = entry.element.content
         EntryView(contentConfiguration: .init(date: entry.date, category: content.categoryIdentifier,
                                               title: content.title, subtitle: content.subtitle, message: content.body),
-                  remotePayload: entry.element.remotePayload)
+                  remotePayload: try? entry.element.remotePayloadString())
     }
 }
 

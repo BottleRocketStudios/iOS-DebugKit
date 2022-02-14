@@ -268,7 +268,7 @@ struct HistogramView_Previews: PreviewProvider {
         Group {
             HistogramView(title: "Metric Being Histogrammed", histogram: .init(buckets: buckets),
                           measurementFormatter: .providedUnit, numberFormatter: .standard)
-
+            
             HistogramView(title: "Metric Being Histogrammed", histogram: .init(buckets: buckets),
                           measurementFormatter: .providedUnit, numberFormatter: .standard)
                 .preferredColorScheme(.dark)

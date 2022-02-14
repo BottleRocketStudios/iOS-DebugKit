@@ -22,14 +22,16 @@ Conforming this type to `Recordable` is straightforward, and has two requirement
 
 ```swift
 public struct GeofenceEntry: Recordable {
+
     public enum Event: String {
         case enter, exit
     }
-
-    public let id = UUID()
+    
+    public let id = UUID() // Add a unique identifier for this record
     public let event: Event
     public let geofence: Geofence
-
+    
+    // Create a SwiftUI view representation of this record
     public static func view(for entry: Log<GeofenceEntry>.Entry) -> some View {
         VStack {
             Text(entry.date, style: .date)
@@ -67,7 +69,7 @@ public struct GeofenceEntry {
     }
 
     public let event: Event
-    public let coordinates: [CLLocationCoordinate2D]
+    public let geofence: Geofence
 }
 ```
 
@@ -97,7 +99,7 @@ The implementation of `record` tells the `LogService` how to find the object you
 
 ### Hybrid
 
-In addition to the individual methods described above, it is also possible to combine them - both define a new view for a `Recordable` type, but utilize an existing `Recordable.LogView` inside it as the function `view(for entry: Log<Record>.Entry)` is a `@ViewBuilder`. For example:
+In addition to the individual methods described above, it is also possible to combine them. The `view(for entry: Log<Record>.Entry)` is a `@ViewBuilder`, allowing you to both define a new view for a `Recordable` type and utilize an existing `Recordable.LogView`. For example:
 
 ```swift
 public struct GeofenceEntry: Recordable {

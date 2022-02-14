@@ -20,7 +20,8 @@ extension UNNotification: Recordable {
 // MARK: - LogService + UNNotifications
 public extension LogService {
 
-    static func notifications(storedAt url: URL?) -> LogService<UNNotification> {
-        return LogService<UNNotification>(storage: url.map(LogFileStorage.init))
+    static func notifications(storedAt url: URL?) throws -> LogService<UNNotification> {
+        guard let url = url else { return .init() }
+        return try .init(storage: LogFileStorage(url: url))
     }
 }

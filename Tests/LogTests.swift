@@ -1,6 +1,6 @@
 //
 //  LogTests.swift
-//  DebugKit iOS
+//  DebugKit Tests
 //
 //  Created by Will McGinty on 2/7/22.
 //  Copyright © 2022 Bottle Rocket Studios. All rights reserved.
@@ -49,7 +49,7 @@ class LogTests: XCTestCase {
 
     func testLog_appendingEntryInsertsToBeginningOfStorage() {
         var log = Log<String>()
-        log.append("some string")
+        log.insert("some string")
 
         XCTAssertEqual(log.count, 1)
         XCTAssertEqual(log.endIndex, 1)
@@ -62,7 +62,7 @@ class LogTests: XCTestCase {
                                             .init(date: date.advanced(by: -1), element: "def"),
                                             .init(date: date, element: "hij")]
         var log = Log<String>(entries)
-        log.trimEntries(olderThan: 1, on: date)
+        log.trimEntries(olderThan: 1, from: date)
 
         XCTAssertEqual(log.entries.count, 2)
         XCTAssertEqual(log.entries.first?.element, "def")

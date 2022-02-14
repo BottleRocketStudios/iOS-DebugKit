@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E07FDA927BAD356009AD1E4 /* LogFileStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E07FDA827BAD356009AD1E4 /* LogFileStorageTests.swift */; };
 		0E4ECA7027B19E9B008E4AE8 /* LogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4ECA6E27B19E92008E4AE8 /* LogTests.swift */; };
 		0EB84AD227A4B6B600B70900 /* DebugKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EB84ACA27A4B6B500B70900 /* DebugKit.framework */; };
 		0EB84AE027A4B72200B70900 /* DebugKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E3F8DF8278F626400C9E69A /* DebugKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E07FDA827BAD356009AD1E4 /* LogFileStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogFileStorageTests.swift; sourceTree = "<group>"; };
 		0E3F8D9E278F5B8600C9E69A /* DebugKit.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DebugKit.podspec; sourceTree = "<group>"; };
 		0E3F8DA0278F5B9800C9E69A /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		0E3F8DA1278F5B9D00C9E69A /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				0E4ECA6E27B19E92008E4AE8 /* LogTests.swift */,
+				0E07FDA827BAD356009AD1E4 /* LogFileStorageTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E07FDA927BAD356009AD1E4 /* LogFileStorageTests.swift in Sources */,
 				0E4ECA7027B19E9B008E4AE8 /* LogTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

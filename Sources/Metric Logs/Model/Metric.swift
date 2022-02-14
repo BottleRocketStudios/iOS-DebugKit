@@ -9,6 +9,7 @@ import Foundation
 import MetricKit
 
 enum Metric: CaseIterable {
+
     // Hardware
     case cellularConditions
     case cpu

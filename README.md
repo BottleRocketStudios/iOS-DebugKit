@@ -6,7 +6,7 @@
 
 DebugKit is designed to make it as simple as possible to build and display useful information about your project. It was built to replace all the individual debugging view controllers, making it easy to use the functionality that is needed in your specific use case, without the need to write it yourself. The framework includes a simple way to build a `DebugOptionsViewController` (or `DebugOptionsView` in SwiftUI), containing a variety of debugging related information.
 
-In addition to easy access to basic debugging information and functionality, DebugKit also provides functionality to log incoming items for later viewing. Out of the box, DebugKit is capable of logging `MXMetricPayload` (and so has a `MetricKit` dependency) and `UNNotification` (and so has a `UserNotifications` dependency). More information about logging custom types can be found below, or in [Conforming to Recordable](./Guides/Conforming to Recordable.md).
+In addition to easy access to basic debugging information and functionality, DebugKit also provides functionality to log incoming items for later viewing. Out of the box, DebugKit is capable of logging `MXMetricPayload` (and so has a `MetricKit` dependency) and `UNNotification` (and so has a `UserNotifications` dependency). More information about logging custom types can be found below, or in [Conforming to Recordable](./Guides/Conforming%20to%20Recordable.md).
 
 To utilize `DebugOptionsViewController`, the first step is instantiation:
 
@@ -48,7 +48,7 @@ extension DebugOption.Item {
 
 In addition to simple action and selection items, the `DebugItem` is designed to work seamlessly with another capability of `DebugKit` - the `LogService`. This service is designed to record instances of any object, writing them to disk and displaying them in the `DebugViewController` on demand.
 
-The `LogService` works with any type that conforms to the `Recordable` protocol (more information [here](./Guides/Conforming to Recordable.md), allowing entries in this log to be visually displayed using SwiftUI. These logs can be in memory only, or optionally written to some persistent storage if desired. The `LogService` will accept any item conforming to `LogStoring` upon initialization, and a default `LogFileStorage` is provided by the framework.
+The `LogService` works with any type that conforms to the `Recordable` protocol (more information [here](./Guides/Conforming%20to%20Recordable.md), allowing entries in this log to be visually displayed using SwiftUI. These logs can be in memory only, or optionally written to some persistent storage if desired. The `LogService` will accept any item conforming to `LogStoring` upon initialization, and a default `LogFileStorage` is provided by the framework.
 
 For example, if you wanted to keep a log of the `MXMetricPayload` the OS delivers to your app over the course of a few days, you could construct a `LogService<MXMetricPayload>`, using the provided convenience method:
 

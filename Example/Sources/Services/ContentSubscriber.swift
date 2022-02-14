@@ -22,7 +22,7 @@ class ContentSubscriber: NSObject {
                                   storingIn cancellables: inout Set<AnyCancellable>) {
         notifications
             .receive(on: RunLoop.main)
-            .sink { notification in withAnimation { logService.append(notification) } }
+            .sink { notification in withAnimation { logService.insert(notification) } }
             .store(in: &cancellables)
 
         UNUserNotificationCenter.current().delegate = self
@@ -32,7 +32,7 @@ class ContentSubscriber: NSObject {
                                     storingIn cancellables: inout Set<AnyCancellable>) {
         metrics
             .receive(on: RunLoop.main)
-            .sink { payload in withAnimation { logService.append(payload) } }
+            .sink { payload in withAnimation { logService.insert(payload) } }
             .store(in: &cancellables)
 
         MXMetricManager.shared.add(self)

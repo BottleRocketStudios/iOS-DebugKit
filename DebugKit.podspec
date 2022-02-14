@@ -22,6 +22,6 @@ s.source            = { :git => 'https://github.com/bottlerocketstudios/iOS-Debu
 s.source_files      = 'Sources/**/*'
 s.ios.deployment_target = '14.0'
 s.swift_version = '5.5'
-s.frameworks = 'SwiftUI', 'UIKit'
+s.frameworks = 'SwiftUI', 'UIKit', 'MetricKit', 'UserNotifications', 'CryptoKit'
 
 end

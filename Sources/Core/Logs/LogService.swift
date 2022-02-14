@@ -62,13 +62,18 @@ public class LogService<Item: Recordable>: ObservableObject {
         self.log = .init()
     }
 
-    public convenience init<Storage: LogStoring>(storage: Storage) throws where Storage.Item == Item.Record {
-        try self.init(AnyLogStorage(storage))
+    public convenience init<Storage: LogStoring>(storage: Storage) where Storage.Item == Item.Record {
+        self.init(AnyLogStorage(storage))
     }
 
-    private init(_ storage: AnyLogStorage<Item.Record>) throws {
+    private init(_ storage: AnyLogStorage<Item.Record>) {
         self.storage = storage
-        self.log = try storage.retrieve() ?? .init()
+        do {
+            self.log = try storage.retrieve() ?? .init()
+        } catch {
+            debugPrint("There was a problem retrieving the log. Initializing new log. \(error)")
+            self.log = .init()
+        }
 
         expirationInterval.trim(log: &log)
     }

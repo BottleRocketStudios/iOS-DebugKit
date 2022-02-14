@@ -20,8 +20,8 @@ extension MXMetricPayload: Recordable {
 // MARK: - LogService + MXMetricPayloads
 public extension LogService {
 
-    static func metricPayloads(storedAt url: URL?) throws -> LogService<MXMetricPayload> {
+    static func metricPayloads(storedAt url: URL?) -> LogService<MXMetricPayload> {
         guard let url = url else { return .init() }
-        return try .init(storage: LogFileStorage(url: url))
+        return .init(storage: LogFileStorage(url: url))
     }
 }

@@ -42,7 +42,7 @@ public struct GeofenceEntry: Recordable {
 }
 ```
 
-The view can be as simplex or complex as needed, but will be rendered inside a `List` so scrolling performance may become a concern. It is also possible to utilize `UIViewRepresentable` here to use a `UIView` object, meaning that while `SwiftUI` is required for rendering, it is *not* required that a types `RecordView` is built in `SwiftUI`.
+The view can be as simple or complex as needed, but will be rendered inside a `List` so scrolling performance may become a concern. It is also possible to utilize `UIViewRepresentable` here to use a `UIView` object, meaning that while `SwiftUI` is required for rendering, it is *not* required that a types `RecordView` is built in `SwiftUI`.
 
 ## Forwarding to a `Recordable` Property
 

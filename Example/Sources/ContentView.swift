@@ -10,15 +10,15 @@ import MetricKit
 import SwiftUI
 
 struct ContentView: View {
-
+    
     // MARK: - Properties
     @ObservedObject var environmentService: EnvironmentService
     @ObservedObject var pushService: PushService
     @ObservedObject var metricsLogService: LogService<MXMetricPayload>
     @ObservedObject var notificationsLogService: LogService<UNNotification>
-
+    
     @State private var isPresentingDebugOptions = false
-
+    
     // MARK: - View
     var body: some View {
         VStack {
@@ -34,19 +34,19 @@ struct ContentView: View {
                                                                     items: [.log(for: "Metrics", logService: metricsLogService),
                                                                             .log(for: "Notifications", logService: notificationsLogService)]),
                                                               .environmentPicker(for: EnvironmentService.Environment.allCases, withTitle: "Environment",
-                                                                                    currentEnvironment: environmentService.selectedEnvironment,
-                                                                                    setNewEnvironment: { environmentService.selectedEnvironment = $1 })
-                                                             ])
-                            .ignoresSafeArea()
-                            .navigationTitle("Debug Options")
-                            .navigationBarTitleDisplayMode(.inline)
+                                                                                 currentEnvironment: environmentService.selectedEnvironment,
+                                                                                 setNewEnvironment: { environmentService.selectedEnvironment = $1 })
+                        ])
+                        .ignoresSafeArea()
+                        .navigationTitle("Debug Options")
+                        .navigationBarTitleDisplayMode(.inline)
                     }
                 }
-
+            
             Button("Present Debug Content") {
                 isPresentingDebugOptions = true
             }
-
+            
             Button("Fetch Todos") {
                 fetchTodos()
             }
@@ -54,7 +54,7 @@ struct ContentView: View {
     }
 }
 
-    // MARK: - Helper
+// MARK: - Helper
 private extension ContentView {
     
     func fetchTodos() {

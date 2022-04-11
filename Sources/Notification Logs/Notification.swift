@@ -8,7 +8,6 @@
 import SwiftUI
 import UserNotifications
 
-
 public struct Notification: Identifiable {
 
     // MARK: - Properties

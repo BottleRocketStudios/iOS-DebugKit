@@ -12,11 +12,6 @@ struct ColorsView: View {
     // MARK: - Properties
     @State private var colors: [Color]
 
-    // MARK: - Initializers
-    init(colors: [Color]) {
-        self.colors = colors
-    }
-    
     // MARK: - View
     var body: some View {
         List {

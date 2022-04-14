@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
 s.name             = 'DebugKit'
-s.version          = '1.0.0'
+s.version          = '1.0.1'
 s.summary          = 'A simple, flexible way to build a debugging menu inside an application.'
 
 s.description      = <<-DESC

@@ -6,6 +6,7 @@
 //
 
 import CryptoKit
+import Foundation
 
 // MARK: - LogStoring
 public protocol LogStoring {
